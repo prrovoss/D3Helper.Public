@@ -63,6 +63,37 @@ namespace D3Helper.A_Tools
             }
         }
 
+        /// <summary>
+        /// get number of alive party members
+        /// </summary>
+        /// <returns></returns>
+        public static int get_PartyMemberAlive()
+        {
+            try
+            {
+                ActorCommonData local;
+                lock (A_Collection.Me.HeroGlobals.LocalACD) local = A_Collection.Me.HeroGlobals.LocalACD;
+
+                List<A_Collector.ACD> partyMemberContainer;
+                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x184_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
+
+                int counter = 0;
+
+                foreach (var member in partyMemberContainer)
+                {
+                    if (member._ACD.GetAttributeValue(AttributeId.HitpointsCur) > 0) // is partymember alive/not dead?
+                    {
+                        counter++;
+                    }
+                }
+
+                return counter;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
 
         public static int get_PartyMemberInRange(double Distance)
         {
@@ -78,12 +109,9 @@ namespace D3Helper.A_Tools
 
                 foreach (var member in partyMemberContainer)
                 {
-                    if(member._ACD.GetAttributeValue(AttributeId.HitpointsCur) > 0) // is partymember alive/not dead?
+                    if (member.Distance <= Distance && member.Distance >= 3)
                     {
-                        if (member.Distance <= Distance && member.Distance >= 3)
-                        {
-                            counter++;
-                        }
+                        counter++;
                     }
                 }
 

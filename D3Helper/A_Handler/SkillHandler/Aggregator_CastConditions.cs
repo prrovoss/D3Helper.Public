@@ -419,6 +419,23 @@ namespace D3Helper.A_Handler.SkillHandler
                     case ConditionType.Party_NotAllInRange:
                         return A_Tools.T_LocalPlayer.get_PartyMemberInRange(Values[0]) < Me.Party.PlayersInGame - 1;
 
+                    case ConditionType.Party_AllAlive:
+
+                        bool allPartyMemberAlive = A_Tools.T_LocalPlayer.get_PartyMemberAlive() >= Me.Party.PlayersInGame - 1;
+
+                        switch ((int)Values[0])
+                        {
+                            case 1:
+                                return allPartyMemberAlive;
+
+                            case 0:
+                                return !allPartyMemberAlive;
+
+                            default:
+                                return false;
+                        }
+
+
                     case ConditionType.World_IsRift:
                         switch ((int) Values[0])
                         {

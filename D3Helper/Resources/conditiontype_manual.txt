@@ -109,6 +109,9 @@
 *Party_AllInRange
 - Is TRUE if all players in the current game are within a given RANGE (DISTANCE in yards)
 
+*Party_AllAlive
+- Is TRUE if CHECKED and all players in the current game are alive
+
 *Party_NotAllInRange
 - Is TRUE if NOT all players in the current game are within a given RANGE (DISTANCE in yards)
 

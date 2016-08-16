@@ -123,6 +123,7 @@ namespace D3Helper.A_Collection
             new CastCondition(0, ConditionType.PartyMember_InRangeIsNotBuff, new double[] {0,0,0,0,0}, new ConditionValueName[] {ConditionValueName.PowerSNO, ConditionValueName.AttribID, ConditionValueName.Distance, ConditionValueName.Value, ConditionValueName.Bool,}),
             new CastCondition(0, ConditionType.Party_AllInRange, new double[] {0}, new ConditionValueName[] {ConditionValueName.Distance}),
             new CastCondition(0, ConditionType.Party_NotAllInRange, new double[] {0}, new ConditionValueName[] {ConditionValueName.Distance}),
+            new CastCondition(0, ConditionType.Party_AllAlive, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.World_IsRift, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.World_IsGRift, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.PartyMember_InRangeMinHitpoints, new double[] {0,0}, new ConditionValueName[] {ConditionValueName.Distance, ConditionValueName.Value}),

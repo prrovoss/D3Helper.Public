@@ -1326,6 +1326,9 @@ namespace D3Helper
                 case ConditionType.Party_AllInRange:
                     return true;
 
+                case ConditionType.Party_AllAlive:
+                    return true;
+
                 case ConditionType.Party_NotAllInRange:
                     return true;
 

@@ -103,5 +103,6 @@ namespace D3Helper.A_Enums
         MonstersInRange_RiftProgress = 89,
         SelectedMonster_MonstersInRange_RiftProgress = 90,
         SelectedMonster_RiftProgress = 91,
+        Party_AllAlive = 92,
     }
 }
