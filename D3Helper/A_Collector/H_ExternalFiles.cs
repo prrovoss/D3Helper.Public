@@ -15,23 +15,28 @@ namespace D3Helper.A_Collector
         private static bool ParagonPointsLoaded = false;
         private static bool SkillBuildsLoaded = false;
 
+        private static bool external_files_loaded = false;
+
         public static void Collect()
         {
             try
             {
-                load_CustomDefinitions();
-                load_AreaList();
-                load_MonsterRiftProgress();
-                load_SkillPowers();
-                load_SNOPowers();
-                load_ParagonPointSetups();
-                load_SkillBuilds();
-                load_GearSwaps();
-                load_Tooltips_ConditionTypes();
-                if (!OverridesLoaded)
+                if (!external_files_loaded) //dont load external files every milliseconds, once should be enough
                 {
+                    load_CustomDefinitions();
+                    load_AreaList();
+                    load_MonsterRiftProgress();
+                    load_SkillPowers();
+                    load_SNOPowers();
+                    load_ParagonPointSetups();
+                    load_SkillBuilds();
+                    load_GearSwaps();
+                    load_Tooltips_ConditionTypes();
                     load_AutoCastOverrides();
+                    
+                    external_files_loaded = true;
                 }
+
                 update_AutoCastOverrides();
             }
             catch (Exception e)
@@ -195,9 +200,12 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                A_Tools.T_ExternalFile.AutoCastOverrides.Load();
+                if (!OverridesLoaded)
+                {
+                    A_Tools.T_ExternalFile.AutoCastOverrides.Load();
 
-                OverridesLoaded = true;
+                    OverridesLoaded = true;
+                }
             }
             catch (Exception e)
             {
