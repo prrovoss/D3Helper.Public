@@ -231,6 +231,8 @@ namespace D3Helper
 
             _this = this;
 
+            SkillData _SelectedSkill_parameter = _SelectedSkill;
+
 
             Window_ActivePowerView.Get_LatestPowers();
 
@@ -271,6 +273,31 @@ namespace D3Helper
             Populate_ComboBox_ConditionSelection();
 
             Update_View();
+
+
+            //select skill by parameter
+            if (_SelectedSkill_parameter != null)
+            {
+                listBox_skills.SelectedIndex = listBox_skills.Items.IndexOf(_SelectedSkill_parameter);
+            }
+
+            if (_CreateNewDefinition)
+            {
+                string PowerName = A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(x => x.PowerSNO == _NewDefinitionPowerSNO).Name;
+
+                TB_SkillName.Text = PowerName;
+
+                ComboboxItem _selection = CB_PowerSelection.Items.OfType<ComboboxItem>()
+                        .FirstOrDefault(x => x.Text == PowerName);
+
+                CB_PowerSelection.SelectedItem = _selection;
+
+                int index = CB_PowerSelection.Items.IndexOf(_selection);
+                CB_PowerSelection.SelectedIndex = index;
+
+                _CreateNewDefinition = false;
+            }
+
 
         }
 
@@ -413,19 +440,19 @@ namespace D3Helper
             }
             else
             {
-                string PowerName = A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(x => x.PowerSNO == _NewDefinitionPowerSNO).Name;
+                //string PowerName = A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(x => x.PowerSNO == _NewDefinitionPowerSNO).Name;
 
-                TB_SkillName.Text = PowerName;
+                //TB_SkillName.Text = PowerName;
 
-                ComboboxItem _selection = CB_PowerSelection.Items.OfType<ComboboxItem>()
-                        .FirstOrDefault(x => x.Text == PowerName);
+                //ComboboxItem _selection = CB_PowerSelection.Items.OfType<ComboboxItem>()
+                //        .FirstOrDefault(x => x.Text == PowerName);
 
-                CB_PowerSelection.SelectedItem = _selection;
+                //CB_PowerSelection.SelectedItem = _selection;
 
-                int index = CB_PowerSelection.Items.IndexOf(_selection);
-                CB_PowerSelection.SelectedIndex = index;
+                //int index = CB_PowerSelection.Items.IndexOf(_selection);
+                //CB_PowerSelection.SelectedIndex = index;
 
-                _CreateNewDefinition = false;
+                //_CreateNewDefinition = false;
             }
 
 
@@ -777,12 +804,18 @@ namespace D3Helper
             SkillPower Power = SelectedPower.Value as SkillPower;
             Rune _Rune = SelectedRune.Value as Rune;
 
-            SkillCastConditions.Custom.CustomDefinitions.Add(new SkillData(Power, SkillDefinitionName, _Rune, new List<CastCondition>()));
+            SkillData newSkillData = new SkillData(Power, SkillDefinitionName, _Rune, new List<CastCondition>());
+
+            SkillCastConditions.Custom.CustomDefinitions.Add(newSkillData);
 
             _SelectedSkill = null;
             TB_SkillName.Text = "";
             
             Update_View();
+
+            //select new created item
+            listBox_skills.SelectedIndex = listBox_skills.Items.IndexOf(newSkillData);
+
         }
 
 
