@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window_SkillEditor));
-            this.Panel_SkillOverview = new System.Windows.Forms.Panel();
             this.Panel_Add_Edit_Skill = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.BNT_DeleteSelection = new System.Windows.Forms.Button();
@@ -42,28 +41,25 @@
             this.LBL_Power = new System.Windows.Forms.Label();
             this.LBL_SkillName = new System.Windows.Forms.Label();
             this.TB_SkillName = new System.Windows.Forms.TextBox();
-            this.Panel_SelectedSkillDetails = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BTN_Condition_Add = new System.Windows.Forms.Button();
             this.BTN_ConditionEdit = new System.Windows.Forms.Button();
             this.BTN_ContitionRemove = new System.Windows.Forms.Button();
             this.BTN_Export = new System.Windows.Forms.Button();
             this.BTN_Import = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.Panel_ConditionEditor = new System.Windows.Forms.Panel();
             this.Panel_ConditionEditor_Values = new System.Windows.Forms.Panel();
             this.CB_ConditionSelection = new System.Windows.Forms.ComboBox();
-            this.LBL_CopyInfo = new System.Windows.Forms.Label();
+            this.listBox_conditionsets = new System.Windows.Forms.ListBox();
+            this.listBox_conditions = new System.Windows.Forms.ListBox();
+            this.button_skillimage = new System.Windows.Forms.Button();
+            this.listBox_skills = new System.Windows.Forms.ListBox();
             this.Panel_Add_Edit_Skill.SuspendLayout();
             this.Panel_ConditionEditor.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Panel_SkillOverview
-            // 
-            this.Panel_SkillOverview.BackColor = System.Drawing.Color.Transparent;
-            this.Panel_SkillOverview.Location = new System.Drawing.Point(12, 12);
-            this.Panel_SkillOverview.Name = "Panel_SkillOverview";
-            this.Panel_SkillOverview.Size = new System.Drawing.Size(281, 397);
-            this.Panel_SkillOverview.TabIndex = 0;
             // 
             // Panel_Add_Edit_Skill
             // 
@@ -171,6 +167,7 @@
             // LBL_Power
             // 
             this.LBL_Power.AutoSize = true;
+            this.LBL_Power.BackColor = System.Drawing.Color.Transparent;
             this.LBL_Power.Location = new System.Drawing.Point(3, 35);
             this.LBL_Power.Name = "LBL_Power";
             this.LBL_Power.Size = new System.Drawing.Size(37, 13);
@@ -192,14 +189,6 @@
             this.TB_SkillName.Name = "TB_SkillName";
             this.TB_SkillName.Size = new System.Drawing.Size(184, 20);
             this.TB_SkillName.TabIndex = 2;
-            // 
-            // Panel_SelectedSkillDetails
-            // 
-            this.Panel_SelectedSkillDetails.BackColor = System.Drawing.Color.Transparent;
-            this.Panel_SelectedSkillDetails.Location = new System.Drawing.Point(299, 12);
-            this.Panel_SelectedSkillDetails.Name = "Panel_SelectedSkillDetails";
-            this.Panel_SelectedSkillDetails.Size = new System.Drawing.Size(873, 397);
-            this.Panel_SelectedSkillDetails.TabIndex = 1;
             // 
             // BTN_Condition_Add
             // 
@@ -283,6 +272,42 @@
             this.BTN_Import.UseVisualStyleBackColor = false;
             this.BTN_Import.Click += new System.EventHandler(this.BTN_Import_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(525, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Cast Conditions";
+            this.toolTip1.SetToolTip(this.label1, "all cast conditions are connected by logical AND operator");
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(372, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(104, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Condition Groups";
+            this.toolTip1.SetToolTip(this.label2, "All Condition Groups are connected with logical OR operator");
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Skills";
+            this.toolTip1.SetToolTip(this.label3, "All Condition Groups are connected with logical OR operator");
+            // 
             // Panel_ConditionEditor
             // 
             this.Panel_ConditionEditor.BackColor = System.Drawing.Color.Transparent;
@@ -291,35 +316,61 @@
             this.Panel_ConditionEditor.Controls.Add(this.BTN_Condition_Add);
             this.Panel_ConditionEditor.Controls.Add(this.Panel_ConditionEditor_Values);
             this.Panel_ConditionEditor.Controls.Add(this.CB_ConditionSelection);
-            this.Panel_ConditionEditor.Location = new System.Drawing.Point(299, 415);
+            this.Panel_ConditionEditor.Location = new System.Drawing.Point(372, 415);
             this.Panel_ConditionEditor.Name = "Panel_ConditionEditor";
-            this.Panel_ConditionEditor.Size = new System.Drawing.Size(474, 123);
+            this.Panel_ConditionEditor.Size = new System.Drawing.Size(609, 123);
             this.Panel_ConditionEditor.TabIndex = 2;
             // 
             // Panel_ConditionEditor_Values
             // 
             this.Panel_ConditionEditor_Values.Location = new System.Drawing.Point(260, 0);
             this.Panel_ConditionEditor_Values.Name = "Panel_ConditionEditor_Values";
-            this.Panel_ConditionEditor_Values.Size = new System.Drawing.Size(214, 123);
+            this.Panel_ConditionEditor_Values.Size = new System.Drawing.Size(349, 123);
             this.Panel_ConditionEditor_Values.TabIndex = 9;
             // 
             // CB_ConditionSelection
             // 
             this.CB_ConditionSelection.FormattingEnabled = true;
-            this.CB_ConditionSelection.Location = new System.Drawing.Point(6, 6);
+            this.CB_ConditionSelection.Location = new System.Drawing.Point(3, 6);
             this.CB_ConditionSelection.Name = "CB_ConditionSelection";
-            this.CB_ConditionSelection.Size = new System.Drawing.Size(248, 21);
+            this.CB_ConditionSelection.Size = new System.Drawing.Size(251, 21);
             this.CB_ConditionSelection.TabIndex = 8;
             this.CB_ConditionSelection.SelectedIndexChanged += new System.EventHandler(this.CB_ConditionSelection_SelectedIndexChanged);
             // 
-            // LBL_CopyInfo
+            // listBox_conditionsets
             // 
-            this.LBL_CopyInfo.AutoSize = true;
-            this.LBL_CopyInfo.Location = new System.Drawing.Point(779, 424);
-            this.LBL_CopyInfo.Name = "LBL_CopyInfo";
-            this.LBL_CopyInfo.Size = new System.Drawing.Size(35, 13);
-            this.LBL_CopyInfo.TabIndex = 3;
-            this.LBL_CopyInfo.Text = "label2";
+            this.listBox_conditionsets.FormattingEnabled = true;
+            this.listBox_conditionsets.Location = new System.Drawing.Point(375, 38);
+            this.listBox_conditionsets.Name = "listBox_conditionsets";
+            this.listBox_conditionsets.Size = new System.Drawing.Size(147, 368);
+            this.listBox_conditionsets.TabIndex = 12;
+            this.listBox_conditionsets.SelectedIndexChanged += new System.EventHandler(this.listBox_conditionsets_SelectedIndexChanged);
+            // 
+            // listBox_conditions
+            // 
+            this.listBox_conditions.FormattingEnabled = true;
+            this.listBox_conditions.Location = new System.Drawing.Point(528, 38);
+            this.listBox_conditions.Name = "listBox_conditions";
+            this.listBox_conditions.Size = new System.Drawing.Size(453, 368);
+            this.listBox_conditions.TabIndex = 13;
+            this.listBox_conditions.SelectedIndexChanged += new System.EventHandler(this.listBox_conditions_SelectedIndexChanged);
+            // 
+            // button_skillimage
+            // 
+            this.button_skillimage.Location = new System.Drawing.Point(305, 38);
+            this.button_skillimage.Name = "button_skillimage";
+            this.button_skillimage.Size = new System.Drawing.Size(64, 64);
+            this.button_skillimage.TabIndex = 14;
+            this.button_skillimage.UseVisualStyleBackColor = true;
+            // 
+            // listBox_skills
+            // 
+            this.listBox_skills.FormattingEnabled = true;
+            this.listBox_skills.Location = new System.Drawing.Point(12, 38);
+            this.listBox_skills.Name = "listBox_skills";
+            this.listBox_skills.Size = new System.Drawing.Size(281, 368);
+            this.listBox_skills.TabIndex = 17;
+            this.listBox_skills.SelectedIndexChanged += new System.EventHandler(this.listBox_skills_SelectedIndexChanged);
             // 
             // Window_SkillEditor
             // 
@@ -328,13 +379,17 @@
             this.BackgroundImage = global::D3Helper.Properties.Resources.Background_Monk_50_SplitLine_Wide;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1184, 543);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.listBox_skills);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button_skillimage);
+            this.Controls.Add(this.listBox_conditions);
+            this.Controls.Add(this.listBox_conditionsets);
             this.Controls.Add(this.BTN_Import);
             this.Controls.Add(this.BTN_Export);
-            this.Controls.Add(this.LBL_CopyInfo);
             this.Controls.Add(this.Panel_ConditionEditor);
-            this.Controls.Add(this.Panel_SelectedSkillDetails);
             this.Controls.Add(this.Panel_Add_Edit_Skill);
-            this.Controls.Add(this.Panel_SkillOverview);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -353,12 +408,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel Panel_SkillOverview;
         private System.Windows.Forms.Panel Panel_Add_Edit_Skill;
         private System.Windows.Forms.Label LBL_SkillName;
         private System.Windows.Forms.TextBox TB_SkillName;
-        private System.Windows.Forms.Panel Panel_SelectedSkillDetails;
         private System.Windows.Forms.Label LBL_Rune;
         private System.Windows.Forms.ComboBox CB_SelectedRune;
         private System.Windows.Forms.ComboBox CB_PowerSelection;
@@ -373,10 +425,16 @@
         private System.Windows.Forms.Button BTN_Condition_Add;
         private System.Windows.Forms.Button BTN_ContitionRemove;
         private System.Windows.Forms.Button BTN_ConditionEdit;
-        private System.Windows.Forms.Label LBL_CopyInfo;
         private System.Windows.Forms.Button BTN_Import;
         private System.Windows.Forms.Button BTN_Export;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListBox listBox_conditionsets;
+        private System.Windows.Forms.ListBox listBox_conditions;
+        private System.Windows.Forms.Button button_skillimage;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox listBox_skills;
+        private System.Windows.Forms.Label label3;
     }
 }
 

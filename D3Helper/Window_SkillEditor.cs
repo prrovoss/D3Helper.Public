@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Reflection;
-using System.Timers;
-using System.Windows.Input;
 using D3Helper.A_Collection;
 using D3Helper.A_Enums;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace D3Helper
 {
-    
+
     public partial class Window_SkillEditor : Form
     {
         public class ComboboxItem
@@ -31,15 +24,31 @@ namespace D3Helper
             }
         }
 
-        
+
+        BindingSource conditionsBinding = new BindingSource();
+        BindingSource conditionsSetBinding = new BindingSource();
+        BindingSource skillsBinding = new BindingSource();
+
+
+        /*----------------------------------------------------------------*/
+
+        //copy paste contextmenu;
+        ContextMenuStrip contextMenuListBox = new ContextMenuStrip();
+        ToolStripMenuItem ts_copy;
+        ToolStripMenuItem ts_paste;
+        ToolStripMenuItem ts_delete;
+
+        /*----------------------------------------------------------------*/
+
+
         public static SkillData _SelectedSkill = null;
         private static CastCondition _SelectedCondition = null;
 
         private Point MouseDownLocation;
-        private static int Clicks = 0;
-        private static Button _clickedCondition;
-        private static Button _clickedSkill;
-        private static bool IsMoving = false;
+        //private static int Clicks = 0;
+        //private static Button _clickedCondition;
+        //private static Button _clickedSkill;
+        //private static bool IsMoving = false;
         private static Keys PressedKey = Keys.None;
 
         public static bool _PreselectedDefinition = false;
@@ -51,54 +60,96 @@ namespace D3Helper
 
         public Window_SkillEditor()
         {
-            
 
             InitializeComponent();
 
             this.FormClosed += Window_SkillEditor_FormClosed;
 
-            Panel_SelectedSkillDetails.KeyDown += Panel_SelectedSkillDetails_KeyDown;
-            Panel_SelectedSkillDetails.KeyUp += Panel_SelectedSkillDetails_KeyUp;
-            Panel_SelectedSkillDetails.Scroll += Panel_SelectedSkillDetails_Scroll;
-            Panel_SelectedSkillDetails.MouseWheel += Panel_SelectedSkillDetails_MouseWheel;
-
-            Panel_SkillOverview.KeyDown += Panel_SkillOverview_KeyDown;
-            Panel_SkillOverview.KeyUp += Panel_SkillOverview_KeyUp;
-            Panel_SkillOverview.Scroll += Panel_SkillOverview_Scroll;
-            Panel_SkillOverview.MouseWheel += Panel_SkillOverview_MouseWheel;
-
             this.CB_ConditionSelection.DrawMode = DrawMode.OwnerDrawFixed;
             this.CB_ConditionSelection.DrawItem += new DrawItemEventHandler(CB_ConditionSelection_DrawItem);
 
             toolTip1.ShowAlways = false;
+
+
+
+            //contextmenu listbox
+            ts_copy = new ToolStripMenuItem { Text = "Copy" };
+            ts_copy.Click += Ts_copy_Click;
+
+            ts_paste = new ToolStripMenuItem { Text = "Paste" };
+            ts_paste.Click += Ts_paste_Click;
+
+            ts_delete = new ToolStripMenuItem { Text = "Delete" };
+            ts_delete.Click += Ts_delete_Click;
+
+            contextMenuListBox.Items.Add(ts_copy);
+            contextMenuListBox.Items.Add(ts_paste);
+            contextMenuListBox.Items.Add(ts_delete);
+
+            listBox_conditions.MouseDown += ListBox_conditions_MouseDown;
+
+        }
+
+        private void Ts_delete_Click(object sender, EventArgs e)
+        {
+            Condition_Delete();
+        }
+
+        private void Ts_paste_Click(object sender, EventArgs e)
+        {
+            Condition_Paste();
+        }
+
+        private void Ts_copy_Click(object sender, EventArgs e)
+        {
+            Condition_Copy();
+        }
+
+        private void ListBox_conditions_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            var index = listBox_conditions.IndexFromPoint(e.Location);
+
+
+            if (global_castCondition_to_copy != null)
+            {
+                ts_copy.Enabled = false;
+                ts_paste.Enabled = true;
+            }else
+            {
+                ts_paste.Enabled = false;
+            }
+
             
+            if (index != ListBox.NoMatches)
+            {
+                ts_copy.Enabled = true;
+                ts_delete.Enabled = true;
 
-        }
+                listBox_conditions.SelectedIndex = index;
+                contextMenuListBox.Show(MousePosition);
+                contextMenuListBox.Visible = true;
+            }
+            else
+            {
+                ts_delete.Enabled = false;
 
-        private void Panel_SkillOverview_MouseWheel(object sender, MouseEventArgs e)
-        {
-            Panel_SkillOverview.Refresh();
-        }
-
-        private void Panel_SelectedSkillDetails_MouseWheel(object sender, MouseEventArgs e)
-        {
-            Panel_SelectedSkillDetails.Refresh();
-        }
-
-        private void Panel_SkillOverview_Scroll(object sender, ScrollEventArgs e)
-        {
-            Panel_SkillOverview.Refresh();
-        }
-
-        private void Panel_SelectedSkillDetails_Scroll(object sender, ScrollEventArgs e)
-        {
-            Panel_SelectedSkillDetails.Refresh();
+                if (global_castCondition_to_copy != null)
+                {
+                    contextMenuListBox.Show(MousePosition);
+                    contextMenuListBox.Visible = true;
+                }
+                else
+                {
+                    contextMenuListBox.Visible = false;
+                }
+            }
         }
 
         void CB_ConditionSelection_DrawItem(object sender, DrawItemEventArgs e)
         {
             string text = CB_ConditionSelection.GetItemText(CB_ConditionSelection.Items[e.Index]);
-            string t_text = get_ConditionType_Tooltip_byText(CB_ConditionSelection.GetItemText(CB_ConditionSelection.Items[e.Index]));
+            string t_text = ConditionTypeHelper.getTooltip(text);
 
             e.DrawBackground();
             using (SolidBrush br = new SolidBrush(e.ForeColor))
@@ -118,19 +169,7 @@ namespace D3Helper
             e.DrawFocusRectangle();
         }
 
-        private string get_ConditionType_Tooltip_byText(string ItemText)
-        {
-            ConditionType type = (ConditionType) Enum.Parse(typeof (ConditionType), ItemText);
 
-			string tooltip;
-			if (!A_Collection.Presets.Manual.Tooltips.ConditionTypes.TryGetValue(type, out tooltip))
-				tooltip = $"!ERROR! NO TOOLTIP DEFINED FOR CONDITION TYPE '{ItemText}'";
-
-			if (tooltip.Length >= 80)
-                tooltip = tooltip.Insert(80, "\n");
-
-            return tooltip;
-        }
 
         private void Panel_SkillOverview_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
@@ -183,6 +222,8 @@ namespace D3Helper
                 entry.Power.Name = entry.Power.Name.TrimStart(new char[] {'X', '1', '_'});
             }
         }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             
@@ -190,28 +231,15 @@ namespace D3Helper
 
             _this = this;
 
-            typeof(Panel).InvokeMember("DoubleBuffered",
-    BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-    null, Panel_SelectedSkillDetails, new object[] { true });
-
-            typeof(Panel).InvokeMember("DoubleBuffered",
-    BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-    null, Panel_SkillOverview, new object[] { true });
 
             Window_ActivePowerView.Get_LatestPowers();
 
-            LBL_CopyInfo.BackColor = Color.Transparent;
-            LBL_CopyInfo.AutoSize = true;
-            LBL_CopyInfo.Font = new Font(Window_Main._FontCollection.Families[0], (float)8.25, FontStyle.Italic);
-            LBL_CopyInfo.ForeColor = Color.Black;
-            LBL_CopyInfo.Text = "+ Shift & LeftClick\nCopy an existing Condition OR SkillDefinition";
-            LBL_CopyInfo.TextAlign = ContentAlignment.MiddleCenter;
+
 
             this.Top = Properties.Settings.Default.D3Helper_MainForm_StartPosition.Y;
             this.Left = Properties.Settings.Default.D3Helper_MainForm_StartPosition.X;
 
-            Panel_SkillOverview.AutoScroll = true;
-            Panel_SelectedSkillDetails.AutoScroll = true;
+
 
             CB_PowerSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             CB_PowerSelection.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -245,6 +273,7 @@ namespace D3Helper
             Update_View();
 
         }
+
         private void Populate_ComboBox_PowerSelection()
         {
             CB_PowerSelection.Items.Clear();
@@ -261,6 +290,7 @@ namespace D3Helper
             if(_SelectedSkill == null)
                 CB_PowerSelection.SelectedIndex = 0;
         }
+
         private void Populate_ComboBox_ConditionSelection()
         {
             foreach (var condition in Enum.GetValues(typeof(ConditionType)).Cast<ConditionType>().OrderBy(x => x.ToString()).ToList())
@@ -276,6 +306,7 @@ namespace D3Helper
             CB_ConditionSelection.SelectedIndex = 0;
             
         }
+
         private void Update_View()
         {
             if (_SelectedSkill != null)
@@ -298,58 +329,56 @@ namespace D3Helper
             Update_PanelSkillOverview();
             Update_PanelSelectedSkillDetails();
         }
+
         private void Update_PanelSkillOverview()
         {
-            Panel_SkillOverview.Controls.Clear();
+            skillsBinding.DataSource = SkillCastConditions.Custom.CustomDefinitions;
+            listBox_skills.DataSource = skillsBinding;
 
-            for(int i = 0; i < SkillCastConditions.Custom.CustomDefinitions.Count; i++)
-            {
-                SkillData Data = SkillCastConditions.Custom.CustomDefinitions[i];
+            listBox_skills.DisplayMember = "Name";
+            listBox_skills.ValueMember = "Name";
 
-                Button NewSkill = new Button();
-                NewSkill.AutoSize = true;
-                NewSkill.MouseClick += SkillDefinition_Click;
-                NewSkill.Text = Data.Name;
-                NewSkill.TextAlign = ContentAlignment.MiddleLeft;
-                NewSkill.Name = Data.Power.PowerSNO.ToString();
-                NewSkill.Top = NewSkill.Bottom * i;
-
-                Panel_SkillOverview.Controls.Add(NewSkill);
-            }
-
-            Mark_SelectedSkill();
+            skillsBinding.ResetBindings(false);
         }
-        private void Mark_SelectedSkill()
-        {
-            if(_SelectedSkill != null)
-            {
-                Button _selected = Panel_SkillOverview.Controls.OfType<Button>().FirstOrDefault(x => x.Text == _SelectedSkill.Name);
 
-                _selected.BackColor = Color.DarkGray;
-            }
-        }
+
+
         private void Mark_SelectedCondition()
         {
-            if (_SelectedCondition != null)
-            {
-                var buttonsOfType =
-                    Panel_SelectedSkillDetails.Controls.OfType<Button>()
-                        .Where(x => x.Text.Contains(_SelectedCondition.Type.ToString()));
 
-                var selected = buttonsOfType.FirstOrDefault(x => x.Name.Split('|').Count() > 1 && x.Name.Split('|')[0] == _SelectedCondition.ConditionGroup.ToString() && x.Name.Split('|')[1] == _SelectedCondition.Values[0].ToString());
-                if (selected != null)
-                {
-                    Button _selected = selected;
-
-                    _selected.BackColor = Color.DarkGray;
-                }
-            }
         }
+
+
         private void Update_PanelSelectedSkillDetails(bool IsEdit = false)
         {
-            
-           
-            Panel_SelectedSkillDetails.Controls.Clear();
+            try
+            {
+                if (_SelectedSkill != null)
+                {        
+                    conditionsSetBinding.DataSource = _SelectedSkill.getConditionGroups();
+                    listBox_conditionsets.DataSource = conditionsSetBinding;
+
+                    listBox_conditionsets.DisplayMember = "Name";
+                    listBox_conditionsets.ValueMember = "Name";
+
+                    conditionsSetBinding.ResetBindings(false);
+
+                    refresh_listbox_conditions();
+
+                    //skill icon
+                    Image icon = _SelectedSkill.getIcon();
+                    button_skillimage.Name = "SkillIcon";
+                    button_skillimage.Width = icon.Width;
+                    button_skillimage.Height = icon.Height;
+                    button_skillimage.FlatStyle = FlatStyle.Flat;
+                    button_skillimage.BackgroundImage = icon;
+                }
+            }catch(Exception e)
+            {
+                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.MainWindow);
+            }
+
+
 
             if (!_CreateNewDefinition)
             {
@@ -365,7 +394,8 @@ namespace D3Helper
                 BTN_Import.Visible = true;
                 BTN_Export.Visible = true;
                 BTN_Update.Visible = true;
-                Panel_ConditionEditor.Visible = true;
+
+
                 TB_SkillName.Text = _SelectedSkill.Name;
 
                 ComboboxItem _selection = CB_PowerSelection.Items.OfType<ComboboxItem>()
@@ -375,199 +405,15 @@ namespace D3Helper
 
                 int index = CB_PowerSelection.Items.IndexOf(_selection);
                 CB_PowerSelection.SelectedIndex = index;
-                
+
                 CB_SelectedRune.SelectedItem =
                     CB_SelectedRune.Items.OfType<ComboboxItem>()
                         .FirstOrDefault(x => x.Text == _SelectedSkill.SelectedRune.Name);
 
-
-                //-- Add Skill Image
-                Image icon =
-                    Properties.Resources.ResourceManager.GetObject(_SelectedSkill.Power.Name.ToLower()) as Image;
-
-
-
-                Button SkillIcon = new Button();
-                SkillIcon.Name = "SkillIcon";
-                SkillIcon.Width = icon.Width;
-                SkillIcon.Height = icon.Height;
-                SkillIcon.FlatStyle = FlatStyle.Flat;
-                SkillIcon.BackgroundImage = icon;
-                SkillIcon.FlatAppearance.BorderSize = 0;
-                SkillIcon.Left = SkillIcon.Left + 10;
-
-                Panel_SelectedSkillDetails.Controls.Add(SkillIcon);
-                //
-                //-- Add Info Label
-                SkillPower PowerFromFile =
-                    A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(
-                        x => x.PowerSNO == _SelectedSkill.Power.PowerSNO);
-                if (PowerFromFile != null)
-                {
-                    Label Info = new Label();
-                    Info.Font = new Font(Window_Main._FontCollection.Families[0], (float) 8.3, FontStyle.Bold);
-                    Info.ForeColor = Color.Black;
-                    Info.AutoSize = true;
-                    Info.Top =
-                        Panel_SelectedSkillDetails.Controls.OfType<Button>()
-                            .FirstOrDefault(x => x.Name == "SkillIcon")
-                            .Top;
-                    Info.Left =
-                        Panel_SelectedSkillDetails.Controls.OfType<Button>()
-                            .FirstOrDefault(x => x.Name == "SkillIcon")
-                            .Right;
-
-
-                    if (PowerFromFile.IsCooldownSpell)
-                        Info.Text += "This is a COOLDOWN Skill!" + System.Environment.NewLine +
-                                     "Add Player_Skill_IsNotOnCooldown!" + System.Environment.NewLine;
-                    if (PowerFromFile.ResourceCost < -1 || PowerFromFile.ResourceCost > 0)
-                        Info.Text += "This Skill requires RESOURCE!" + System.Environment.NewLine +
-                                     "Add atleast Player_Skill_MinResource!" +
-                                     System.Environment.NewLine;
-
-                    Panel_SelectedSkillDetails.Controls.Add(Info);
-                }
-                //
-                //-- load stored Conditions
-
-                _SelectedSkill.CastConditions = SortGroup(_SelectedSkill.CastConditions);
-
-                foreach (var condition in _SelectedSkill.CastConditions)
-                {
-                    Button NewCondition = new Button();
-                    NewCondition.AutoSize = true;
-                    NewCondition.MouseClick += Condition_Click;
-                    NewCondition.MouseMove += Condition_onMouseMove;
-                    NewCondition.MouseDown += Condition_onMouseDown;
-                    NewCondition.MouseUp += Condition_onMouseUp;
-
-                    //-- add Tooltip to ConditonButtons which have a PowerSNO Value input
-                    if (condition.ValueNames.Contains(ConditionValueName.PowerSNO))
-                    {
-                        var defaultPower =
-                            A_Collection.Presets.SNOPowers.AllPowers.FirstOrDefault(
-                                x => x.Key == condition.Values.First());
-                        var customPower =
-                            A_Collection.Presets.SNOPowers.CustomPowerNames.FirstOrDefault(
-                                x => x.Key == condition.Values.First());
-
-                        string text = "";
-
-                        if (customPower.Value != null)
-                            text = customPower.Value;
-                        else if (defaultPower.Value != null)
-                            text = defaultPower.Value;
-
-                        ToolTip t = new ToolTip();
-                        t.SetToolTip(NewCondition, text);
-                    }
-                    //
-
-                    NewCondition.Name = condition.ConditionGroup.ToString() + "|";
-
-                    for (int i = 0; i < condition.Values.Count(); i++)
-                    {
-                        NewCondition.Name += condition.Values[i].ToString() + "|";
-                    }
-
-                    NewCondition.Name = NewCondition.Name.TrimEnd('|');
-
-                    NewCondition.Text = condition.Type.ToString();
-
-                    //Set Bounds
-
-                    if (condition.ConditionGroup != -1)
-                    {
-                        var tryGetExisting =
-                            Panel_SelectedSkillDetails.Controls.OfType<Button>()
-                                .Where(x => x.Name.Split('|')[0].Contains(condition.ConditionGroup.ToString()));
-
-                        if (tryGetExisting.Count() == 0)
-                        {
-                            NewCondition.Top = Panel_SelectedSkillDetails.Controls.OfType<Button>().Last().Bottom + 20;
-                            NewCondition.Left = Panel_SelectedSkillDetails.Controls.OfType<Button>().First().Left;
-
-                        }
-                        else
-                        {
-                            NewCondition.Top = tryGetExisting.Last().Top;
-                            NewCondition.Left = tryGetExisting.Last().Right;
-
-                            // Update Bounds if outside the panel
-
-                            if (
-                                !Panel_SelectedSkillDetails.ClientRectangle.Contains(NewCondition.Right,
-                                    NewCondition.Top))
-                            {
-                                NewCondition.Top = Panel_SelectedSkillDetails.Controls.OfType<Button>().Last().Bottom;
-                                NewCondition.Left = Panel_SelectedSkillDetails.Controls.OfType<Button>().First().Left;
-                            }
-
-                            //
-                        }
-
-
-                    }
-                    else
-                    {
-                        NewCondition.Top = Panel_SelectedSkillDetails.Bottom - NewCondition.Height - 15;
-                        NewCondition.Left = Panel_SelectedSkillDetails.Left;
-                        NewCondition.BackColor = Color.LightGreen;
-                        NewCondition.FlatStyle = FlatStyle.Flat;
-
-
-                        Label DragMe = new Label();
-                        DragMe.AutoSize = true;
-                        DragMe.Font = new Font(Window_Main._FontCollection.Families[0], (float) 9, FontStyle.Bold);
-                        DragMe.Text = "Drag and Drop!";
-                        DragMe.ForeColor = Color.Green;
-                        DragMe.Left = NewCondition.Left + 5;
-                        DragMe.Top = NewCondition.Top - 15;
-
-
-                        Panel_SelectedSkillDetails.Controls.Add(DragMe);
-                    }
-                    //
-
-                    Panel_SelectedSkillDetails.Controls.Add(NewCondition);
-
-                }
-                //
-                //-- set Group Split Labels
-                var groups =
-                    Panel_SelectedSkillDetails.Controls.OfType<Button>()
-                        .Where(x => x.Name != "SkillIcon" && x.Name.Split('|')[0] != "-1")
-                        .GroupBy(x => int.Parse(x.Name.Split('|')[0]))
-                        .ToList();
-
-                if (groups.Count() > 1)
-                {
-                    for (int i = 0; i < groups.Count() - 1; i++)
-                    {
-                        var minLeft = groups[i].OrderByDescending(x => x.Left).Last().Left;
-                        var maxRight = groups[i].OrderByDescending(x => x.Right).First().Right;
-                        var minTop = groups[i].OrderByDescending(x => x.Top).Last().Top;
-                        var maxBottom = groups[i].OrderByDescending(x => x.Bottom).First().Bottom;
-
-                        Label OrSplit = new Label();
-                        OrSplit.AutoSize = true;
-                        OrSplit.BackColor = Color.Transparent;
-                        OrSplit.Text = "OR";
-                        OrSplit.Font = new Font(Window_Main._FontCollection.Families[0], (float) 8.25, FontStyle.Bold);
-                        OrSplit.Top = maxBottom + 3;
-                        OrSplit.Left = minLeft + ((maxRight - minLeft)/2) - 12;
-
-                        Panel_SelectedSkillDetails.Controls.Add(OrSplit);
-                    }
-                }
-                //
             }
             else
             {
                 string PowerName = A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(x => x.PowerSNO == _NewDefinitionPowerSNO).Name;
-
-                //Populate_ComboBox_PowerSelection();
 
                 TB_SkillName.Text = PowerName;
 
@@ -582,56 +428,299 @@ namespace D3Helper
                 _CreateNewDefinition = false;
             }
 
+
+
+
+
+
+
+
+            ///*-----old code-----------------------------*/
+
+            //Panel_SelectedSkillDetails.Controls.Clear();
+
+            //if (!_CreateNewDefinition)
+            //{
+            //    if (_SelectedSkill == null)
+            //        return;
+
+            //    if (_SelectedCondition != null)
+            //    {
+            //        BTN_ConditionEdit.Visible = true;
+            //        BTN_ContitionRemove.Visible = true;
+            //    }
+
+            //    BTN_Import.Visible = true;
+            //    BTN_Export.Visible = true;
+            //    BTN_Update.Visible = true;
+            //    Panel_ConditionEditor.Visible = true;
+            //    TB_SkillName.Text = _SelectedSkill.Name;
+
+            //    ComboboxItem _selection = CB_PowerSelection.Items.OfType<ComboboxItem>()
+            //            .FirstOrDefault(x => x.Text == _SelectedSkill.Power.Name);
+
+            //    CB_PowerSelection.SelectedItem = _selection;
+
+            //    int index = CB_PowerSelection.Items.IndexOf(_selection);
+            //    CB_PowerSelection.SelectedIndex = index;
+
+            //    CB_SelectedRune.SelectedItem =
+            //        CB_SelectedRune.Items.OfType<ComboboxItem>()
+            //            .FirstOrDefault(x => x.Text == _SelectedSkill.SelectedRune.Name);
+
+
+            //    //-- Add Skill Image
+            //    Image icon =
+            //        Properties.Resources.ResourceManager.GetObject(_SelectedSkill.Power.Name.ToLower()) as Image;
+
+
+
+            //    Button SkillIcon = new Button();
+            //    SkillIcon.Name = "SkillIcon";
+            //    SkillIcon.Width = icon.Width;
+            //    SkillIcon.Height = icon.Height;
+            //    SkillIcon.FlatStyle = FlatStyle.Flat;
+            //    SkillIcon.BackgroundImage = icon;
+            //    SkillIcon.FlatAppearance.BorderSize = 0;
+            //    SkillIcon.Left = SkillIcon.Left + 10;
+
+            //    Panel_SelectedSkillDetails.Controls.Add(SkillIcon);
+            //    //
+            //    //-- Add Info Label
+            //    SkillPower PowerFromFile =
+            //        A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(
+            //            x => x.PowerSNO == _SelectedSkill.Power.PowerSNO);
+            //    if (PowerFromFile != null)
+            //    {
+            //        Label Info = new Label();
+            //        Info.Font = new Font(Window_Main._FontCollection.Families[0], (float) 8.3, FontStyle.Bold);
+            //        Info.ForeColor = Color.Black;
+            //        Info.AutoSize = true;
+            //        Info.Top =
+            //            Panel_SelectedSkillDetails.Controls.OfType<Button>()
+            //                .FirstOrDefault(x => x.Name == "SkillIcon")
+            //                .Top;
+            //        Info.Left =
+            //            Panel_SelectedSkillDetails.Controls.OfType<Button>()
+            //                .FirstOrDefault(x => x.Name == "SkillIcon")
+            //                .Right;
+
+
+            //        if (PowerFromFile.IsCooldownSpell)
+            //            Info.Text += "This is a COOLDOWN Skill!" + System.Environment.NewLine +
+            //                         "Add Player_Skill_IsNotOnCooldown!" + System.Environment.NewLine;
+            //        if (PowerFromFile.ResourceCost < -1 || PowerFromFile.ResourceCost > 0)
+            //            Info.Text += "This Skill requires RESOURCE!" + System.Environment.NewLine +
+            //                         "Add atleast Player_Skill_MinResource!" +
+            //                         System.Environment.NewLine;
+
+            //        Panel_SelectedSkillDetails.Controls.Add(Info);
+            //    }
+
+
+
+
+
+            //    //
+            //    //-- load stored Conditions
+
+
+
+            //    foreach (var condition in _SelectedSkill.CastConditions)
+            //    {
+
+
+            //        Button NewCondition = new Button();
+            //        NewCondition.AutoSize = true;
+            //        NewCondition.MouseClick += Condition_Click;
+            //        NewCondition.MouseMove += Condition_onMouseMove;
+            //        NewCondition.MouseDown += Condition_onMouseDown;
+            //        NewCondition.MouseUp += Condition_onMouseUp;
+
+            //        //-- add Tooltip to ConditonButtons which have a PowerSNO Value input
+            //        //if (condition.ValueNames.Contains(ConditionValueName.PowerSNO))
+            //        //{
+            //        //    var defaultPower =
+            //        //        A_Collection.Presets.SNOPowers.AllPowers.FirstOrDefault(
+            //        //            x => x.Key == condition.Values.First());
+            //        //    var customPower =
+            //        //        A_Collection.Presets.SNOPowers.CustomPowerNames.FirstOrDefault(
+            //        //            x => x.Key == condition.Values.First());
+
+            //        //    string text = "";
+
+            //        //    if (customPower.Value != null)
+            //        //        text = customPower.Value;
+            //        //    else if (defaultPower.Value != null)
+            //        //        text = defaultPower.Value;
+
+            //        //    ToolTip t = new ToolTip();
+            //        //    t.SetToolTip(NewCondition, text);
+            //        //}
+            //        ToolTip t = new ToolTip();
+            //        t.SetToolTip(NewCondition, condition.getSNOTooltipText());
+            //        //
+
+            //        NewCondition.Name = condition.ConditionGroup.ToString() + "|";
+
+            //        for (int i = 0; i < condition.Values.Count(); i++)
+            //        {
+            //            NewCondition.Name += condition.Values[i].ToString() + "|";
+            //        }
+
+            //        NewCondition.Name = NewCondition.Name.TrimEnd('|');
+
+            //        NewCondition.Text = condition.Type.ToString();
+
+            //        //Set Bounds
+
+            //        if (condition.ConditionGroup != -1)
+            //        {
+            //            var tryGetExisting =
+            //                Panel_SelectedSkillDetails.Controls.OfType<Button>()
+            //                    .Where(x => x.Name.Split('|')[0].Contains(condition.ConditionGroup.ToString()));
+
+            //            if (tryGetExisting.Count() == 0)
+            //            {
+            //                NewCondition.Top = Panel_SelectedSkillDetails.Controls.OfType<Button>().Last().Bottom + 20;
+            //                NewCondition.Left = Panel_SelectedSkillDetails.Controls.OfType<Button>().First().Left;
+
+            //            }
+            //            else
+            //            {
+            //                NewCondition.Top = tryGetExisting.Last().Top;
+            //                NewCondition.Left = tryGetExisting.Last().Right;
+
+            //                // Update Bounds if outside the panel
+
+            //                if (
+            //                    !Panel_SelectedSkillDetails.ClientRectangle.Contains(NewCondition.Right,
+            //                        NewCondition.Top))
+            //                {
+            //                    NewCondition.Top = Panel_SelectedSkillDetails.Controls.OfType<Button>().Last().Bottom;
+            //                    NewCondition.Left = Panel_SelectedSkillDetails.Controls.OfType<Button>().First().Left;
+            //                }
+
+            //                //
+            //            }
+
+
+            //        }
+            //        else
+            //        {
+            //            NewCondition.Top = Panel_SelectedSkillDetails.Bottom - NewCondition.Height - 15;
+            //            NewCondition.Left = Panel_SelectedSkillDetails.Left;
+            //            NewCondition.BackColor = Color.LightGreen;
+            //            NewCondition.FlatStyle = FlatStyle.Flat;
+
+
+            //            Label DragMe = new Label();
+            //            DragMe.AutoSize = true;
+            //            DragMe.Font = new Font(Window_Main._FontCollection.Families[0], (float) 9, FontStyle.Bold);
+            //            DragMe.Text = "Drag and Drop!";
+            //            DragMe.ForeColor = Color.Green;
+            //            DragMe.Left = NewCondition.Left + 5;
+            //            DragMe.Top = NewCondition.Top - 15;
+
+
+            //            Panel_SelectedSkillDetails.Controls.Add(DragMe);
+            //        }
+            //        //
+
+            //        Panel_SelectedSkillDetails.Controls.Add(NewCondition);
+
+            //    }
+            //    //
+            //    //-- set Group Split Labels
+            //    var groups =
+            //        Panel_SelectedSkillDetails.Controls.OfType<Button>()
+            //            .Where(x => x.Name != "SkillIcon" && x.Name.Split('|')[0] != "-1")
+            //            .GroupBy(x => int.Parse(x.Name.Split('|')[0]))
+            //            .ToList();
+
+            //    if (groups.Count() > 1)
+            //    {
+            //        for (int i = 0; i < groups.Count() - 1; i++)
+            //        {
+            //            var minLeft = groups[i].OrderByDescending(x => x.Left).Last().Left;
+            //            var maxRight = groups[i].OrderByDescending(x => x.Right).First().Right;
+            //            var minTop = groups[i].OrderByDescending(x => x.Top).Last().Top;
+            //            var maxBottom = groups[i].OrderByDescending(x => x.Bottom).First().Bottom;
+
+            //            Label OrSplit = new Label();
+            //            OrSplit.AutoSize = true;
+            //            OrSplit.BackColor = Color.Transparent;
+            //            OrSplit.Text = "OR";
+            //            OrSplit.Font = new Font(Window_Main._FontCollection.Families[0], (float) 8.25, FontStyle.Bold);
+            //            OrSplit.Top = maxBottom + 3;
+            //            OrSplit.Left = minLeft + ((maxRight - minLeft)/2) - 12;
+
+            //            Panel_SelectedSkillDetails.Controls.Add(OrSplit);
+            //        }
+            //    }
+            //    //
+            //}
+            //else
+            //{
+            //    string PowerName = A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(x => x.PowerSNO == _NewDefinitionPowerSNO).Name;
+
+            //    //Populate_ComboBox_PowerSelection();
+
+            //    TB_SkillName.Text = PowerName;
+
+            //    ComboboxItem _selection = CB_PowerSelection.Items.OfType<ComboboxItem>()
+            //            .FirstOrDefault(x => x.Text == PowerName);
+
+            //    CB_PowerSelection.SelectedItem = _selection;
+
+            //    int index = CB_PowerSelection.Items.IndexOf(_selection);
+            //    CB_PowerSelection.SelectedIndex = index;
+
+            //    _CreateNewDefinition = false;
+            //}
+
         }
 
-        private static List<CastCondition> SortGroup(
-           List<CastCondition> ConditionGroup)
-        {
-            var Buffer = ConditionGroup.ToList();
 
-            if (ConditionGroup.FirstOrDefault(x => x.Type.ToString().Contains("Property")) == null)
-                return ConditionGroup;
-
-                if (ConditionGroup.Last().Type.ToString().Contains("Property"))
-                return ConditionGroup; 
-
-                var Properties = ConditionGroup.Where(x => x.Type.ToString().Contains("Property")).ToList();
-
-                if (Properties.Count() > 0)
-                {
-                ConditionGroup.RemoveAll(x => x.Type.ToString().Contains("Property"));
-
-                ConditionGroup.AddRange(Properties);
-                }
-           
-
-            return ConditionGroup;
-        }
+        private CastCondition global_castCondition_to_copy = null;
 
         private void Condition_Copy()
         {
 
-            Button _this = _clickedCondition;
+            global_castCondition_to_copy = (CastCondition) listBox_conditions.SelectedItem;
+        }
 
-                ConditionType Type = (ConditionType) Enum.Parse(typeof (ConditionType), _this.Text.Split(' ').Last());
+        private void Condition_Paste()
+        {
 
-                List<double> Values = new List<double>();
-                string[] Splits = _this.Name.Split('|');
+            if (global_castCondition_to_copy != null)
+            {
 
-                for (int i = 1; i < Splits.Length; i++)
+                int newGroupId = -1;
+
+                if (listBox_conditionsets.Items.Count == 0)
                 {
-                    Values.Add(double.Parse(Splits[i]));
+                    newGroupId = 0;
                 }
 
-                _SelectedSkill.CastConditions.Add(new CastCondition(-1, Type, Values.ToArray(),
+                ConditionGroup conditionGroup = (ConditionGroup)listBox_conditionsets.SelectedItem;
+                if (conditionGroup != null)
+                {
+                    newGroupId = conditionGroup.ConditionGroupValue;
+                }
+
+
+                _SelectedSkill.CastConditions.Add(new CastCondition(newGroupId, global_castCondition_to_copy.Type, global_castCondition_to_copy.Values.ToArray(),
                     A_Collection.Presets.DefaultCastConditions._Default_CastConditions.FirstOrDefault(
-                        x => x.Type == Type).ValueNames));
+                        x => x.Type == global_castCondition_to_copy.Type).ValueNames));
 
                 Update_PanelSelectedSkillDetails();
-            Mark_SelectedCondition();
 
-                
+                global_castCondition_to_copy = null;
+            }
         }
+
+
         private void Condition_onMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -640,196 +729,7 @@ namespace D3Helper
                 
             }
         }
-        private void Condition_onMouseUp(object sender, MouseEventArgs e)
-        {
-            if (IsMoving)
-                IsMoving = false;
-
-            Button _this = sender as Button;
-
-            MovingCondition_AddToHoveredGroup(Panel_SelectedSkillDetails, _this);
-
-        }
-        private void Condition_onMouseMove(object sender, MouseEventArgs e)
-        {
-            IsMoving = true;
-            
-            Button _this = sender as Button;
-
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                Panel_SelectedSkillDetails.SuspendLayout();
-
-                _this.Left = e.X + _this.Left - MouseDownLocation.X;
-                _this.Top = e.Y + _this.Top - MouseDownLocation.Y;
-                
-                Panel_SelectedSkillDetails.Update();
-                Panel_SelectedSkillDetails.ResumeLayout();
-                
-            }
-        }
-        private void MovingCondition_AddToHoveredGroup(Panel Panel, Button MovingObject)
-        {
-            Button HoveredButton =
-                Panel.Controls.OfType<Button>()
-                    .FirstOrDefault(x =>
-                    (x.Bounds.Contains(MovingObject.Bounds.Left, MovingObject.Bounds.Top) ||
-                    x.Bounds.Contains(MovingObject.Bounds.Left, MovingObject.Bounds.Bottom) ||
-                    x.Bounds.Contains(MovingObject.Bounds.Right, MovingObject.Bounds.Top) ||
-                    x.Bounds.Contains(MovingObject.Bounds.Right, MovingObject.Bounds.Bottom)) && x != MovingObject && x.Name != "SkillIcon");
-
-            if (HoveredButton != null)
-            {
-                var SplitHovered = HoveredButton.Name.Split('|');
-
-                int group = int.Parse(SplitHovered[0]);
-
-                var SplitMoving = MovingObject.Name.Split('|');
-
-                int movinggroup = int.Parse(SplitMoving[0]);
-
-                ConditionType Type = (ConditionType) Enum.Parse(typeof (ConditionType), MovingObject.Text);
-
-                List<double> Values = new List<double>();
-
-                for (int i = 1; i < SplitMoving.Length; i++)
-                {
-                    Values.Add(double.Parse(SplitMoving[i]));
-                }
-
-
-                var MovingCondition =
-                    _SelectedSkill.CastConditions.FirstOrDefault(
-                        x => x.ConditionGroup == movinggroup && x.Type == Type);
-
-                if (MovingCondition != null)
-                {
-                    MovingCondition.ConditionGroup = group;
-                }
-
-
-            }
-            else
-            {
-
-                var tryGet = _SelectedSkill.CastConditions.Where(x => x.ConditionGroup != -1).OrderByDescending(x => x.ConditionGroup).FirstOrDefault();
-
-                int group = -1;
-
-                if (tryGet != null)
-                    group = tryGet.ConditionGroup + 1;
-                else
-                {
-                    group = 0;
-                }
-
-                var SplitMoving = MovingObject.Name.Split('|');
-
-                int movinggroup = int.Parse(SplitMoving[0]);
-
-                ConditionType Type = (ConditionType) Enum.Parse(typeof (ConditionType), MovingObject.Text);
-
-                if (group == -1)
-                {
-                    var MovingCondition =
-                        _SelectedSkill.CastConditions.FirstOrDefault(
-                            x => x.ConditionGroup == movinggroup && x.Type == Type);
-
-                    if(MovingCondition != null)
-                        MovingCondition.ConditionGroup = group;
-                }
-                else
-                {
-                    var MovingCondition =
-                        _SelectedSkill.CastConditions.FirstOrDefault(
-                            x => x.ConditionGroup == movinggroup && x.Type == Type);
-
-                    if(MovingCondition != null)
-                        MovingCondition.ConditionGroup = group;
-                }
-
-            }
-
-            Update_PanelSelectedSkillDetails();
-            Mark_SelectedCondition();
-        }
-        
-        private void Condition_Click(object sender, MouseEventArgs e)
-        {
-            _clickedCondition = sender as Button;
-
-            
-            if(e.Button == MouseButtons.Left && PressedKey != Keys.ShiftKey)
-                Condition_Select();
-            else if(e.Button == MouseButtons.Left && PressedKey == Keys.ShiftKey)
-                Condition_Copy();
-
-
-        }
-
-        private void Condition_Select()
-        {
-            
-            
-                Button _this = _clickedCondition;
-
-                if (_this != null)
-                {
-                    ConditionType Type =
-                        (ConditionType) Enum.Parse(typeof (ConditionType), _this.Text);
-                
-                    List<double> Values = new List<double>();
-                    string[] Splits = _this.Name.Split('|');
-
-                    int group = int.Parse(Splits[0]);
-
-                    for (int i = 1; i < Splits.Length; i++)
-                    {
-                        Values.Add(double.Parse(Splits[i]));
-                    }
-
-                    if (Values.Count == 1)
-                    {
-                        _SelectedCondition =
-                            _SelectedSkill.CastConditions.FirstOrDefault(x => x.Type == Type && x.ConditionGroup == group && x.Values[0] == Values[0]);
-                    }
-                    else if (Values.Count == 2)
-                    {
-                        _SelectedCondition =
-                            _SelectedSkill.CastConditions.FirstOrDefault(
-                                x => x.Type == Type && x.ConditionGroup == group && x.Values[0] == Values[0] && x.Values[1] == Values[1]);
-                    }
-                    else if (Values.Count == 3)
-                    {
-                        _SelectedCondition =
-                            _SelectedSkill.CastConditions.FirstOrDefault(
-                                x =>
-                                    x.Type == Type && x.ConditionGroup == group && x.Values[0] == Values[0] && x.Values[1] == Values[1] &&
-                                    x.Values[2] == Values[2]);
-                    }
-                else if (Values.Count == 5)
-                {
-                    _SelectedCondition =
-                        _SelectedSkill.CastConditions.FirstOrDefault(
-                            x =>
-                                x.Type == Type && x.ConditionGroup == group && x.Values[0] == Values[0] && x.Values[1] == Values[1] &&
-                                x.Values[2] == Values[2] && x.Values[3] == Values[3] && x.Values[4] == Values[4]);
-                }
-
-
-                var SelectionItem =
-                        CB_ConditionSelection.Items.OfType<ComboboxItem>()
-                            .ToList()
-                            .FirstOrDefault(x => x.Text == Type.ToString());
-                    CB_ConditionSelection.SelectedItem = SelectionItem;
-
-                    Update_PanelSelectedSkillDetails(true);
-                    Load_ConditionValues();
-                    Mark_SelectedCondition();
-                
-            }
-            
-        }
+      
 
         private void CB_PowerSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -854,6 +754,8 @@ namespace D3Helper
                 CB_PowerSelection.Update();
             }
         }
+
+
         private void BTN_Add_Click(object sender, EventArgs e)
         {
             if (TB_SkillName.Text.Length < 3)
@@ -882,59 +784,39 @@ namespace D3Helper
             
             Update_View();
         }
-        private void SkillDefinition_Click(object sender, MouseEventArgs e)
-        {
-            _clickedSkill = sender as Button;
 
 
-            if (e.Button == MouseButtons.Left && PressedKey != Keys.ShiftKey)
-                Skill_Select();
-            else if (e.Button == MouseButtons.Left && PressedKey == Keys.ShiftKey)
-                Skill_Copy();
-        }
 
-        private void Skill_Select()
-        {
-            Button _this = _clickedSkill;
-
-            SkillData _selected = SkillCastConditions.Custom.CustomDefinitions.FirstOrDefault(x => x.Name == _this.Text && x.Power.PowerSNO == int.Parse(_this.Name));
-
-            _SelectedSkill = _selected;
-            _SelectedCondition = null;
-
-            BTN_ConditionEdit.Visible = false;
-            BTN_ContitionRemove.Visible = false;
-
-            Update_View();
-        }
 
         private void Skill_Copy()
         {
-            SkillData ToCopy =
-                A_Collection.SkillCastConditions.Custom.CustomDefinitions.FirstOrDefault(
-                    x => x.Name == _clickedSkill.Text);
+            //SkillData ToCopy =
+            //    A_Collection.SkillCastConditions.Custom.CustomDefinitions.FirstOrDefault(
+            //        x => x.Name == _clickedSkill.Text);
 
-            int counter = 0;
+            //int counter = 0;
 
-            string newName = ToCopy.Name + "_" + counter.ToString();
+            //string newName = ToCopy.Name + "_" + counter.ToString();
 
-            while (true)
-            {
-                if (A_Collection.SkillCastConditions.Custom.CustomDefinitions.FirstOrDefault(
-                    x => x.Name == newName) == null)
-                    break;
+            //while (true)
+            //{
+            //    if (A_Collection.SkillCastConditions.Custom.CustomDefinitions.FirstOrDefault(
+            //        x => x.Name == newName) == null)
+            //        break;
 
-                counter++;
+            //    counter++;
 
-                newName = ToCopy.Name + "_" + counter.ToString();
-            }
+            //    newName = ToCopy.Name + "_" + counter.ToString();
+            //}
 
-            SkillData NewData = new SkillData(ToCopy.Power, newName, ToCopy.SelectedRune, ToCopy.CastConditions);
+            //SkillData NewData = new SkillData(ToCopy.Power, newName, ToCopy.SelectedRune, ToCopy.CastConditions);
             
-            A_Collection.SkillCastConditions.Custom.CustomDefinitions.Add(NewData);
+            //A_Collection.SkillCastConditions.Custom.CustomDefinitions.Add(NewData);
 
-            Update_View();
+            //Update_View();
         }
+
+
         private void BTN_Update_Click(object sender, EventArgs e)
         {
             
@@ -955,6 +837,8 @@ namespace D3Helper
 
             Update_View();
         }
+
+
         private void BNT_DeleteSelection_Click(object sender, EventArgs e)
         {
             if (_SelectedSkill != null)
@@ -968,6 +852,9 @@ namespace D3Helper
                 Update_View();
             }
         }
+
+
+
         private void CB_ConditionSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -1068,6 +955,21 @@ namespace D3Helper
                     Value.Top = ValueName.Top;
                     Value.Left = ValueName.Right;
 
+                    //PowerSNO value to Text if possible
+                    if(i == 0)
+                    {
+                        string powername =  A_Collection.Presets.SNOPowers.getPowerName((int)_SelectedCondition.Values[i]);
+                        if(powername != null && powername.Length > 0)
+                        {
+                            Label SnoTextLabel = new Label();
+                            SnoTextLabel.Text  = powername;
+                            SnoTextLabel.Left  = Value.Right + 2;
+                            SnoTextLabel.Top   = Value.Top;
+
+                            Panel_ConditionEditor_Values.Controls.Add(SnoTextLabel);
+                        }
+                    }
+
                     Panel_ConditionEditor_Values.Controls.Add(Value);
                 }
                 else
@@ -1102,13 +1004,15 @@ namespace D3Helper
                 }
             }
         }
+
+
         private void BTN_Condition_Add_Click(object sender, EventArgs e)
         {
             if(!Validated_ConditionsInput())
                 return;
 
-            if (IsUnassignedConditionLeft())
-                return;
+            //if (IsUnassignedConditionLeft())
+            //    return;
 
             
             var EmptyValueFields = Panel_ConditionEditor_Values.Controls.OfType<TextBox>().FirstOrDefault(x => x.Text.Length == 0);
@@ -1215,39 +1119,71 @@ namespace D3Helper
                 }
             }
 
-            _SelectedSkill.CastConditions.Add(new CastCondition(-1, Type, Values.ToArray(), _default.ValueNames));
+
+
+            //get current selected conditiongroup
+            int newGroupId = -1;
+
+            if(listBox_conditionsets.Items.Count == 0)
+            {
+                newGroupId = 0;
+            }
+
+            ConditionGroup conditionGroup = (ConditionGroup)listBox_conditionsets.SelectedItem;
+            if(conditionGroup != null)
+            {
+                newGroupId = conditionGroup.ConditionGroupValue;
+            }
+
+
+            CastCondition newCastCondition = new CastCondition(newGroupId, Type, Values.ToArray(), _default.ValueNames);
+
+            _SelectedSkill.CastConditions.Add(newCastCondition);
             
 
             Update_PanelSelectedSkillDetails();
-            Mark_SelectedCondition();
+            //Mark_SelectedCondition();
+
+            //mark last=new entry
+            listBox_conditions.SelectedIndex = listBox_conditions.Items.Count - 1;
 
         }
 
         private void BTN_ContitionRemove_Click(object sender, EventArgs e)
         {
+            Condition_Delete();
+        }
+
+        /// <summary>
+        /// delete selected condition
+        /// </summary>
+        private void Condition_Delete()
+        {
             _SelectedSkill.CastConditions.Remove(_SelectedCondition);
             _SelectedCondition = null;
 
             Update_PanelSelectedSkillDetails();
-            Mark_SelectedCondition();
         }
 
-        private bool IsUnassignedConditionLeft()
-        {
-            var emptyGroup =
-                Panel_SelectedSkillDetails.Controls.OfType<Button>()
-                    .FirstOrDefault(x => x.Name != "SkillIcon" && int.Parse(x.Name.Split('|')[0]) == -1);
 
-            if (emptyGroup == null)
-                return false;
-            else
-            {
-                MessageBox.Show(
-                    "There is an unassigned Condition already. Assign it to a ConditionGroup before you add a new Condition");
-            }
+        //private bool IsUnassignedConditionLeft()
+        //{
+        //    var emptyGroup =
+        //        Panel_SelectedSkillDetails.Controls.OfType<Button>()
+        //            .FirstOrDefault(x => x.Name != "SkillIcon" && int.Parse(x.Name.Split('|')[0]) == -1);
 
-            return true;
-        }
+        //    if (emptyGroup == null)
+        //        return false;
+        //    else
+        //    {
+        //        MessageBox.Show(
+        //            "There is an unassigned Condition already. Assign it to a ConditionGroup before you add a new Condition");
+        //    }
+
+        //    return true;
+        //}
+
+
         private bool Validated_ConditionsInput()
         {
             ComboboxItem _selected = CB_ConditionSelection.SelectedItem as ComboboxItem;
@@ -1873,28 +1809,49 @@ namespace D3Helper
             }
 
         }
+
         private bool IsConditionAvailable(ConditionType Type)
         {
-            foreach (var button in Panel_SelectedSkillDetails.Controls.OfType<Button>().Where(x => x.Name != "SkillIcon"))
-            {
-                ConditionType _Type = (ConditionType)Enum.Parse(typeof(ConditionType), button.Text.Split(' ').Last());
+            //foreach (var button in Panel_SelectedSkillDetails.Controls.OfType<Button>().Where(x => x.Name != "SkillIcon"))
+            //{
+            //    ConditionType _Type = (ConditionType)Enum.Parse(typeof(ConditionType), button.Text.Split(' ').Last());
 
-                if (_Type == Type)
+            //    if (_Type == Type)
+            //        return true;
+            //}
+            //return false;
+
+            foreach(CastCondition c in _SelectedSkill.CastConditions)
+            {
+                if (Type == c.Type)
                     return true;
             }
             return false;
+
+
         }
+
         private bool IsConditionAvailable(ConditionType[] Types)
         {
-            foreach (var button in Panel_SelectedSkillDetails.Controls.OfType<Button>().Where(x => x.Name != "SkillIcon"))
-            {
-                ConditionType _Type = (ConditionType)Enum.Parse(typeof(ConditionType), button.Text.Split(' ').Last());
+            //foreach (var button in Panel_SelectedSkillDetails.Controls.OfType<Button>().Where(x => x.Name != "SkillIcon"))
+            //{
+            //    ConditionType _Type = (ConditionType)Enum.Parse(typeof(ConditionType), button.Text.Split(' ').Last());
 
-                if (Types.Contains(_Type))
+            //    if (Types.Contains(_Type))
+            //        return true;
+            //}
+            //return false;
+
+
+            foreach (CastCondition c in _SelectedSkill.CastConditions)
+            {
+                if (Types.Contains(c.Type))
                     return true;
             }
             return false;
         }
+
+
         private void BTN_ConditionEdit_Click(object sender, EventArgs e)
         {
             if (_SelectedCondition != null)
@@ -2024,7 +1981,6 @@ namespace D3Helper
                         .ValueNames;
 
                 Update_PanelSelectedSkillDetails();
-                Mark_SelectedCondition();
             }
         }
         
@@ -2072,5 +2028,78 @@ namespace D3Helper
                 APV.Show();
             }
         }
+
+
+
+
+        private void listBox_conditionsets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            refresh_listbox_conditions();
+
+
+            //select first item
+            listBox_conditions_SelectedIndexChanged(this.listBox_conditions, null);
+        }
+
+        private void refresh_listbox_conditions()
+        {
+
+
+            ConditionGroup conditionGroup = (ConditionGroup)listBox_conditionsets.SelectedItem;
+            if (conditionGroup != null)
+            {
+                conditionsBinding.DataSource = conditionGroup.CastConditions;
+                listBox_conditions.DataSource = conditionsBinding;
+
+                listBox_conditions.DisplayMember = "DisplayText";
+                listBox_conditions.ValueMember = "Type";
+
+                conditionsBinding.ResetBindings(false);
+            }
+            else
+            {
+                listBox_conditions.DataSource = null;
+            }
+        }
+
+
+
+
+        private void listBox_conditions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _SelectedCondition = (CastCondition)listBox_conditions.SelectedItem;
+
+            if (_SelectedCondition != null)
+            {
+                var SelectionItem = CB_ConditionSelection.Items.OfType<ComboboxItem>()
+                                    .ToList()
+                                    .FirstOrDefault(x => x.Text == _SelectedCondition.Type.ToString());
+
+                CB_ConditionSelection.SelectedItem = SelectionItem;
+
+                Update_PanelSelectedSkillDetails(true);
+                Load_ConditionValues();
+                //Mark_SelectedCondition();
+            }
+        }
+
+
+        private void listBox_skills_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //SkillData _selected = SkillCastConditions.Custom.CustomDefinitions.FirstOrDefault(x => x.Name == _this.Text && x.Power.PowerSNO == int.Parse(_this.Name));
+
+            _SelectedSkill = (SkillData)listBox_skills.SelectedItem;
+            _SelectedCondition = null;
+
+            BTN_ConditionEdit.Visible = false;
+            BTN_ContitionRemove.Visible = false;
+
+            Update_View();
+
+            //select first item in condition group listbox
+            listBox_conditionsets_SelectedIndexChanged(this.listBox_conditionsets, null);
+        }
+
     }
+
 }

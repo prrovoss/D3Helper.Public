@@ -227,15 +227,7 @@ namespace D3Helper
 
         private string getPowerName(int PowerSNO)
         {
-            
-            var DefaultName = A_Collection.Presets.SNOPowers.AllPowers.FirstOrDefault(x => x.Key == PowerSNO);
-            var CustomName = A_Collection.Presets.SNOPowers.CustomPowerNames.FirstOrDefault(x => x.Key == PowerSNO);
-
-            string Name = DefaultName.Value;
-            if (CustomName.Key != default(int))
-                Name = CustomName.Value;
-
-            return Name;
+            return A_Collection.Presets.SNOPowers.getPowerName(PowerSNO);
         }
         
         private void Update_PowerView()

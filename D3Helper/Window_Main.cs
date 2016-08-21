@@ -325,8 +325,7 @@ namespace D3Helper
                 {
                     Window_SkillEditor._PreselectedDefinition = true;
                     Window_SkillEditor._SelectedSkill = _selected;
-                    Window_SkillEditor
-                        Editor = new Window_SkillEditor();
+                    Window_SkillEditor Editor = new Window_SkillEditor();
                     Editor.Show();
                 }
             }
@@ -336,8 +335,7 @@ namespace D3Helper
                 {
                     Window_SkillEditor._CreateNewDefinition = true;
                     Window_SkillEditor._NewDefinitionPowerSNO = int.Parse(_this.Name);
-                    Window_SkillEditor
-                        Editor = new Window_SkillEditor();
+                    Window_SkillEditor Editor = new Window_SkillEditor();
                     Editor.Show();
                 }
             }

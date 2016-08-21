@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using D3Helper.A_Enums;
 
 using ProtoBuf;
-
+using System.Windows.Forms;
 
 namespace D3Helper.A_Collection
 {
@@ -70,7 +70,75 @@ namespace D3Helper.A_Collection
         
         public Rune SelectedRune { get; set; }
         
-        public List<CastCondition> CastConditions { get; set; }
+        public List<CastCondition> CastConditions { get; set; } //contains all castconditions! :S
+
+
+
+        private static List<CastCondition> SortGroup(List<CastCondition> ConditionGroup)
+        {
+            if (ConditionGroup.FirstOrDefault(x => x.Type.ToString().Contains("Property")) == null)
+                return ConditionGroup;
+
+            if (ConditionGroup.Last().Type.ToString().Contains("Property"))
+                return ConditionGroup;
+
+            var Properties = ConditionGroup.Where(x => x.Type.ToString().Contains("Property")).ToList();
+
+            if (Properties.Count() > 0)
+            {
+                ConditionGroup.RemoveAll(x => x.Type.ToString().Contains("Property"));
+
+                ConditionGroup.AddRange(Properties);
+            }
+
+
+            return ConditionGroup;
+        }
+
+
+
+        public List<ConditionGroup> getConditionGroups()
+        {
+
+            List<ConditionGroup> list = new List<ConditionGroup>();
+
+            this.CastConditions = SortGroup(this.CastConditions);
+
+            foreach (CastCondition c in CastConditions)
+            {
+                if (c.ConditionGroup != -1)
+                {
+                    List<CastCondition> c_list_by_group = CastConditions.Where(x => x.ConditionGroup == c.ConditionGroup).ToList();
+
+                    ConditionGroup group = new ConditionGroup();
+                    group.CastConditions = c_list_by_group;
+                    group.ConditionGroupValue = c.ConditionGroup;
+                    group.Name = "Conditiongroup " + group.ConditionGroupValue.ToString();
+
+                    //condition group already exist?
+                    if (list.FindIndex(x => x.ConditionGroupValue == c.ConditionGroup) < 0)
+                    {
+                        list.Add(group);
+                    }
+                }
+            };
+
+            return list;
+        }
+
+        public System.Drawing.Image getIcon()
+        {
+
+            try{
+                System.Drawing.Image icon = Properties.Resources.ResourceManager.GetObject(this.Power.Name.ToLower()) as System.Drawing.Image;
+                return icon;
+            }
+            catch(Exception e){
+                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.Handler);
+            }
+            return null;
+        }
+
     }
     
     public class CastCondition
@@ -92,7 +160,58 @@ namespace D3Helper.A_Collection
         public double[] Values { get; set; }
         
         public ConditionValueName[] ValueNames { get; set; }
+
+
+        //displaytext for listbox
+        public string DisplayText
+        {
+            get
+            {
+                //show sno text if availble
+                string sno_tooltip = getSNOTooltipText();
+                if (sno_tooltip != null && sno_tooltip.Length > 0)
+                {
+                    return Type + " => [" + sno_tooltip + "]";
+                }
+                else
+                {
+                    return Type.ToString();
+                }
+            }
+        }
+
+
+        public string getSNOTooltipText()
+        {
+            try
+            {
+                if (this.ValueNames.Contains(ConditionValueName.PowerSNO))
+                {
+                    return A_Collection.Presets.SNOPowers.getPowerName((int)this.Values.First());
+                }
+            }catch(Exception e)
+            {
+                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.Handler);
+            }
+
+            return "";
+        }
+
+
     }
+
+
+    public class ConditionGroup
+    {
+        public string Name { get; set; }
+
+        public int ConditionGroupValue { get; set; }
+
+        public List<CastCondition> CastConditions { get; set; }
+
+    }
+
+
     public class Presets
     {
         public class DefaultCastConditions
@@ -194,14 +313,29 @@ namespace D3Helper.A_Collection
             new CastCondition(0, ConditionType.SelectedMonster_RiftProgress, new double[] {0, 0}, new ConditionValueName[] {ConditionValueName.Value, ConditionValueName.Bool, }),
             };
         }
+
         public class SkillPowers
         {
             public static List<SkillPower> AllSkillPowers = new List<SkillPower>(); // All Skill Powers from power_stats.txt
         }
+
         public class SNOPowers
         {
             public static Dictionary<int, string> AllPowers = new Dictionary<int, string>();    // All Powers from Powers.txt
             public static Dictionary<int, string> CustomPowerNames = new Dictionary<int, string>(); 
+
+            public static string getPowerName(int PowerSNO)
+            {
+                var DefaultName = A_Collection.Presets.SNOPowers.AllPowers.FirstOrDefault(x => x.Key == PowerSNO);
+                var CustomName = A_Collection.Presets.SNOPowers.CustomPowerNames.FirstOrDefault(x => x.Key == PowerSNO);
+
+                string Name = DefaultName.Value;
+                if (CustomName.Key != default(int))
+                    Name = CustomName.Value;
+
+                return Name;
+            }
+
         }
         public class Monsters
         {
