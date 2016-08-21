@@ -32,24 +32,28 @@ namespace D3Helper
 
         /*----------------------------------------------------------------*/
 
-        //copy paste contextmenu;
+        //contextmenu - conditions listbox;
         ContextMenuStrip contextMenuListBox = new ContextMenuStrip();
+        ToolStripMenuItem ts_add_new;
         ToolStripMenuItem ts_copy;
         ToolStripMenuItem ts_paste;
         ToolStripMenuItem ts_delete;
+
+        //contextmenu - condition group listbox;
+        ContextMenuStrip contextMenuListBoxConditionGroups = new ContextMenuStrip();
+        ToolStripMenuItem group_add_new;
+        ToolStripMenuItem group_delete;
+
+        //contextmenu - skill listbox
+        ContextMenuStrip contextMenuListBoxSkills = new ContextMenuStrip();
+        ToolStripMenuItem skills_add_new;
+        ToolStripMenuItem skills_delete;
 
         /*----------------------------------------------------------------*/
 
 
         public static SkillData _SelectedSkill = null;
         private static CastCondition _SelectedCondition = null;
-
-        private Point MouseDownLocation;
-        //private static int Clicks = 0;
-        //private static Button _clickedCondition;
-        //private static Button _clickedSkill;
-        //private static bool IsMoving = false;
-        private static Keys PressedKey = Keys.None;
 
         public static bool _PreselectedDefinition = false;
         public static bool _CreateNewDefinition = false;
@@ -72,7 +76,10 @@ namespace D3Helper
 
 
 
-            //contextmenu listbox
+            //contextmenu conditions
+            ts_add_new = new ToolStripMenuItem { Text = "Add new condition" };
+            ts_add_new.Click += Ts_add_new_Click;
+
             ts_copy = new ToolStripMenuItem { Text = "Copy" };
             ts_copy.Click += Ts_copy_Click;
 
@@ -82,12 +89,113 @@ namespace D3Helper
             ts_delete = new ToolStripMenuItem { Text = "Delete" };
             ts_delete.Click += Ts_delete_Click;
 
+            contextMenuListBox.Items.Add(ts_add_new);
             contextMenuListBox.Items.Add(ts_copy);
             contextMenuListBox.Items.Add(ts_paste);
             contextMenuListBox.Items.Add(ts_delete);
 
             listBox_conditions.MouseDown += ListBox_conditions_MouseDown;
 
+
+
+            //contextmenu condition groups
+            group_add_new = new ToolStripMenuItem { Text = "Add new Group" };
+            group_add_new.Click += Group_add_new_Click;
+
+            group_delete= new ToolStripMenuItem { Text = "Delete Group" };
+            group_delete.Click += Group_delete_Click;
+
+            contextMenuListBoxConditionGroups.Items.Add(group_add_new);
+            contextMenuListBoxConditionGroups.Items.Add(group_delete);
+
+            listBox_conditionsets.MouseDown += ListBox_conditionsets_MouseDown;
+
+
+            //contextmenu skills
+            skills_add_new = new ToolStripMenuItem { Text = "Add new Skill Definition" };
+            skills_add_new.Click += Skills_add_new_Click;
+
+            skills_delete = new ToolStripMenuItem { Text = "Delete" };
+            skills_delete.Click += Skills_delete_Click;
+
+            contextMenuListBoxSkills.Items.Add(skills_add_new);
+            contextMenuListBoxSkills.Items.Add(skills_delete);
+
+            listBox_skills.MouseDown += ListBox_skills_MouseDown;
+
+        }
+
+        private void ListBox_skills_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            var index = listBox_skills.IndexFromPoint(e.Location);
+
+            if (index != ListBox.NoMatches)
+            {
+                skills_delete.Enabled = true;
+
+                listBox_skills.SelectedIndex = index;
+            }
+            else
+            {
+                skills_delete.Enabled = false;
+            }
+
+            contextMenuListBoxSkills.Show(MousePosition);
+            contextMenuListBoxSkills.Visible = true;
+        }
+
+        private void Skills_delete_Click(object sender, EventArgs e)
+        {
+            SkillData_Delete();
+        }
+
+        private void Skills_add_new_Click(object sender, EventArgs e)
+        {
+            SkillData_Add();
+        }
+
+        private void Ts_add_new_Click(object sender, EventArgs e)
+        {
+            Condition_Add(-1);
+        }
+
+        private void ListBox_conditionsets_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            var index = listBox_conditionsets.IndexFromPoint(e.Location);
+
+            if (index != ListBox.NoMatches)
+            {
+                group_delete.Enabled = true;
+
+                listBox_conditionsets.SelectedIndex = index;
+            }
+            else
+            {
+                group_delete.Enabled = false;
+            }
+
+            contextMenuListBoxConditionGroups.Show(MousePosition);
+            contextMenuListBoxConditionGroups.Visible = true;
+        }
+
+
+        private void Group_delete_Click(object sender, EventArgs e)
+        {
+            ConditionGroup selected_group = (ConditionGroup)listBox_conditionsets.SelectedItem;
+
+            if(selected_group != null)
+            {
+                _SelectedSkill.removeGroup(selected_group.ConditionGroupValue);
+
+                Update_PanelSelectedSkillDetails();
+            }
+        }
+
+        private void Group_add_new_Click(object sender, EventArgs e)
+        {
+            Condition_Add(_SelectedSkill.getNewGroupId());
         }
 
         private void Ts_delete_Click(object sender, EventArgs e)
@@ -113,7 +221,6 @@ namespace D3Helper
 
             if (global_castCondition_to_copy != null)
             {
-                ts_copy.Enabled = false;
                 ts_paste.Enabled = true;
             }else
             {
@@ -127,23 +234,15 @@ namespace D3Helper
                 ts_delete.Enabled = true;
 
                 listBox_conditions.SelectedIndex = index;
-                contextMenuListBox.Show(MousePosition);
-                contextMenuListBox.Visible = true;
             }
             else
             {
                 ts_delete.Enabled = false;
-
-                if (global_castCondition_to_copy != null)
-                {
-                    contextMenuListBox.Show(MousePosition);
-                    contextMenuListBox.Visible = true;
-                }
-                else
-                {
-                    contextMenuListBox.Visible = false;
-                }
+                ts_copy.Enabled = false;
             }
+
+            contextMenuListBox.Show(MousePosition);
+            contextMenuListBox.Visible = true;
         }
 
         void CB_ConditionSelection_DrawItem(object sender, DrawItemEventArgs e)
@@ -171,25 +270,7 @@ namespace D3Helper
 
 
 
-        private void Panel_SkillOverview_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            PressedKey = Keys.None;
-        }
 
-        private void Panel_SkillOverview_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            PressedKey = e.KeyCode;
-        }
-
-        private void Panel_SelectedSkillDetails_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            PressedKey = Keys.None;
-        }
-
-        private void Panel_SelectedSkillDetails_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            PressedKey = e.KeyCode;
-        }
 
         private void Window_SkillEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -275,14 +356,25 @@ namespace D3Helper
             Update_View();
 
 
+
+
+
+            //-----------------------------------------------------------------------------
+            // Proceed Parameters
+            //-----------------------------------------------------------------------------
+
             //select skill by parameter
             if (_SelectedSkill_parameter != null)
             {
                 listBox_skills.SelectedIndex = listBox_skills.Items.IndexOf(_SelectedSkill_parameter);
             }
 
+
+            //create new Skill Definition by parameter
             if (_CreateNewDefinition)
             {
+
+                //Fill text and select correct rune
                 string PowerName = A_Collection.Presets.SkillPowers.AllSkillPowers.FirstOrDefault(x => x.PowerSNO == _NewDefinitionPowerSNO).Name;
 
                 TB_SkillName.Text = PowerName;
@@ -296,6 +388,9 @@ namespace D3Helper
                 CB_PowerSelection.SelectedIndex = index;
 
                 _CreateNewDefinition = false;
+
+                //press Add Button
+                SkillData_Add();
             }
 
 
@@ -746,16 +841,6 @@ namespace D3Helper
                 global_castCondition_to_copy = null;
             }
         }
-
-
-        private void Condition_onMouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                MouseDownLocation = e.Location;
-                
-            }
-        }
       
 
         private void CB_PowerSelection_SelectedIndexChanged(object sender, EventArgs e)
@@ -785,15 +870,23 @@ namespace D3Helper
 
         private void BTN_Add_Click(object sender, EventArgs e)
         {
+            SkillData_Add();
+        }
+
+        /// <summary>
+        /// Add new SkillData to Listbox
+        /// </summary>
+        private void SkillData_Add()
+        {
             if (TB_SkillName.Text.Length < 3)
             {
                 MessageBox.Show("Name too short. Must contain atleast 3 chars!");
                 return;
             }
             var tryGetEntry = SkillCastConditions.Custom.CustomDefinitions.FirstOrDefault(x => x.Name == TB_SkillName.Text);
-            if(tryGetEntry != null)
+            if (tryGetEntry != null)
             {
-                MessageBox.Show("Name already exists. Please choose another!");
+                MessageBox.Show("Name already exists. Please choose another!", TB_SkillName.Text);
                 return;
             }
 
@@ -810,15 +903,12 @@ namespace D3Helper
 
             _SelectedSkill = null;
             TB_SkillName.Text = "";
-            
+
             Update_View();
 
             //select new created item
             listBox_skills.SelectedIndex = listBox_skills.Items.IndexOf(newSkillData);
-
         }
-
-
 
 
         private void Skill_Copy()
@@ -873,6 +963,14 @@ namespace D3Helper
 
 
         private void BNT_DeleteSelection_Click(object sender, EventArgs e)
+        {
+            SkillData_Delete();
+        }
+
+        /// <summary>
+        /// Delete selected SkillData
+        /// </summary>
+        private void SkillData_Delete()
         {
             if (_SelectedSkill != null)
             {
@@ -1041,96 +1139,121 @@ namespace D3Helper
 
         private void BTN_Condition_Add_Click(object sender, EventArgs e)
         {
-            if(!Validated_ConditionsInput())
-                return;
+            Condition_Add(-1); //-1 add to selected group;
 
-            //if (IsUnassignedConditionLeft())
-            //    return;
+        }
 
-            
-            var EmptyValueFields = Panel_ConditionEditor_Values.Controls.OfType<TextBox>().FirstOrDefault(x => x.Text.Length == 0);
-
-            if (EmptyValueFields != null)
-            { MessageBox.Show("Not all Conditions Values are set. Please enter a Value!"); return; }
-
-            ComboboxItem _selected = CB_ConditionSelection.SelectedItem as ComboboxItem;
-            ConditionType Type = (ConditionType)_selected.Value;
-
-            CastCondition _default = Presets.DefaultCastConditions._Default_CastConditions.FirstOrDefault(x => x.Type == Type);
-            
-            var TextBoxes = Panel_ConditionEditor_Values.Controls.OfType<TextBox>().ToList();
-            var CheckBoxes = Panel_ConditionEditor_Values.Controls.OfType<CheckBox>().ToList();
-
-            List<double> Values = new List<double>();
-
-            if (CheckBoxes.Count == 0)
+        /// <summary>
+        /// p_new_group_id : -1 = add to current selected group
+        /// </summary>
+        /// <param name="p_new_group_id"></param>
+        private void Condition_Add(int p_new_group_id)
+        {
+            try
             {
-                for (int i = 0; i < _default.Values.Count(); i++)
-                {
-                    Values.Add(double.Parse(TextBoxes[i].Text));
-                }
-            }
-            else
-            {
-                if (_default.Type == ConditionType.Add_Property_Channeling)
-                {
-                    if (CheckBoxes[0].Checked)
-                        Values.Add(1);
-                    else
-                    {
-                        Values.Add(0);
-                    }
+                if (!Validated_ConditionsInput())
+                    return;
 
-                    Values.Add(double.Parse(TextBoxes[0].Text));
-                   
-                    
-                }
-                else if (_default.Type == ConditionType.Player_StandStillTime)
-                {
-                    Values.Add(double.Parse(TextBoxes[0].Text));
+                //if (IsUnassignedConditionLeft())
+                //    return;
 
-                    if (CheckBoxes[0].Checked)
-                        Values.Add(1);
-                    else
-                    {
-                        Values.Add(0);
-                    }
-                }
-                else if (_default.Type == ConditionType.PartyMember_InRangeIsBuff || _default.Type == ConditionType.PartyMember_InRangeIsNotBuff)
-                {
-                    Values.Add(double.Parse(TextBoxes[0].Text));
-                    Values.Add(double.Parse(TextBoxes[1].Text));
-                    Values.Add(double.Parse(TextBoxes[2].Text));
-                    Values.Add(double.Parse(TextBoxes[3].Text));
 
-                    if (CheckBoxes[0].Checked)
-                        Values.Add(1);
-                    else
-                    {
-                        Values.Add(0);
-                    }
-                }
-                else if (_default.Type == ConditionType.MonstersInRange_RiftProgress ||
-                    _default.Type == ConditionType.SelectedMonster_MonstersInRange_RiftProgress ||
-                    _default.Type == ConditionType.SelectedMonster_RiftProgress)
-                {
-                    Values.Add(double.Parse(TextBoxes[0].Text));
+                var EmptyValueFields = Panel_ConditionEditor_Values.Controls.OfType<TextBox>().FirstOrDefault(x => x.Text.Length == 0);
 
-                    if (CheckBoxes[0].Checked)
-                        Values.Add(1);
-                    else
-                    {
-                        Values.Add(0);
-                    }
-                }
-                else if (_default.Type != ConditionType.Add_Property_Channeling &&
-                         (!_default.Type.ToString().Contains("MonstersInRange") ||
-                          !_default.Type.ToString().Contains("EliteInRange") ||
-                          !_default.Type.ToString().Contains("BossInRange")) && _default.ValueNames.Count() < 3)
+                if (EmptyValueFields != null)
+                { MessageBox.Show("Not all Conditions Values are set. Please enter a Value!"); return; }
+
+                ComboboxItem _selected = CB_ConditionSelection.SelectedItem as ComboboxItem;
+                ConditionType Type = (ConditionType)_selected.Value;
+
+                CastCondition _default = Presets.DefaultCastConditions._Default_CastConditions.FirstOrDefault(x => x.Type == Type);
+
+                var TextBoxes = Panel_ConditionEditor_Values.Controls.OfType<TextBox>().ToList();
+                var CheckBoxes = Panel_ConditionEditor_Values.Controls.OfType<CheckBox>().ToList();
+
+                List<double> Values = new List<double>();
+
+                if (CheckBoxes.Count == 0)
                 {
                     for (int i = 0; i < _default.Values.Count(); i++)
                     {
-                        if (CheckBoxes[i].Checked)
+                        Values.Add(double.Parse(TextBoxes[i].Text));
+                    }
+                }
+                else
+                {
+                    if (_default.Type == ConditionType.Add_Property_Channeling)
+                    {
+                        if (CheckBoxes[0].Checked)
+                            Values.Add(1);
+                        else
+                        {
+                            Values.Add(0);
+                        }
+
+                        Values.Add(double.Parse(TextBoxes[0].Text));
+
+
+                    }
+                    else if (_default.Type == ConditionType.Player_StandStillTime)
+                    {
+                        Values.Add(double.Parse(TextBoxes[0].Text));
+
+                        if (CheckBoxes[0].Checked)
+                            Values.Add(1);
+                        else
+                        {
+                            Values.Add(0);
+                        }
+                    }
+                    else if (_default.Type == ConditionType.PartyMember_InRangeIsBuff || _default.Type == ConditionType.PartyMember_InRangeIsNotBuff)
+                    {
+                        Values.Add(double.Parse(TextBoxes[0].Text));
+                        Values.Add(double.Parse(TextBoxes[1].Text));
+                        Values.Add(double.Parse(TextBoxes[2].Text));
+                        Values.Add(double.Parse(TextBoxes[3].Text));
+
+                        if (CheckBoxes[0].Checked)
+                            Values.Add(1);
+                        else
+                        {
+                            Values.Add(0);
+                        }
+                    }
+                    else if (_default.Type == ConditionType.MonstersInRange_RiftProgress ||
+                        _default.Type == ConditionType.SelectedMonster_MonstersInRange_RiftProgress ||
+                        _default.Type == ConditionType.SelectedMonster_RiftProgress)
+                    {
+                        Values.Add(double.Parse(TextBoxes[0].Text));
+
+                        if (CheckBoxes[0].Checked)
+                            Values.Add(1);
+                        else
+                        {
+                            Values.Add(0);
+                        }
+                    }
+                    else if (_default.Type != ConditionType.Add_Property_Channeling &&
+                             (!_default.Type.ToString().Contains("MonstersInRange") ||
+                              !_default.Type.ToString().Contains("EliteInRange") ||
+                              !_default.Type.ToString().Contains("BossInRange")) && _default.ValueNames.Count() < 3)
+                    {
+                        for (int i = 0; i < _default.Values.Count(); i++)
+                        {
+                            if (CheckBoxes[i].Checked)
+                                Values.Add(1);
+                            else
+                            {
+                                Values.Add(0);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Values.Add(double.Parse(TextBoxes[0].Text));
+                        Values.Add(double.Parse(TextBoxes[1].Text));
+
+                        if (CheckBoxes[0].Checked)
                             Values.Add(1);
                         else
                         {
@@ -1138,49 +1261,57 @@ namespace D3Helper
                         }
                     }
                 }
-                else
+
+
+
+                //get current selected conditiongroup
+                int newGroupId = -1;
+
+                if (listBox_conditionsets.Items.Count == 0)
                 {
-                    Values.Add(double.Parse(TextBoxes[0].Text));
-                    Values.Add(double.Parse(TextBoxes[1].Text));
-
-                    if (CheckBoxes[0].Checked)
-                        Values.Add(1);
-                    else
-                    {
-                        Values.Add(0);
-                    }
+                    newGroupId = 0;
                 }
+
+                ConditionGroup conditionGroup = (ConditionGroup)listBox_conditionsets.SelectedItem;
+                if (conditionGroup != null)
+                {
+                    newGroupId = conditionGroup.ConditionGroupValue;
+                }
+
+                if(p_new_group_id > -1)
+                {
+                    newGroupId = p_new_group_id;
+                }
+
+
+                CastCondition newCastCondition = new CastCondition(newGroupId, Type, Values.ToArray(), _default.ValueNames);
+
+                _SelectedSkill.CastConditions.Add(newCastCondition);
+
+
+                Update_PanelSelectedSkillDetails();
+                //Mark_SelectedCondition();
+
+
+                //mark new group
+                if (p_new_group_id > -1)
+                {
+                    listBox_conditionsets.SelectedIndex = listBox_conditionsets.Items.Count - 1;
+                }
+
+                //mark last=new entry
+                listBox_conditions.SelectedIndex = listBox_conditions.Items.Count - 1;
             }
-
-
-
-            //get current selected conditiongroup
-            int newGroupId = -1;
-
-            if(listBox_conditionsets.Items.Count == 0)
+            catch(Exception e)
             {
-                newGroupId = 0;
+                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.MainWindow);
             }
-
-            ConditionGroup conditionGroup = (ConditionGroup)listBox_conditionsets.SelectedItem;
-            if(conditionGroup != null)
-            {
-                newGroupId = conditionGroup.ConditionGroupValue;
-            }
-
-
-            CastCondition newCastCondition = new CastCondition(newGroupId, Type, Values.ToArray(), _default.ValueNames);
-
-            _SelectedSkill.CastConditions.Add(newCastCondition);
-            
-
-            Update_PanelSelectedSkillDetails();
-            //Mark_SelectedCondition();
-
-            //mark last=new entry
-            listBox_conditions.SelectedIndex = listBox_conditions.Items.Count - 1;
-
         }
+
+
+
+
+
 
         private void BTN_ContitionRemove_Click(object sender, EventArgs e)
         {

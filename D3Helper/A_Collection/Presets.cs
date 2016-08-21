@@ -95,7 +95,30 @@ namespace D3Helper.A_Collection
             return ConditionGroup;
         }
 
+        public void removeGroup(int groupId)
+        {
+            //iterate in reverse order to remove item from List
+            for (int i = CastConditions.Count - 1; i >= 0; i--)
+            {
+                if (CastConditions[i].ConditionGroup == groupId)
+                    CastConditions.RemoveAt(i);
+            }
+        }
 
+        public int getNewGroupId()
+        {
+            int new_group_id = -1;
+
+            foreach(CastCondition c in CastConditions)
+            {
+                if(c.ConditionGroup > new_group_id)
+                {
+                    new_group_id = c.ConditionGroup + 1;
+                }
+            }
+
+            return new_group_id;
+        }
 
         public List<ConditionGroup> getConditionGroups()
         {
