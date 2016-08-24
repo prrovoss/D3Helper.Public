@@ -83,12 +83,19 @@ namespace D3Helper
 
         private bool SupportedProcessVersion()
         {
-            if (GetFileVersion() != SupportedVersion)
+            Version fileVersion = GetFileVersion();
+
+            if(     fileVersion.Major == SupportedVersion.Major 
+                &&  fileVersion.Minor == SupportedVersion.Minor
+                &&  fileVersion.Build == SupportedVersion.Build
+            )
             {
-                return false;
+                return true;
             }
-            return true;
+
+            return false;
         }
+
         private static Version GetFileVersion()
         {
             var process = Process.GetProcessesByName("Diablo III")
