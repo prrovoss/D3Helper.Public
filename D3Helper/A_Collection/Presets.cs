@@ -173,7 +173,6 @@ namespace D3Helper.A_Collection
             this.Type = type;
             this.Values = values;
             this.ValueNames = valuenames;
-
         }
         
         public int ConditionGroup { get; set; }
@@ -185,21 +184,36 @@ namespace D3Helper.A_Collection
         public ConditionValueName[] ValueNames { get; set; }
 
 
-        //displaytext for listbox
+        //displaytext for listbox with some extended condition information in brackets
         public string DisplayText
         {
             get
             {
-                //show sno text if availble
-                string sno_tooltip = getSNOTooltipText();
-                if (sno_tooltip != null && sno_tooltip.Length > 0)
+                try
                 {
-                    return Type + " => [" + sno_tooltip + "]";
-                }
-                else
-                {
-                    return Type.ToString();
-                }
+                    List<string> value_strings = new List<string>();
+
+                    int i = 0;
+                    foreach (double v in Values)
+                    {
+                        if (ValueNames[i].Equals(ConditionValueName.PowerSNO))
+                        {
+                            var _s = ValueNames[i] + ":" +  getSNOTooltipText(); //show resolved sno text if possible
+                            value_strings.Add(_s);
+                        }else
+                        {
+                            var _s = ValueNames[i] + ":" + v;
+                            value_strings.Add(_s);
+                        }
+                        i++;
+                    }
+
+                    string display_text =  Type + " => [" + string.Join(" / ", value_strings) + "]";
+
+                    return display_text;
+                }catch(Exception e) { }
+
+                return Type.ToString();
             }
         }
 

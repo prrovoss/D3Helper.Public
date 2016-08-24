@@ -147,6 +147,8 @@ namespace D3Helper.A_Handler.SkillHandler
             }
             catch { return new Dictionary<int, List<CastCondition>>(); }
         }
+
+
         private static bool evaluate_Condition(CastCondition Condition, List<CastCondition> ConditionGroup , SkillPower _SkillPower, int EquippedRune, out bool IsTimedCast, out bool ShouldChannel, out int ChannelTicks)
         {
             IsTimedCast = false;
@@ -367,7 +369,7 @@ namespace D3Helper.A_Handler.SkillHandler
                         return A_Tools.T_LocalPlayer.getBuffCount((int) Values[0], (int) Values[1]) >= Values[2];
 
                     case ConditionType.Player_IsNotBuffCount:
-                        return A_Tools.T_LocalPlayer.getBuffCount((int) Values[0], (int) Values[1]) < Values[2];
+                        return A_Tools.T_LocalPlayer.getBuffCount((int) Values[0], (int) Values[1]) < Values[2]; //Condition description says less or equal. code or description wrong? probably description
 
                     case ConditionType.PartyMember_InRangeIsBuff:
                         int Count_PartyMembersInRange = 0;

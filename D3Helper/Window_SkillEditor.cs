@@ -985,6 +985,7 @@ namespace D3Helper
         }
 
 
+        private ToolTip CB_ConditionSelection_tooltip = new ToolTip();
 
         private void CB_ConditionSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -995,6 +996,17 @@ namespace D3Helper
             ConditionType _type = (ConditionType)_selected.Value;
 
             CastCondition _default = Presets.DefaultCastConditions._Default_CastConditions.FirstOrDefault(x => x.Type == _type);
+
+
+
+
+
+            //assign tooltip;
+            string text = CB_ConditionSelection.GetItemText(_selected);
+            string t_text = ConditionTypeHelper.getTooltip(text);
+            CB_ConditionSelection_tooltip.SetToolTip(CB_ConditionSelection, t_text);
+
+
 
             Panel_ConditionEditor_Values.Controls.Clear();
 
