@@ -1846,7 +1846,10 @@ namespace D3Helper
                     case ConditionType.Key_ForceStandStill:
                     return true;
 
-                    case ConditionType.Add_Property_TimedUse:
+                    case ConditionType.Key_ForceMove:
+                    return true;
+
+                case ConditionType.Add_Property_TimedUse:
                     return true;
 
                 case ConditionType.SelectedMonster_MonstersInRange_IsBuffActive:

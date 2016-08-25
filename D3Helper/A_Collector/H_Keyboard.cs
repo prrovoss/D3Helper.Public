@@ -141,11 +141,32 @@ namespace D3Helper.A_Collector
 
                     KeyboardState deviceState = Window_Main.keyboard.GetCurrentState();
 
-
                     lock (A_Collection.Hotkeys._PressedKeys)
                         A_Collection.Hotkeys._PressedKeys = deviceState.PressedKeys.ToList();
 
-                   
+
+
+                    //collect pressed mouse buttons
+                    lock (A_Collection.Hotkeys._pressedMouseButtons)
+                    {
+                        MouseState mouseState = Window_Main.mouse.GetCurrentState();
+
+                        List<MouseObject> _tempList = new List<MouseObject>();
+                        foreach (int mouseKeyCode in Enum.GetValues(typeof(MouseObject)))
+                        {
+                            if(mouseKeyCode < (int)MouseObject.XAxis)
+                            {
+                                if (mouseState.IsPressed(mouseKeyCode))
+                                {
+                                    _tempList.Add((MouseObject)mouseKeyCode);
+                                }
+                            }
+                        }
+
+                        A_Collection.Hotkeys._pressedMouseButtons = _tempList;
+                    }
+
+
                     foreach (var hotkey in A_Collection.Hotkeys.D3Helper_Hotkeys)
                     {
                         if (hotkey.Key.Key == Key.Unknown)
@@ -366,9 +387,41 @@ namespace D3Helper.A_Collector
         {
             try
             {
+
                 A_Collection.Hotkeys.IngameKeys.IsForceStandStill = 
                     A_Collection.Hotkeys._PressedKeys.Contains(A_Tools.InputSimulator.IS_Keyboard.convert_KeyToSlimDxKey(A_Collection.Preferences.Hotkeys.Key1_ForceStandStill)) ||
                     A_Collection.Hotkeys._PressedKeys.Contains(A_Tools.InputSimulator.IS_Keyboard.convert_KeyToSlimDxKey(A_Collection.Preferences.Hotkeys.Key2_ForceStandStill));
+
+                Key key_1 = A_Tools.InputSimulator.IS_Keyboard.convert_KeyToSlimDxKey(A_Collection.Preferences.Hotkeys.Key1_ForceMove);
+                Key key_2 = A_Tools.InputSimulator.IS_Keyboard.convert_KeyToSlimDxKey(A_Collection.Preferences.Hotkeys.Key2_ForceMove);
+                if(key_1 == Key.Unknown && key_2 == Key.Unknown)
+                {
+
+                    if(A_Collection.Hotkeys._pressedMouseButtons.Count > 0)
+                    {
+
+                        //try mouse read
+                        MouseObject m_1 =  A_Tools.InputSimulator.IS_Keyboard.convert_KeyToMouseObject(A_Collection.Preferences.Hotkeys.Key1_ForceMove);
+                        MouseObject m_2 = A_Tools.InputSimulator.IS_Keyboard.convert_KeyToMouseObject(A_Collection.Preferences.Hotkeys.Key1_ForceMove);
+
+                        A_Collection.Hotkeys.IngameKeys.isForceMove = A_Collection.Hotkeys._pressedMouseButtons.Contains(m_1) || A_Collection.Hotkeys._pressedMouseButtons.Contains(m_2);
+
+                        //if (A_Collection.Hotkeys.IngameKeys.isForceMove)
+                        //    System.Windows.MessageBox.Show("Force Move pressed!");
+
+                    }
+
+                }
+                else
+                {
+                    A_Collection.Hotkeys.IngameKeys.isForceMove =
+                        A_Collection.Hotkeys._PressedKeys.Contains(key_1) ||
+                        A_Collection.Hotkeys._PressedKeys.Contains(key_2);
+
+                }
+
+                
+
 
                 A_Collection.Hotkeys.IngameKeys.IsTownPortal =
                     A_Collection.Hotkeys._PressedKeys.Contains(A_Tools.InputSimulator.IS_Keyboard.convert_KeyToSlimDxKey(A_Collection.Preferences.Hotkeys.Key1_Townportal)) ||

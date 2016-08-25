@@ -155,7 +155,7 @@ namespace D3Helper
                         
         public static SlimDX.DirectInput.DirectInput directInput;
         public static SlimDX.DirectInput.Keyboard keyboard;
-       
+        public static SlimDX.DirectInput.Mouse mouse;
 
         private void Window_Main_Load(object sender, EventArgs e)
         {
@@ -197,8 +197,11 @@ namespace D3Helper
             directInput = new DirectInput();
             keyboard = new SlimDX.DirectInput.Keyboard(directInput);
             keyboard.Acquire();
-           
-           
+
+            mouse = new SlimDX.DirectInput.Mouse(directInput);
+            mouse.Acquire();
+
+
             Point d3helpermainwindowpos = Properties.Settings.Default.D3Helper_MainForm_StartPosition;
             var screens = Screen.AllScreens.OrderByDescending(x => x.Bounds.X);
 

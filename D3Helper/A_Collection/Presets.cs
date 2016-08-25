@@ -332,6 +332,7 @@ namespace D3Helper.A_Collection
             new CastCondition(0, ConditionType.MonstersInRange_IsNotBuffCount, new double[] {0,0,0}, new ConditionValueName[] {ConditionValueName.PowerSNO, ConditionValueName.AttribID, ConditionValueName.Value}),
             new CastCondition(0, ConditionType.Player_IsDestructableSelected, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.Key_ForceStandStill, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
+            new CastCondition(0, ConditionType.Key_ForceMove, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.Add_Property_TimedUse, new double[] {0}, new ConditionValueName[] {ConditionValueName.Value}),
             new CastCondition(0, ConditionType.SelectedMonster_MonstersInRange_IsBuffActive, new double[] {0,0,0}, new ConditionValueName[] {ConditionValueName.PowerSNO, ConditionValueName.Value, ConditionValueName.Bool, }),
             new CastCondition(0, ConditionType.SelectedMonster_MonstersInRange_IsBuffNotActive, new double[] {0,0,0}, new ConditionValueName[] {ConditionValueName.PowerSNO, ConditionValueName.Value, ConditionValueName.Bool, }),

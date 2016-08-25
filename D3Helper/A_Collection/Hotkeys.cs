@@ -21,7 +21,9 @@ namespace D3Helper.A_Collection
     {
         public static SlimDX.DirectInput.Key lastprocessedHotkey = new SlimDX.DirectInput.Key();
 
-        public static List<Key> _PressedKeys = new List<Key>(); 
+        public static List<Key> _PressedKeys = new List<Key>();
+
+        public static List<MouseObject> _pressedMouseButtons = new List<MouseObject>();
 
         public static Dictionary<Hotkey, string> D3Helper_Hotkeys = new Dictionary<Hotkey, string>();
 
@@ -29,6 +31,7 @@ namespace D3Helper.A_Collection
         {
             public static bool IsForceStandStill;
             public static bool IsTownPortal;
+            public static bool isForceMove;
         }
     }
 }

@@ -1004,6 +1004,13 @@ namespace D3Helper.A_Tools.InputSimulator
                 case Key.Z:
                     return VirtualKeyCode.VK_Z;
 
+                case Key.Mouse1:
+                    return VirtualKeyCode.LBUTTON;
+
+                case Key.Mouse2:
+                    return VirtualKeyCode.RBUTTON;
+
+
                 default:
                     return VirtualKeyCode.NONAME;
             }
@@ -1372,6 +1379,32 @@ namespace D3Helper.A_Tools.InputSimulator
                     return SlimDX.DirectInput.Key.Unknown;
             }
         }
+
+        public static SlimDX.DirectInput.MouseObject convert_KeyToMouseObject(Enigma.D3.Enums.Key Key)
+        {
+            switch (Key)
+            {
+                case Enigma.D3.Enums.Key.Mouse1:
+                    return SlimDX.DirectInput.MouseObject.Button1;
+                case Enigma.D3.Enums.Key.Mouse2:
+                    return SlimDX.DirectInput.MouseObject.Button2;
+                case Enigma.D3.Enums.Key.Mouse3:
+                    return SlimDX.DirectInput.MouseObject.Button3;
+                case Enigma.D3.Enums.Key.Mouse4:
+                    return SlimDX.DirectInput.MouseObject.Button4;
+                case Enigma.D3.Enums.Key.Mouse5:
+                    return SlimDX.DirectInput.MouseObject.Button5;
+                //case Enigma.D3.Enums.Key.MWheelUp:
+                //    return SlimDX.DirectInput.MouseObject.
+                //case Enigma.D3.Enums.Key.MWheelDown:
+                //    return SlimDX.DirectInput.Mouse
+
+                default:
+                    return SlimDX.DirectInput.MouseObject.Button8;
+
+            }
+        }
+
         public static SlimDX.DirectInput.Key convert_KeyToSlimDxKey(Enigma.D3.Enums.Key Key)
         {
             switch (Key)

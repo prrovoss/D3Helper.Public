@@ -767,6 +767,11 @@ namespace D3Helper.A_Handler.SkillHandler
                             return Hotkeys.IngameKeys.IsForceStandStill;
                         return !Hotkeys.IngameKeys.IsForceStandStill;
 
+                    case ConditionType.Key_ForceMove:
+                        if (Values[0] == 1)
+                            return Hotkeys.IngameKeys.isForceMove;
+                        return !Hotkeys.IngameKeys.isForceMove;
+
                     case ConditionType.Add_Property_TimedUse:
                         IsTimedCast = true;
                         if (A_Handler.SkillHandler.SkillHandler._CastTimes.ContainsKey(SkillPower.PowerSNO))
