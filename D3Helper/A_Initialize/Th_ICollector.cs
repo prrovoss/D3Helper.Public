@@ -7,6 +7,7 @@ using System.Threading;
 using System.Diagnostics;
 
 using Enigma.D3;
+using Enigma.D3.Memory;
 
 namespace D3Helper.A_Initialize
 {
@@ -25,7 +26,10 @@ namespace D3Helper.A_Initialize
         }
         private static void Execute()
         {
-            while(Engine.Create() == null) { System.Threading.Thread.Sleep(50); }
+            EngineOptions engineOptions = new EngineOptions();
+            engineOptions.VersionMatching = VersionMatching.MajorMinorBuild;
+
+            while(Engine.Create(engineOptions) == null) { System.Threading.Thread.Sleep(50); }
 
             
             while (Engine.Current == null) { System.Threading.Thread.Sleep(1); }
