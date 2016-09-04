@@ -468,12 +468,12 @@
 95940	3	2	200	-1	-1	-1	Monk_FistsofThunder	Static Charge
 95940	4	0	200	-1	-1	-1	Monk_FistsofThunder	Quickening
 95940	5	3	200	-1	-1	-1	Monk_FistsofThunder	Wind Blast
-111676	0	0	755	-1	30	-1	Monk_LashingTailKick	No Rune
-111676	1	1	755	-1	30	-1	Monk_LashingTailKick	Vulture Claw Kick
-111676	2	1	755	-1	30	-1	Monk_LashingTailKick	Spinning Flame Kick
-111676	3	3	755	-1	30	-1	Monk_LashingTailKick	Hand of Ytar
-111676	4	0	825	-1	30	-1	Monk_LashingTailKick	Sweeping Armada
-111676	5	2	755	-1	30	-1	Monk_LashingTailKick	Scorpion Sting
+111676	0	0	755	-1	50	-1	Monk_LashingTailKick	No Rune
+111676	1	1	755	-1	50	-1	Monk_LashingTailKick	Vulture Claw Kick
+111676	2	1	755	-1	50	-1	Monk_LashingTailKick	Spinning Flame Kick
+111676	3	3	755	-1	50	-1	Monk_LashingTailKick	Hand of Ytar
+111676	4	0	825	-1	50	-1	Monk_LashingTailKick	Sweeping Armada
+111676	5	2	755	-1	50	-1	Monk_LashingTailKick	Scorpion Sting
 96215	0	-1	-1	-1	-1	16	Monk_Serenity	No Rune
 96215	1	-1	-1	-1	-1	16	Monk_Serenity	Peaceful Repose
 96215	2	-1	-1	-1	-1	16	Monk_Serenity	Instant Karma
