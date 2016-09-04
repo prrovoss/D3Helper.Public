@@ -185,8 +185,37 @@ namespace D3Helper.A_Handler.SkillHandler
                 //    null && A_Tools.T_LocalPlayer.isBuff((int)318790))
                 //    isFireReduce = true;
 
-                List<double> Values = Condition.Values.ToList();
 
+                //-----------------------------------------------------------------------
+
+                //return false if whole conditiongroup is disabled
+                bool allConditionsDisabled = true;
+                foreach(CastCondition c in ConditionGroup)
+                {
+                    if (c.enabled)
+                    {
+                        allConditionsDisabled = false;
+                        break;
+                    }
+                }
+
+                if (allConditionsDisabled)
+                {
+                    return false;
+                }
+
+
+
+                //ignore this condition only?
+                if (!Condition.enabled)
+                {
+                    return true;
+                }
+
+                //-----------------------------------------------------------------------
+
+                
+                List<double> Values = Condition.Values.ToList();
 
                 switch (Condition.Type)
                 {

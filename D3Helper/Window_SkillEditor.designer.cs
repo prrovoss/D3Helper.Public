@@ -57,6 +57,9 @@
             this.listBox_conditions = new System.Windows.Forms.ListBox();
             this.button_skillimage = new System.Windows.Forms.Button();
             this.listBox_skills = new System.Windows.Forms.ListBox();
+            this.textBox_condition_comment = new System.Windows.Forms.TextBox();
+            this.checkBox_condition_enabled = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.Panel_Add_Edit_Skill.SuspendLayout();
             this.Panel_ConditionEditor.SuspendLayout();
             this.SuspendLayout();
@@ -198,7 +201,7 @@
             this.BTN_Condition_Add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_Condition_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_Condition_Add.Image = global::D3Helper.Properties.Resources.add;
-            this.BTN_Condition_Add.Location = new System.Drawing.Point(136, 86);
+            this.BTN_Condition_Add.Location = new System.Drawing.Point(136, 115);
             this.BTN_Condition_Add.Name = "BTN_Condition_Add";
             this.BTN_Condition_Add.Size = new System.Drawing.Size(30, 30);
             this.BTN_Condition_Add.TabIndex = 8;
@@ -214,7 +217,7 @@
             this.BTN_ConditionEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_ConditionEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_ConditionEdit.Image = global::D3Helper.Properties.Resources._0pvBq;
-            this.BTN_ConditionEdit.Location = new System.Drawing.Point(172, 86);
+            this.BTN_ConditionEdit.Location = new System.Drawing.Point(172, 115);
             this.BTN_ConditionEdit.Name = "BTN_ConditionEdit";
             this.BTN_ConditionEdit.Size = new System.Drawing.Size(30, 30);
             this.BTN_ConditionEdit.TabIndex = 8;
@@ -230,7 +233,7 @@
             this.BTN_ContitionRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_ContitionRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_ContitionRemove.Image = global::D3Helper.Properties.Resources._120px_Crystal_128_trashcan_full;
-            this.BTN_ContitionRemove.Location = new System.Drawing.Point(6, 86);
+            this.BTN_ContitionRemove.Location = new System.Drawing.Point(6, 115);
             this.BTN_ContitionRemove.Name = "BTN_ContitionRemove";
             this.BTN_ContitionRemove.Size = new System.Drawing.Size(30, 30);
             this.BTN_ContitionRemove.TabIndex = 8;
@@ -311,29 +314,33 @@
             // Panel_ConditionEditor
             // 
             this.Panel_ConditionEditor.BackColor = System.Drawing.Color.Transparent;
+            this.Panel_ConditionEditor.Controls.Add(this.label4);
+            this.Panel_ConditionEditor.Controls.Add(this.checkBox_condition_enabled);
+            this.Panel_ConditionEditor.Controls.Add(this.textBox_condition_comment);
             this.Panel_ConditionEditor.Controls.Add(this.BTN_ContitionRemove);
             this.Panel_ConditionEditor.Controls.Add(this.BTN_ConditionEdit);
             this.Panel_ConditionEditor.Controls.Add(this.BTN_Condition_Add);
             this.Panel_ConditionEditor.Controls.Add(this.Panel_ConditionEditor_Values);
             this.Panel_ConditionEditor.Controls.Add(this.CB_ConditionSelection);
-            this.Panel_ConditionEditor.Location = new System.Drawing.Point(372, 415);
+            this.Panel_ConditionEditor.Location = new System.Drawing.Point(372, 386);
             this.Panel_ConditionEditor.Name = "Panel_ConditionEditor";
-            this.Panel_ConditionEditor.Size = new System.Drawing.Size(609, 123);
+            this.Panel_ConditionEditor.Size = new System.Drawing.Size(609, 152);
             this.Panel_ConditionEditor.TabIndex = 2;
+            this.Panel_ConditionEditor.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_ConditionEditor_Paint);
             // 
             // Panel_ConditionEditor_Values
             // 
             this.Panel_ConditionEditor_Values.Location = new System.Drawing.Point(260, 0);
             this.Panel_ConditionEditor_Values.Name = "Panel_ConditionEditor_Values";
-            this.Panel_ConditionEditor_Values.Size = new System.Drawing.Size(349, 123);
+            this.Panel_ConditionEditor_Values.Size = new System.Drawing.Size(349, 152);
             this.Panel_ConditionEditor_Values.TabIndex = 9;
             // 
             // CB_ConditionSelection
             // 
             this.CB_ConditionSelection.FormattingEnabled = true;
-            this.CB_ConditionSelection.Location = new System.Drawing.Point(3, 6);
+            this.CB_ConditionSelection.Location = new System.Drawing.Point(3, 3);
             this.CB_ConditionSelection.Name = "CB_ConditionSelection";
-            this.CB_ConditionSelection.Size = new System.Drawing.Size(251, 21);
+            this.CB_ConditionSelection.Size = new System.Drawing.Size(254, 21);
             this.CB_ConditionSelection.TabIndex = 8;
             this.CB_ConditionSelection.SelectedIndexChanged += new System.EventHandler(this.CB_ConditionSelection_SelectedIndexChanged);
             // 
@@ -342,17 +349,19 @@
             this.listBox_conditionsets.FormattingEnabled = true;
             this.listBox_conditionsets.Location = new System.Drawing.Point(375, 38);
             this.listBox_conditionsets.Name = "listBox_conditionsets";
-            this.listBox_conditionsets.Size = new System.Drawing.Size(147, 368);
+            this.listBox_conditionsets.Size = new System.Drawing.Size(147, 342);
             this.listBox_conditionsets.TabIndex = 12;
             this.listBox_conditionsets.SelectedIndexChanged += new System.EventHandler(this.listBox_conditionsets_SelectedIndexChanged);
             // 
             // listBox_conditions
             // 
+            this.listBox_conditions.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBox_conditions.FormattingEnabled = true;
             this.listBox_conditions.Location = new System.Drawing.Point(528, 38);
             this.listBox_conditions.Name = "listBox_conditions";
-            this.listBox_conditions.Size = new System.Drawing.Size(453, 368);
+            this.listBox_conditions.Size = new System.Drawing.Size(453, 342);
             this.listBox_conditions.TabIndex = 13;
+            this.listBox_conditions.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox_conditions_DrawItem);
             this.listBox_conditions.SelectedIndexChanged += new System.EventHandler(this.listBox_conditions_SelectedIndexChanged);
             // 
             // button_skillimage
@@ -371,6 +380,36 @@
             this.listBox_skills.Size = new System.Drawing.Size(281, 368);
             this.listBox_skills.TabIndex = 17;
             this.listBox_skills.SelectedIndexChanged += new System.EventHandler(this.listBox_skills_SelectedIndexChanged);
+            // 
+            // textBox_condition_comment
+            // 
+            this.textBox_condition_comment.Location = new System.Drawing.Point(3, 77);
+            this.textBox_condition_comment.Name = "textBox_condition_comment";
+            this.textBox_condition_comment.Size = new System.Drawing.Size(254, 20);
+            this.textBox_condition_comment.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.textBox_condition_comment, "comment for this condition");
+            // 
+            // checkBox_condition_enabled
+            // 
+            this.checkBox_condition_enabled.AutoSize = true;
+            this.checkBox_condition_enabled.Checked = true;
+            this.checkBox_condition_enabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_condition_enabled.Location = new System.Drawing.Point(3, 30);
+            this.checkBox_condition_enabled.Name = "checkBox_condition_enabled";
+            this.checkBox_condition_enabled.Size = new System.Drawing.Size(120, 17);
+            this.checkBox_condition_enabled.TabIndex = 11;
+            this.checkBox_condition_enabled.Text = "condition is enabled";
+            this.toolTip1.SetToolTip(this.checkBox_condition_enabled, "uncheck if this condition should be ignored");
+            this.checkBox_condition_enabled.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "comment";
             // 
             // Window_SkillEditor
             // 
@@ -402,6 +441,7 @@
             this.Panel_Add_Edit_Skill.ResumeLayout(false);
             this.Panel_Add_Edit_Skill.PerformLayout();
             this.Panel_ConditionEditor.ResumeLayout(false);
+            this.Panel_ConditionEditor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -435,6 +475,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBox_skills;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBox_condition_enabled;
+        private System.Windows.Forms.TextBox textBox_condition_comment;
+        private System.Windows.Forms.Label label4;
     }
 }
 

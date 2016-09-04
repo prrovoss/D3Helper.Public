@@ -11,6 +11,7 @@ using D3Helper.A_Enums;
 using D3Helper.A_Handler.SkillBuildSwap;
 using ProtoBuf;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace D3Helper.A_Tools
 {
@@ -716,7 +717,7 @@ namespace D3Helper.A_Tools
             }
 
             [ProtoContract]
-            private struct _CastCondition
+            private class _CastCondition
             {
                 [ProtoMember(1)]
                 public int ConditionGroup { get; set; }
@@ -729,6 +730,14 @@ namespace D3Helper.A_Tools
 
                 [ProtoMember(4)]
                 public ConditionValueName[] ValueNames { get; set; }
+
+                [ProtoMember(5, IsRequired = false)]
+                [DefaultValue(true)]
+                public bool _enabled { get; set; } = true;
+
+                [ProtoMember(6,IsRequired = false)]
+                public string comment { get; set; }
+
             }
 
             [ProtoContract]
@@ -942,6 +951,9 @@ namespace D3Helper.A_Tools
                         newConditions.ValueNames = condition.ValueNames;
                         newConditions.Values = condition.Values;
 
+                        newConditions.comment = condition.comment;
+                        newConditions._enabled = condition.enabled;
+
                         CastConditions.Add(newConditions);
                     }
 
@@ -1025,6 +1037,9 @@ namespace D3Helper.A_Tools
                         {
                             CastCondition newCondition = new CastCondition(condition.ConditionGroup, condition.Type,
                                 condition.Values, condition.ValueNames);
+
+                            newCondition.comment = condition.comment;
+                            newCondition.enabled = condition._enabled;
 
                             CastConditions.Add(newCondition);
                         }

@@ -831,10 +831,14 @@ namespace D3Helper
                     newGroupId = conditionGroup.ConditionGroupValue;
                 }
 
-
-                _SelectedSkill.CastConditions.Add(new CastCondition(newGroupId, global_castCondition_to_copy.Type, global_castCondition_to_copy.Values.ToArray(),
+                CastCondition newCastCond = new CastCondition(newGroupId, global_castCondition_to_copy.Type, global_castCondition_to_copy.Values.ToArray(),
                     A_Collection.Presets.DefaultCastConditions._Default_CastConditions.FirstOrDefault(
-                        x => x.Type == global_castCondition_to_copy.Type).ValueNames));
+                        x => x.Type == global_castCondition_to_copy.Type).ValueNames);
+
+                newCastCond.enabled = global_castCondition_to_copy.enabled;
+                newCastCond.comment = global_castCondition_to_copy.comment;
+
+                _SelectedSkill.CastConditions.Add(newCastCond);
 
                 Update_PanelSelectedSkillDetails();
 
@@ -1083,6 +1087,10 @@ namespace D3Helper
         {
             Panel_ConditionEditor_Values.Controls.Clear();
 
+            checkBox_condition_enabled.Checked = _SelectedCondition.enabled;
+            textBox_condition_comment.Text = _SelectedCondition.comment;
+
+
             for (int i = 0; i < _SelectedCondition.Values.Count(); i++)
             {
                 if (_SelectedCondition.ValueNames[i] != ConditionValueName.Bool)
@@ -1108,6 +1116,7 @@ namespace D3Helper
                             SnoTextLabel.Text  = powername;
                             SnoTextLabel.Left  = Value.Right + 2;
                             SnoTextLabel.Top   = Value.Top;
+                            SnoTextLabel.Width = 200;
 
                             Panel_ConditionEditor_Values.Controls.Add(SnoTextLabel);
                         }
@@ -2159,6 +2168,9 @@ namespace D3Helper
                     A_Collection.Presets.DefaultCastConditions._Default_CastConditions.First(x => x.Type == Type)
                         .ValueNames;
 
+                _SelectedCondition.enabled = checkBox_condition_enabled.Checked;
+                _SelectedCondition.comment = textBox_condition_comment.Text;
+
                 Update_PanelSelectedSkillDetails();
             }
         }
@@ -2279,6 +2291,41 @@ namespace D3Helper
             listBox_conditionsets_SelectedIndexChanged(this.listBox_conditionsets, null);
         }
 
+        private void listBox_conditions_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            CastCondition item = listBox_conditions.Items[e.Index] as CastCondition;
+            if (item != null)
+            {
+                Brush brush = Brushes.Black;
+
+                if (!item.enabled)
+                {
+                    CastCondition s = listBox_conditions.SelectedItem as CastCondition;
+                    if(s != null && s.Equals(item))
+                    {
+                        brush = Brushes.White;
+                    }
+                    else
+                    {
+                        brush = Brushes.Gray;
+                    }
+                }
+
+                e.Graphics.DrawString( 
+                    item.DisplayText, 
+                    listBox_conditions.Font,
+                    brush,
+                    e.Bounds
+                );
+            }
+        }
+
+        private void Panel_ConditionEditor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 }

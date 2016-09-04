@@ -173,6 +173,9 @@ namespace D3Helper.A_Collection
             this.Type = type;
             this.Values = values;
             this.ValueNames = valuenames;
+
+            this.comment = null;
+            this.enabled = true;
         }
         
         public int ConditionGroup { get; set; }
@@ -182,6 +185,10 @@ namespace D3Helper.A_Collection
         public double[] Values { get; set; }
         
         public ConditionValueName[] ValueNames { get; set; }
+
+        public string comment { get; set; }
+
+        public bool enabled { get; set; }
 
 
         //displaytext for listbox with some extended condition information in brackets
@@ -209,6 +216,11 @@ namespace D3Helper.A_Collection
                     }
 
                     string display_text =  Type + " => [" + string.Join(" / ", value_strings) + "]";
+
+                    if(comment!= null && comment.Trim().Length > 0)
+                    {
+                        display_text += " //" + comment;
+                    }
 
                     return display_text;
                 }catch(Exception e) { }
