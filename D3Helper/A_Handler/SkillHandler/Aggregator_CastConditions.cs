@@ -171,19 +171,19 @@ namespace D3Helper.A_Handler.SkillHandler
                 lock (A_Collection.Environment.Actors.MonstersInRange)
                     MonstersInRange = A_Collection.Environment.Actors.MonstersInRange.ToList();
 
-                bool isFireReduce = false;
+                //bool isFireReduce = false;
 
-                List<SkillPower> AllSkillPowers;
-                lock (A_Collection.Presets.SkillPowers.AllSkillPowers)
-                    AllSkillPowers = A_Collection.Presets.SkillPowers.AllSkillPowers.ToList();
+                //List<SkillPower> AllSkillPowers;
+                //lock (A_Collection.Presets.SkillPowers.AllSkillPowers)
+                //    AllSkillPowers = A_Collection.Presets.SkillPowers.AllSkillPowers.ToList();
 
-                if (
-                    AllSkillPowers.FirstOrDefault(
-                        x =>
-                            x.PowerSNO == SkillPower.PowerSNO &&
-                            x.Runes.FirstOrDefault(y => y.RuneIndex == EquippedRune)._DamageType == DamageType.Fire) !=
-                    null && A_Tools.T_LocalPlayer.isBuff((int)318790))
-                    isFireReduce = true;
+                //if (
+                //    AllSkillPowers.FirstOrDefault(
+                //        x =>
+                //            x.PowerSNO == SkillPower.PowerSNO &&
+                //            x.Runes.FirstOrDefault(y => y.RuneIndex == EquippedRune)._DamageType == DamageType.Fire) !=
+                //    null && A_Tools.T_LocalPlayer.isBuff((int)318790))
+                //    isFireReduce = true;
 
                 List<double> Values = Condition.Values.ToList();
 
@@ -238,13 +238,13 @@ namespace D3Helper.A_Handler.SkillHandler
                         return Me.HeroDetails.SelectedMonsterACD == null;
 
                     case ConditionType.Player_MinPrimaryResource:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourcePrimary*1.3 >= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourcePrimary*1.3 >= Values[0];
                         return Me.HeroDetails.ResourcePrimary >= Values[0];
 
                     case ConditionType.Player_MinSecondaryResource:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourceSecondary*1.3 >= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourceSecondary*1.3 >= Values[0];
                         return Me.HeroDetails.ResourceSecondary >= Values[0];
 
                     case ConditionType.Player_Skill_IsNotOnCooldown:
@@ -325,13 +325,13 @@ namespace D3Helper.A_Handler.SkillHandler
 
 
                     case ConditionType.Player_MinPrimaryResourcePercentage:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourcePrimary_Percentage*1.3 >= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourcePrimary_Percentage*1.3 >= Values[0];
                         return Me.HeroDetails.ResourcePrimary_Percentage >= Values[0];
 
                     case ConditionType.Player_MinSecondaryResourcePercentage:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourceSecondary_Percentage*1.3 >= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourceSecondary_Percentage*1.3 >= Values[0];
                         return Me.HeroDetails.ResourceSecondary_Percentage >= Values[0];
 
                     case ConditionType.Player_MaxHitpointsPercentage:
@@ -473,23 +473,57 @@ namespace D3Helper.A_Handler.SkillHandler
                         return A_Tools.Skills.Skills.S_Global.get_Charges(SkillPower.PowerSNO) >= Values[0];
 
                     case ConditionType.Player_Skill_MinResource:
+
+                        //calculate real SkillResourceCost with ResourceCostReduction
+                        double SkillResourceCost = SkillPower.ResourceCost;
+                        double RealSkillResourceCost = SkillResourceCost - (SkillResourceCost * A_Collection.Me.HeroDetails.ResourceCostReduction);
+
+
+
+
+                        // if cindercoat equipped. then resource cost -30% for fire skills
+                        bool isCindercoatActive = false;
+
+                        List<SkillPower> AllSkillPowers;
+                        lock (A_Collection.Presets.SkillPowers.AllSkillPowers)
+                            AllSkillPowers = A_Collection.Presets.SkillPowers.AllSkillPowers.ToList();
+
+                        if (
+                            AllSkillPowers.FirstOrDefault(
+                                x =>
+                                    x.PowerSNO == SkillPower.PowerSNO &&
+                                    x.Runes.FirstOrDefault(y => y.RuneIndex == EquippedRune)._DamageType == DamageType.Fire) !=
+                            null && A_Tools.T_LocalPlayer.isBuff((int)318790))
+                            isCindercoatActive = true;
+
+                        if (isCindercoatActive)
+                        {
+                            RealSkillResourceCost = RealSkillResourceCost - (RealSkillResourceCost * 0.3); //-30%
+                        }
+
+
+
                         switch ((int) Values[0])
                         {
                             case 1:
                                 switch (SkillPower.IsPrimaryResource)
                                 {
                                     case true:
-                                        if (isFireReduce)
-                                            return A_Collection.Me.HeroDetails.ResourcePrimary*1.3 >=
-                                                   SkillPower.ResourceCost;
-                                        return A_Collection.Me.HeroDetails.ResourcePrimary >= SkillPower.ResourceCost;
+                                        //if (isFireReduce)
+                                        //    return A_Collection.Me.HeroDetails.ResourcePrimary*1.3 >=
+                                        //           SkillPower.ResourceCost;
+                                        //return A_Collection.Me.HeroDetails.ResourcePrimary >= SkillPower.ResourceCost;
+                                        return A_Collection.Me.HeroDetails.ResourcePrimary >= RealSkillResourceCost;
+
 
                                     case false:
-                                        if (isFireReduce)
-                                            return A_Collection.Me.HeroDetails.ResourceSecondary*1.3 >=
-                                                   SkillPower.ResourceCost*-1;
-                                        return A_Collection.Me.HeroDetails.ResourceSecondary >=
-                                               SkillPower.ResourceCost*-1;
+                                    //if (isFireReduce)
+                                    //    return A_Collection.Me.HeroDetails.ResourceSecondary*1.3 >=
+                                    //           SkillPower.ResourceCost*-1;
+                                    //return A_Collection.Me.HeroDetails.ResourceSecondary >=
+                                    //       SkillPower.ResourceCost*-1;
+                                    return A_Collection.Me.HeroDetails.ResourceSecondary >=
+                                           RealSkillResourceCost * -1;
 
                                     default:
                                         return false;
@@ -499,17 +533,20 @@ namespace D3Helper.A_Handler.SkillHandler
                                 switch (SkillPower.IsPrimaryResource)
                                 {
                                     case true:
-                                        if (isFireReduce)
-                                            return A_Collection.Me.HeroDetails.ResourcePrimary*1.3 <
-                                                   SkillPower.ResourceCost;
-                                        return A_Collection.Me.HeroDetails.ResourcePrimary < SkillPower.ResourceCost;
+                                        //if (isFireReduce)
+                                        //    return A_Collection.Me.HeroDetails.ResourcePrimary*1.3 <
+                                        //           SkillPower.ResourceCost;
+                                        //return A_Collection.Me.HeroDetails.ResourcePrimary < SkillPower.ResourceCost;
+                                        return A_Collection.Me.HeroDetails.ResourcePrimary < RealSkillResourceCost;
 
                                     case false:
-                                        if (isFireReduce)
-                                            return A_Collection.Me.HeroDetails.ResourceSecondary*1.3 <
-                                                   SkillPower.ResourceCost*-1;
+                                        //if (isFireReduce)
+                                        //    return A_Collection.Me.HeroDetails.ResourceSecondary*1.3 <
+                                        //           SkillPower.ResourceCost*-1;
+                                        //return A_Collection.Me.HeroDetails.ResourceSecondary <
+                                        //       SkillPower.ResourceCost*-1;
                                         return A_Collection.Me.HeroDetails.ResourceSecondary <
-                                               SkillPower.ResourceCost*-1;
+                                               RealSkillResourceCost * -1;
 
                                     default:
                                         return false;
@@ -534,23 +571,23 @@ namespace D3Helper.A_Handler.SkillHandler
                         return false;
 
                     case ConditionType.Player_MaxPrimaryResource:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourcePrimary*1.3 <= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourcePrimary*1.3 <= Values[0];
                         return Me.HeroDetails.ResourcePrimary <= Values[0];
 
                     case ConditionType.Player_MaxSecondaryResource:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourceSecondary*1.3 <= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourceSecondary*1.3 <= Values[0];
                         return Me.HeroDetails.ResourceSecondary <= Values[0];
 
                     case ConditionType.Player_MaxPrimaryResourcePercentage:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourcePrimary_Percentage*1.3 <= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourcePrimary_Percentage*1.3 <= Values[0];
                         return Me.HeroDetails.ResourcePrimary_Percentage <= Values[0];
 
                     case ConditionType.Player_MaxSecondaryResourcePercentage:
-                        if (isFireReduce)
-                            return Me.HeroDetails.ResourceSecondary_Percentage*1.3 <= Values[0];
+                        //if (isFireReduce)
+                        //    return Me.HeroDetails.ResourceSecondary_Percentage*1.3 <= Values[0];
                         return Me.HeroDetails.ResourceSecondary_Percentage <= Values[0];
 
                     case ConditionType.Player_IsMoving:

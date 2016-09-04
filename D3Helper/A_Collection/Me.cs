@@ -74,6 +74,7 @@ namespace D3Helper.A_Collection
             public static int CurrentlyUsingPower;
             public static DateTime StandStill_Start;
             public static double SnapShotted_APS;
+            public static double ResourceCostReduction;                                              //0.1 = 10%, cindercoat not included
             
             //
         }

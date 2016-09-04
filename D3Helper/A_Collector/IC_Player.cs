@@ -369,11 +369,16 @@ namespace D3Helper.A_Collector
                     double resourceNow = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.ResourceCur, ResourceType_Primary);
                     double resourceTotal = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.ResourceMaxTotal, ResourceType_Primary);
                     double resourcecostreduce = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.ResourceCostReductionPercentAll);
-                    double resourcemultiplier = 1 + resourcecostreduce;
-                   
+                    //double resourcemultiplier = 1 + resourcecostreduce;
 
-                    A_Collection.Me.HeroDetails.ResourcePrimary = resourceNow * resourcemultiplier;
-                    A_Collection.Me.HeroDetails.ResourcePrimary_Percentage = (resourceNow / resourceTotal * 100) * resourcemultiplier;
+
+                    //A_Collection.Me.HeroDetails.ResourcePrimary = resourceNow * resourcemultiplier;
+                    //A_Collection.Me.HeroDetails.ResourcePrimary_Percentage = (resourceNow / resourceTotal * 100) * resourcemultiplier;
+
+                    A_Collection.Me.HeroDetails.ResourcePrimary = resourceNow;
+                    A_Collection.Me.HeroDetails.ResourcePrimary_Percentage = (resourceNow / resourceTotal * 100);
+
+                    A_Collection.Me.HeroDetails.ResourceCostReduction = resourcecostreduce;
 
                 }
             }
@@ -394,11 +399,14 @@ namespace D3Helper.A_Collector
 
                     double resourceNow = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.ResourceCur, ResourceType_Secondary);
                     double resourceTotal = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.ResourceMaxTotal, ResourceType_Secondary);
-                    double resourcecostreduce = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.ResourceCostReductionPercentAll);
-                    double resourcemultiplier = 1 + resourcecostreduce;
+                    //double resourcecostreduce = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.ResourceCostReductionPercentAll);
+                    //double resourcemultiplier = 1 + resourcecostreduce;
 
-                    A_Collection.Me.HeroDetails.ResourceSecondary = resourceNow * resourcemultiplier;
-                    A_Collection.Me.HeroDetails.ResourceSecondary_Percentage = (resourceNow / resourceTotal * 100) * resourcemultiplier;
+                    //A_Collection.Me.HeroDetails.ResourceSecondary = resourceNow * resourcemultiplier;
+                    //A_Collection.Me.HeroDetails.ResourceSecondary_Percentage = (resourceNow / resourceTotal * 100) * resourcemultiplier;
+
+                    A_Collection.Me.HeroDetails.ResourceSecondary = resourceNow ;
+                    A_Collection.Me.HeroDetails.ResourceSecondary_Percentage = (resourceNow / resourceTotal * 100);
                 }
             }
             catch (Exception e)
