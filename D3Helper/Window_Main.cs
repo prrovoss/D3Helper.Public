@@ -31,7 +31,7 @@ namespace D3Helper
     
     public partial class Window_Main : Form
     {
-        public static Form d3helperform;
+        public static Window_Main d3helperform;
         public static DateTime Start = DateTime.Now;
         public static PrivateFontCollection _FontCollection = new PrivateFontCollection();
 
@@ -107,7 +107,7 @@ namespace D3Helper
         }
 
 
-        private bool SupportedProcessVersion()
+        public bool SupportedProcessVersion()
         {
             Version fileVersion = GetFileVersion();
 

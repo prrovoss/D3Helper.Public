@@ -24,6 +24,7 @@ namespace D3Helper
             }
         }
 
+        /*----------------------------------------------------------------*/
 
         BindingSource conditionsBinding = new BindingSource();
         BindingSource conditionsSetBinding = new BindingSource();
@@ -61,9 +62,28 @@ namespace D3Helper
 
         public static Window_SkillEditor _this = null;
 
+        /*----------------------------------------------------------------*/
+
+
+        public new void Show()
+        {
+            //Skill Editor will crash if Diablo is not running
+            if (!Window_Main.d3helperform.SupportedProcessVersion())
+            {
+                MessageBox.Show("Please run Diablo III first!");
+                return;
+            }
+            this.Show();
+        }
+
 
         public Window_SkillEditor()
         {
+
+            if (!Window_Main.d3helperform.SupportedProcessVersion())
+            {
+                return;
+            }
 
             InitializeComponent();
 
@@ -2333,5 +2353,6 @@ namespace D3Helper
             }
         }
     }
+
 
 }
