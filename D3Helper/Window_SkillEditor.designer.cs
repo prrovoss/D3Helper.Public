@@ -50,16 +50,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBox_condition_comment = new System.Windows.Forms.TextBox();
+            this.checkBox_condition_enabled = new System.Windows.Forms.CheckBox();
             this.Panel_ConditionEditor = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.Panel_ConditionEditor_Values = new System.Windows.Forms.Panel();
             this.CB_ConditionSelection = new System.Windows.Forms.ComboBox();
             this.listBox_conditionsets = new System.Windows.Forms.ListBox();
             this.listBox_conditions = new System.Windows.Forms.ListBox();
             this.button_skillimage = new System.Windows.Forms.Button();
             this.listBox_skills = new System.Windows.Forms.ListBox();
-            this.textBox_condition_comment = new System.Windows.Forms.TextBox();
-            this.checkBox_condition_enabled = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.Panel_Add_Edit_Skill.SuspendLayout();
             this.Panel_ConditionEditor.SuspendLayout();
             this.SuspendLayout();
@@ -311,6 +311,27 @@
             this.label3.Text = "Skills";
             this.toolTip1.SetToolTip(this.label3, "All Condition Groups are connected with logical OR operator");
             // 
+            // textBox_condition_comment
+            // 
+            this.textBox_condition_comment.Location = new System.Drawing.Point(3, 77);
+            this.textBox_condition_comment.Name = "textBox_condition_comment";
+            this.textBox_condition_comment.Size = new System.Drawing.Size(254, 20);
+            this.textBox_condition_comment.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.textBox_condition_comment, "comment for this condition");
+            // 
+            // checkBox_condition_enabled
+            // 
+            this.checkBox_condition_enabled.AutoSize = true;
+            this.checkBox_condition_enabled.Checked = true;
+            this.checkBox_condition_enabled.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_condition_enabled.Location = new System.Drawing.Point(3, 30);
+            this.checkBox_condition_enabled.Name = "checkBox_condition_enabled";
+            this.checkBox_condition_enabled.Size = new System.Drawing.Size(120, 17);
+            this.checkBox_condition_enabled.TabIndex = 11;
+            this.checkBox_condition_enabled.Text = "condition is enabled";
+            this.toolTip1.SetToolTip(this.checkBox_condition_enabled, "uncheck if this condition should be ignored");
+            this.checkBox_condition_enabled.UseVisualStyleBackColor = true;
+            // 
             // Panel_ConditionEditor
             // 
             this.Panel_ConditionEditor.BackColor = System.Drawing.Color.Transparent;
@@ -326,7 +347,15 @@
             this.Panel_ConditionEditor.Name = "Panel_ConditionEditor";
             this.Panel_ConditionEditor.Size = new System.Drawing.Size(609, 152);
             this.Panel_ConditionEditor.TabIndex = 2;
-            this.Panel_ConditionEditor.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_ConditionEditor_Paint);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "comment";
             // 
             // Panel_ConditionEditor_Values
             // 
@@ -380,36 +409,6 @@
             this.listBox_skills.Size = new System.Drawing.Size(281, 368);
             this.listBox_skills.TabIndex = 17;
             this.listBox_skills.SelectedIndexChanged += new System.EventHandler(this.listBox_skills_SelectedIndexChanged);
-            // 
-            // textBox_condition_comment
-            // 
-            this.textBox_condition_comment.Location = new System.Drawing.Point(3, 77);
-            this.textBox_condition_comment.Name = "textBox_condition_comment";
-            this.textBox_condition_comment.Size = new System.Drawing.Size(254, 20);
-            this.textBox_condition_comment.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.textBox_condition_comment, "comment for this condition");
-            // 
-            // checkBox_condition_enabled
-            // 
-            this.checkBox_condition_enabled.AutoSize = true;
-            this.checkBox_condition_enabled.Checked = true;
-            this.checkBox_condition_enabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_condition_enabled.Location = new System.Drawing.Point(3, 30);
-            this.checkBox_condition_enabled.Name = "checkBox_condition_enabled";
-            this.checkBox_condition_enabled.Size = new System.Drawing.Size(120, 17);
-            this.checkBox_condition_enabled.TabIndex = 11;
-            this.checkBox_condition_enabled.Text = "condition is enabled";
-            this.toolTip1.SetToolTip(this.checkBox_condition_enabled, "uncheck if this condition should be ignored");
-            this.checkBox_condition_enabled.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 61);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "comment";
             // 
             // Window_SkillEditor
             // 

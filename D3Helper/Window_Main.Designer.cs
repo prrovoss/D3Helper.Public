@@ -40,10 +40,10 @@
             this.btn_changelog = new System.Windows.Forms.Button();
             this.bt_update = new System.Windows.Forms.Button();
             this.bt_SkillRmb = new System.Windows.Forms.Button();
-            this.btn_donate = new System.Windows.Forms.Button();
             this.bt_SkillLmb = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BTN_Forum = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bt_Skill1
@@ -185,23 +185,6 @@
             this.bt_SkillRmb.UseVisualStyleBackColor = false;
             this.bt_SkillRmb.Click += new System.EventHandler(this.bt_SkillRmb_Click);
             // 
-            // btn_donate
-            // 
-            this.btn_donate.BackColor = System.Drawing.Color.Transparent;
-            this.btn_donate.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_donate.FlatAppearance.BorderSize = 0;
-            this.btn_donate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_donate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btn_donate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_donate.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btn_donate.Location = new System.Drawing.Point(654, 56);
-            this.btn_donate.Name = "btn_donate";
-            this.btn_donate.Size = new System.Drawing.Size(75, 46);
-            this.btn_donate.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.btn_donate, "Donate");
-            this.btn_donate.UseVisualStyleBackColor = false;
-            this.btn_donate.Click += new System.EventHandler(this.button3_Click);
-            // 
             // bt_SkillLmb
             // 
             this.bt_SkillLmb.BackColor = System.Drawing.Color.Transparent;
@@ -226,6 +209,16 @@
             this.BTN_Forum.UseVisualStyleBackColor = true;
             this.BTN_Forum.Click += new System.EventHandler(this.BTN_Forum_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(654, 68);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Skill Editor";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Window_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,9 +227,9 @@
             this.BackgroundImage = global::D3Helper.Properties.Resources.Background_Monk_50_MainWindow;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(903, 102);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.BTN_Forum);
             this.Controls.Add(this.bt_SkillLmb);
-            this.Controls.Add(this.btn_donate);
             this.Controls.Add(this.bt_SkillRmb);
             this.Controls.Add(this.bt_update);
             this.Controls.Add(this.btn_changelog);
@@ -272,10 +265,10 @@
         private System.Windows.Forms.Button btn_changelog;
         private System.Windows.Forms.Button bt_update;
         private System.Windows.Forms.Button bt_SkillRmb;
-        private System.Windows.Forms.Button btn_donate;
         private System.Windows.Forms.Button bt_SkillLmb;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button BTN_Forum;
+        private System.Windows.Forms.Button button1;
     }
 }
 

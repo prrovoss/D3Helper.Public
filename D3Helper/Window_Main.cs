@@ -31,14 +31,14 @@ namespace D3Helper
     
     public partial class Window_Main : Form
     {
-        
-
         public static Form d3helperform;
         public static DateTime Start = DateTime.Now;
         public static PrivateFontCollection _FontCollection = new PrivateFontCollection();
 
         public static readonly Version SupportedVersion = Engine.SupportedVersion;
-        
+
+        System.Timers.Timer waitForOverlay;
+
         public Window_Main()
         {
 
@@ -51,29 +51,54 @@ namespace D3Helper
                 //-- attach Events
                 this.FormClosed += FormClose;
                 this.FormClosing += Form1_FormClosing;
-                //
-                if (SupportedProcessVersion())
-                {
-                    
-                    //-- Initialize Collector and Handler Thread
-                    if(!Program.SingleThreaded)
-                        A_Initialize.Th_ICollector.New_ICollector();
-                    A_Initialize.Th_Handler.New_Handler();
-                    //
-                    if (A_Tools.Version.AppVersion.isOutdated()) // !!!!! REENABLE THIS!!!!!!
-                    {
-                        Window_Outdated WO = new Window_Outdated();
-                        WO.ShowDialog();
-                    }
-                    
-                    System.Timers.Timer UpdateUI = new System.Timers.Timer(250);
-                    UpdateUI.Elapsed += RefreshUI;
-                    UpdateUI.Start();
 
-                    d3helperform = this;
+                this.bt_update.Visible = false;
 
-                    Load_CustomFonts();
-                }
+                d3helperform = this;
+
+                //new Thread(delegate ()
+                //{
+
+                //    //wait till d3 is running
+                //    while (!isDiabloRunning())
+                //    {
+                //        try
+                //        {
+                //            Thread.Sleep(1000);
+                //        }
+                //        catch { }
+                //    }
+
+
+                //    if (SupportedProcessVersion())
+                //    {
+
+                //        //-- Initialize Collector and Handler Thread
+                //        if(!Program.SingleThreaded)
+                //            A_Initialize.Th_ICollector.New_ICollector();
+                //        A_Initialize.Th_Handler.New_Handler();
+                //        //
+                //        if (A_Tools.Version.AppVersion.isOutdated()) // !!!!! REENABLE THIS!!!!!!
+                //        {
+                //            Window_Outdated WO = new Window_Outdated();
+                //            WO.ShowDialog();
+                //        }
+
+                //        System.Timers.Timer UpdateUI = new System.Timers.Timer(250);
+                //        UpdateUI.Elapsed += RefreshUI;
+                //        UpdateUI.Start();
+
+                //        Load_CustomFonts();
+
+                //    }else
+                //    {
+                //        this.Text = "You are running a not supported D3Client(" + GetFileVersion() +
+                //                    ") Supported Version is " + SupportedVersion;
+                //    }
+
+                //}).Start();
+
+
             }
             catch (Exception e)
             {
@@ -81,20 +106,35 @@ namespace D3Helper
             }
         }
 
+
         private bool SupportedProcessVersion()
         {
             Version fileVersion = GetFileVersion();
 
-            if(     fileVersion.Major == SupportedVersion.Major 
-                &&  fileVersion.Minor == SupportedVersion.Minor
-                &&  fileVersion.Build == SupportedVersion.Build
-            )
+            if (fileVersion != null)
             {
-                return true;
+                if (fileVersion.Major == SupportedVersion.Major
+                    && fileVersion.Minor == SupportedVersion.Minor
+                    && fileVersion.Build == SupportedVersion.Build
+                )
+                {
+                    return true;
+                }
             }
 
             return false;
         }
+
+
+        private bool isDiabloRunning()
+        {
+            if(GetFileVersion() == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         private static Version GetFileVersion()
         {
@@ -112,6 +152,8 @@ namespace D3Helper
             }
             return default(Version);
         }
+
+
         private void Load_CustomFonts()
         {
             try
@@ -146,6 +188,8 @@ namespace D3Helper
                 throw;
             }
         }
+
+
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.D3Helper_MainForm_StartPosition = new Point(this.Left, this.Top);
@@ -159,13 +203,6 @@ namespace D3Helper
 
         private void Window_Main_Load(object sender, EventArgs e)
         {
-            if (!SupportedProcessVersion())
-            {
-                this.Text = "You are running a not supported D3Client(" + GetFileVersion() +
-                            ") Supported Version is " + SupportedVersion;
-
-                return;
-            }
 
             typeof(Button).InvokeMember("DoubleBuffered",
     BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
@@ -191,8 +228,6 @@ namespace D3Helper
     BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
     null, bt_SkillRmb, new object[] { true });
 
-            A_WPFOverlay.Overlay o = new A_WPFOverlay.Overlay();
-            o.Show();
 
             directInput = new DirectInput();
             keyboard = new SlimDX.DirectInput.Keyboard(directInput);
@@ -217,18 +252,13 @@ namespace D3Helper
             }
 
 
-
-
-            this.btn_donate.Image = new Bitmap(Properties.Resources.paypal_donate_button11, new Size(this.btn_donate.Width, this.btn_donate.Height));
+            //this.btn_donate.Image = new Bitmap(Properties.Resources.paypal_donate_button11, new Size(this.btn_donate.Width, this.btn_donate.Height));
             
             this.btn_info.Image = new Bitmap(Properties.Resources._480px_Info_icon_002_svg, new Size(this.btn_info.Width, this.btn_info.Height));
             this.btn_settings.Image = new Bitmap(Properties.Resources.pignon, new Size(this.btn_settings.Width, this.btn_settings.Height));
-            
 
-            this.bt_update.Visible = false;
 
-            this.Text = "D3Helper - V" + A_Tools.Version.AppVersion.version;
-            
+
 
             DateTime latestOnlineVersion = A_Tools.Version.AppVersion.LatestOnlineVersion;
             DateTime currentVersion = A_Tools.Version.AppVersion.get_CurrentVersionDate();
@@ -245,16 +275,84 @@ namespace D3Helper
                 //this.lb_versionlb.Invoke((MethodInvoker)(() => this.lb_versionlb.Text = ""));
             }
 
+            this.Text = "D3Helper - V" + A_Tools.Version.AppVersion.version;
 
+
+
+
+
+
+            //create thread waiting for d3 start!
+            Thread t = new Thread(delegate ()
+            {
+                //wait till d3 is running
+                while (!isDiabloRunning())
+                {
+                    try
+                    {
+                        Thread.Sleep(1000);
+                    }
+                    catch { }
+                }
+
+                if (SupportedProcessVersion())
+                {
+
+                    //-- Initialize Collector and Handler Thread
+                    if (!Program.SingleThreaded)
+                        A_Initialize.Th_ICollector.New_ICollector();
+                    A_Initialize.Th_Handler.New_Handler();
+                    //
+                    if (A_Tools.Version.AppVersion.isOutdated()) // !!!!! REENABLE THIS!!!!!!
+                    {
+                        Window_Outdated WO = new Window_Outdated();
+                        WO.ShowDialog();
+                    }
+
+                    System.Timers.Timer UpdateUI = new System.Timers.Timer(1000);
+                    UpdateUI.Elapsed += RefreshUI;
+                    UpdateUI.Start();
+
+                    Load_CustomFonts();
+                }
+                else
+                {
+                    this.Text = "You are running a not supported D3Client(" + GetFileVersion() +
+                                ") Supported Version is " + SupportedVersion;
+                }
+
+            });
+            t.SetApartmentState(ApartmentState.STA); //must be STA Thread to access GUI
+            t.Start();
+
+
+
+
+            //overlay
+            if (SupportedProcessVersion())
+            {
+                A_WPFOverlay.Overlay o = new A_WPFOverlay.Overlay();
+                o.Show();
+            }
         }
+
+        private void WaitForOverlay_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (SupportedProcessVersion())
+            {
+                A_WPFOverlay.Overlay o = new A_WPFOverlay.Overlay();
+                o.Show();
+
+                waitForOverlay.Stop();
+            }
+        }
+
         private void FormClose(Object sender, FormClosedEventArgs e)
         {
-            
-
             this.Dispose();
             System.Environment.Exit(1);
-            
         }
+
 
         private void Populate_SkillButtonContextMenu()
         {
@@ -322,6 +420,7 @@ namespace D3Helper
             }
         }
 
+
         private void CMS_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             ToolStripItem _this = e.ClickedItem;
@@ -351,11 +450,9 @@ namespace D3Helper
             }
         }
 
+
         private void RefreshUI(object sender, ElapsedEventArgs e)
         {
-
-
-            
             try
             {
                 List<Button> MainWindow_SkillButtons = new List<Button>()
@@ -434,9 +531,6 @@ namespace D3Helper
                 Populate_SkillButtonContextMenu();
             }
             catch { }
-
-            
-
         }
                 
         private void bt_Skill1_Click(object sender, EventArgs e)
@@ -495,11 +589,6 @@ namespace D3Helper
         {
             A_Tools.T_ExternalFile.AutoCastOverrides.ChangeOverrides(4);
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QS458DYXLJYWJ");
-        }
         
         private void bt_SkillLmb_Click(object sender, EventArgs e)
         {
@@ -509,6 +598,12 @@ namespace D3Helper
         private void BTN_Forum_Click(object sender, EventArgs e)
         {
             Process.Start("http://d3helper.freeforums.net/");
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Window_SkillEditor se = new Window_SkillEditor();
+            se.Show();
         }
     }
 }

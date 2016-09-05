@@ -2291,40 +2291,46 @@ namespace D3Helper
             listBox_conditionsets_SelectedIndexChanged(this.listBox_conditionsets, null);
         }
 
+
         private void listBox_conditions_DrawItem(object sender, DrawItemEventArgs e)
         {
-            e.DrawBackground();
-
-            CastCondition item = listBox_conditions.Items[e.Index] as CastCondition;
-            if (item != null)
+            try
             {
-                Brush brush = Brushes.Black;
-
-                if (!item.enabled)
+                if (e.Index >= 0)
                 {
-                    CastCondition s = listBox_conditions.SelectedItem as CastCondition;
-                    if(s != null && s.Equals(item))
+                    e.DrawBackground();
+
+                    CastCondition item = listBox_conditions.Items[e.Index] as CastCondition;
+                    if (item != null)
                     {
-                        brush = Brushes.White;
-                    }
-                    else
-                    {
-                        brush = Brushes.Gray;
+                        Brush brush = Brushes.Black;
+
+                        if (!item.enabled)
+                        {
+                            CastCondition s = listBox_conditions.SelectedItem as CastCondition;
+                            if (s != null && s.Equals(item))
+                            {
+                                brush = Brushes.White;
+                            }
+                            else
+                            {
+                                brush = Brushes.Gray;
+                            }
+                        }
+
+                        e.Graphics.DrawString(
+                            item.DisplayText,
+                            listBox_conditions.Font,
+                            brush,
+                            e.Bounds
+                        );
                     }
                 }
-
-                e.Graphics.DrawString( 
-                    item.DisplayText, 
-                    listBox_conditions.Font,
-                    brush,
-                    e.Bounds
-                );
             }
-        }
-
-        private void Panel_ConditionEditor_Paint(object sender, PaintEventArgs e)
-        {
-
+            catch (Exception ex)
+            {
+                A_Handler.Log.Exception.addExceptionLogEntry(ex, A_Enums.ExceptionThread.MainWindow);
+            }
         }
     }
 
