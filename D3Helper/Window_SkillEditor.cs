@@ -73,7 +73,7 @@ namespace D3Helper
                 MessageBox.Show("Please run Diablo III first!");
                 return;
             }
-            this.Show();
+            base.Show();
         }
 
 
