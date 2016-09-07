@@ -113,11 +113,11 @@ namespace D3Helper.A_Collection
             {
                 if(c.ConditionGroup > new_group_id)
                 {
-                    new_group_id = c.ConditionGroup + 1;
+                    new_group_id = c.ConditionGroup;
                 }
             }
 
-            return new_group_id;
+            return new_group_id + 1;
         }
 
         public List<ConditionGroup> getConditionGroups()
