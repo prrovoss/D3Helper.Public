@@ -302,7 +302,7 @@ namespace D3Helper.A_Handler.GearSwap
         {
             try
             {
-                var SelectedAcdId = ObjectManager.Instance.x9E0_PlayerInput.Dereference().x44_Neg1_SelectedItemAcdId;
+                var SelectedAcdId = ObjectManager.Instance.xA10_PlayerInput.Dereference().x44_Neg1_SelectedItemAcdId;
 
                 return SelectedAcdId;
             }

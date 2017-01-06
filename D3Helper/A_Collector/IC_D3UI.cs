@@ -44,7 +44,7 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                A_Collection.D3UI.UIElement_MouseOver = Engine.Current.ObjectManager.x9CC_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
+                A_Collection.D3UI.UIElement_MouseOver = Engine.Current.ObjectManager.x9FC_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
             }
             catch (Exception e)
             {

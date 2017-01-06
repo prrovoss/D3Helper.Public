@@ -193,7 +193,7 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                A_Collection.Environment.Scene.GameTick = Engine.Current.ObjectManager.x798_Storage.x118_GameTick;
+                A_Collection.Environment.Scene.GameTick = Engine.Current.ObjectManager.x7C8_Storage.x118_GameTick;
             }
             catch (Exception e)
             {
