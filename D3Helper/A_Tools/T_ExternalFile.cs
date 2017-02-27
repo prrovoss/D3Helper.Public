@@ -875,26 +875,39 @@ namespace D3Helper.A_Tools
                 }
             }
 
+
+
             public static void Save(List<SkillData> CustomDefinitions)
             {
                 if (!Directory.Exists(Dir_Definitions))
                     Directory.CreateDirectory(Dir_Definitions);
 
-                var files = Directory.GetFiles(Dir_Definitions);
-                if (files.Any())
-                    foreach (var file in files)
-                    {
-                        var m = Regex.Match(file, @"definitions\\(.*)", RegexOptions.Singleline);
-                        string filename = m.Groups[1].Value;
-                        if (CustomDefinitions.FirstOrDefault(x => x.Name == filename.Replace(".bin", "")) == null)
-                            File.Delete((file));
+
+                /*
+                 *clear not loaded files 
+                 */
+                if (CustomDefinitions.Any()) //only clear if something loaded. prevent deleting existing definitions
+                {
+                    var files = Directory.GetFiles(Dir_Definitions);
+                    if (files.Any())
+                    { 
+                        foreach (var file in files)
+                        {
+                            var m = Regex.Match(file, @"definitions\\(.*)", RegexOptions.Singleline);
+                            string filename = m.Groups[1].Value;
+                            if (CustomDefinitions.FirstOrDefault(x => x.Name == filename.Replace(".bin", "")) == null)
+                            {
+                                File.Delete((file));
+                            }
+                        }
                     }
+                }
+
 
                 foreach (var definition in CustomDefinitions)
                 {
                     try
                     {
-
                         _SkillData data = Convert_ToStruct(definition);
 
                         BinaryFile.WriteToFile<_SkillData>(Dir_Definitions + @"\" + data.Name + ".bin", data);
