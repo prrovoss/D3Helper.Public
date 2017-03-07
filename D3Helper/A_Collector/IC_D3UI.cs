@@ -211,12 +211,29 @@ namespace D3Helper.A_Collector
             }
         }
 
+        private static long bountyOpenTimestamp = 0;
 
         private static void get_isOpenBountyMap()
         {
             try
             {
                 A_Collection.D3UI.isOpenBountyMap = A_Tools.T_D3UI.UIElement.isVisible(A_Enums.UIElements.BountyMap);
+
+                //fix: isOpenBountyMap stays true 1 second after its closed to prevent cast on teleport from bountymap
+                if (A_Collection.D3UI.isOpenBountyMap)
+                {
+                    bountyOpenTimestamp = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                }
+                else
+                {
+                    long now_milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                    long time_after_bountymap_close = now_milliseconds - bountyOpenTimestamp;
+                    if(time_after_bountymap_close < 1000)
+                    {
+                        A_Collection.D3UI.isOpenBountyMap = true;
+                    }
+                }
+
             }
             catch (Exception e)
             {
