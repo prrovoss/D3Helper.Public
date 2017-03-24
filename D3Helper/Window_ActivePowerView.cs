@@ -239,7 +239,7 @@ namespace D3Helper
                     A_Collection.Environment.Actors.AllActors.Where(x => x.Distance <= 100).ToList();
             foreach (var acd in InRange)
             {
-                if ((acd.IsMonster || acd._ACD.x184_ActorType == ActorType.Player) && acd._ACD.x000_Id != A_Collection.Me.HeroGlobals.LocalACD.x000_Id)
+                if ((acd.IsMonster || acd._ACD.x17C_ActorType == ActorType.Player) && acd._ACD.x000_Id != A_Collection.Me.HeroGlobals.LocalACD.x000_Id)
                 {
                     List<Monster_ActivePower> ActivePowers = A_Tools.T_ACD.get_MonsterActivePowers(acd._ACD);
 

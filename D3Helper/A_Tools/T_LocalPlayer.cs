@@ -75,7 +75,7 @@ namespace D3Helper.A_Tools
                 lock (A_Collection.Me.HeroGlobals.LocalACD) local = A_Collection.Me.HeroGlobals.LocalACD;
 
                 List<A_Collector.ACD> partyMemberContainer;
-                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x184_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
+                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
 
                 int counter = 0;
 
@@ -103,7 +103,7 @@ namespace D3Helper.A_Tools
                 lock(A_Collection.Me.HeroGlobals.LocalACD) local = A_Collection.Me.HeroGlobals.LocalACD;
 
                 List<A_Collector.ACD> partyMemberContainer;
-                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x184_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
+                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
 
                 int counter = 0;
 
@@ -130,7 +130,7 @@ namespace D3Helper.A_Tools
 
 
                 List<A_Collector.ACD> partyMemberContainer;
-                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x184_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
+                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
 
 
                 foreach (var member in partyMemberContainer)
@@ -166,7 +166,7 @@ namespace D3Helper.A_Tools
 
 
                 
-                var ListB = Engine.Current.ObjectManager.xA10_PlayerInput.Dereference().x00_ListB_Of_ActorId.ToList();
+                var ListB = Engine.Current.ObjectManager.xA00_PlayerInput.Dereference().x00_ListB_Of_ActorId.ToList();
                 
 
                 if (ListB.Count() > 0)
@@ -174,7 +174,7 @@ namespace D3Helper.A_Tools
                     var selectedActorId = ListB.ToList()[0];
 
                     
-                    var selectedtype = Engine.Current.ObjectManager.xA10_PlayerInput.Dereference().x14_StructStart_Min56Bytes;
+                    var selectedtype = Engine.Current.ObjectManager.xA00_PlayerInput.Dereference().x14_StructStart_Min56Bytes;
 
                     if (selectedtype == 44580)
                     {
@@ -189,7 +189,7 @@ namespace D3Helper.A_Tools
                         {
                             
                             distance = acd.Distance;
-                            type = acd._ACD.x184_ActorType;
+                            type = acd._ACD.x17C_ActorType;
                             
                             return acd._ACD;
                         }

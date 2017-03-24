@@ -8,7 +8,7 @@ namespace D3Helper.A_Tools.Version
 {
     class AppVersion
     {
-        public const string version = "17.01.19.0";
+        public const string version = "17.03.24.0";
 
         public static DateTime LatestOnlineVersion = new DateTime();
 

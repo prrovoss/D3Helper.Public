@@ -35,7 +35,7 @@ namespace D3Helper.A_Tools.Skills
                 {
                     lock(A_Collection.Me.HeroGlobals.LocalACD)
                     {
-                        if (A_Collection.Me.HeroGlobals.LocalACD != null && A_Collection.Me.HeroGlobals.LocalACD.x188_Hitpoints > 0)
+                        if (A_Collection.Me.HeroGlobals.LocalACD != null && A_Collection.Me.HeroGlobals.LocalACD.x180_Hitpoints > 0)
                         {
                             var cooldown = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.PowerCooldown, PowerSnoId);
                             

@@ -115,10 +115,10 @@ namespace D3Helper.A_Tools
         }
         public static bool IsValidMonster(ActorCommonData acd)
         {
-            return acd.x188_Hitpoints > 0.00001 &&
-             (acd.x198_Flags_Is_Trail_Proxy_Etc & 1) == 0 &&
-             acd.x184_ActorType == Enigma.D3.Enums.ActorType.Monster &&
-             acd.x190_TeamId == 10;
+            return acd.x180_Hitpoints > 0.00001 &&
+             (acd.x190_Flags_Is_Trail_Proxy_Etc & 1) == 0 &&
+             acd.x17C_ActorType == Enigma.D3.Enums.ActorType.Monster &&
+             acd.x188_TeamId == 10;
         }
         public static bool IsTreasureGoblin(ActorCommonData Acd)
         {
@@ -388,7 +388,7 @@ namespace D3Helper.A_Tools
         {
             try
             {
-                double currentHitpoints = monster.x188_Hitpoints;
+                double currentHitpoints = monster.x180_Hitpoints;
                 double totalHitpoints = monster.GetAttributeValue(AttributeId.HitpointsMaxTotal);
                 double currentPercentage = currentHitpoints / totalHitpoints * 100;
 

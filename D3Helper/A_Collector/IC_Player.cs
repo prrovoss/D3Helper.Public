@@ -151,7 +151,7 @@ namespace D3Helper.A_Collector
 
                     if (localACD != null)
                     {
-                        if (localACD.x000_Id != -1 && localACD.x184_ActorType == Enigma.D3.Enums.ActorType.Player)
+                        if (localACD.x000_Id != -1 && localACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player)
                         {                           
                             if(A_Collection.Me.HeroGlobals.LocalACD == null)
                                 A_Collection.Me.HeroGlobals.LocalACD = localACD;
@@ -193,7 +193,10 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                A_Collection.Environment.Scene.GameTick = Engine.Current.ObjectManager.x7C8_Storage.x118_GameTick;
+                A_Collection.Environment.Scene.GameTick = Engine.Current.ObjectManager.x7B0_Storage.x120_GameTick;
+
+                //A_Collection.Environment.Scene.GameTick = Storage.Instance.GetGameTick();
+
             }
             catch (Exception e)
             {

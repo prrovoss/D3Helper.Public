@@ -26,7 +26,7 @@ namespace D3Helper.A_Tools.Buffs
                     lock (A_Collection.Environment.Actors.AllActors)
                         partyMemberContainer =
                             A_Collection.Environment.Actors.AllActors.ToList()
-                                .Where(x => x._ACD.x184_ActorType == Enigma.D3.Enums.ActorType.Player)
+                                .Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player)
                                 .ToList();
 
                     int counter = 0;
@@ -69,7 +69,7 @@ namespace D3Helper.A_Tools.Buffs
                     lock (A_Collection.Environment.Actors.AllActors)
                         partyMemberContainer =
                             A_Collection.Environment.Actors.AllActors.ToList()
-                                .Where(x => x._ACD.x184_ActorType == Enigma.D3.Enums.ActorType.Player)
+                                .Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player)
                                 .ToList();
 
                     int counter = 0;

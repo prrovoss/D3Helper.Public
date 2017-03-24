@@ -77,7 +77,7 @@ namespace D3Helper.A_Collector
                             isMonster = A_Tools.T_ACD.IsValidMonster(acd); // Experimental
 
                             bool isPlayer = false;
-                            if (!isMonster && acd.x184_ActorType == ActorType.Player)
+                            if (!isMonster && acd.x17C_ActorType == ActorType.Player)
                                 isPlayer = true;
                             
                             double progress = 0;
