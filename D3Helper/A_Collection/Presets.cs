@@ -176,6 +176,8 @@ namespace D3Helper.A_Collection
 
             this.comment = null;
             this.enabled = true;
+
+            this.version = 250;
         }
         
         public int ConditionGroup { get; set; }
@@ -189,6 +191,8 @@ namespace D3Helper.A_Collection
         public string comment { get; set; }
 
         public bool enabled { get; set; }
+
+        public int version { get; set; }
 
 
         //displaytext for listbox with some extended condition information in brackets

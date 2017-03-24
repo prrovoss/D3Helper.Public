@@ -738,6 +738,11 @@ namespace D3Helper.A_Tools
                 [ProtoMember(6,IsRequired = false)]
                 public string comment { get; set; }
 
+                
+                [ProtoMember(7, IsRequired = false)]
+                [DefaultValue(0)]
+                public int version { get; set; }
+                
             }
 
             [ProtoContract]
@@ -958,6 +963,9 @@ namespace D3Helper.A_Tools
                     List<_CastCondition> CastConditions = new List<_CastCondition>();
                     foreach (var condition in Data.CastConditions)
                     {
+
+                        fixCastConditionByVersion(condition);
+
                         _CastCondition newConditions = new _CastCondition();
                         newConditions.ConditionGroup = condition.ConditionGroup;
                         newConditions.Type = condition.Type;
@@ -966,6 +974,8 @@ namespace D3Helper.A_Tools
 
                         newConditions.comment = condition.comment;
                         newConditions._enabled = condition.enabled;
+
+                        newConditions.version = condition.version;
 
                         CastConditions.Add(newConditions);
                     }
@@ -980,6 +990,26 @@ namespace D3Helper.A_Tools
                     return default(_SkillData);
                 }
             }
+
+            private static void fixCastConditionByVersion(CastCondition castCondition)
+            {
+
+                //all attributes introduced in patch 2.5.0 are +2 higher then before. fix this and save version number
+
+                //fix AttribId +2 for Patch 2.5.0
+                if (castCondition.version < 250)
+                {
+                    if (castCondition.ValueNames.Length > 1)
+                    {
+                        if (castCondition.ValueNames[1].Equals(ConditionValueName.AttribID))
+                        {
+                            castCondition.Values[1] = castCondition.Values[1] + 2;
+                            castCondition.version = 250;
+                        }
+                    }
+                }
+            }
+
 
             private static SkillData Convert_ToClass(_SkillData_int Data)
             {
@@ -1053,6 +1083,10 @@ namespace D3Helper.A_Tools
 
                             newCondition.comment = condition.comment;
                             newCondition.enabled = condition._enabled;
+
+                            newCondition.version = condition.version;
+
+                            fixCastConditionByVersion(newCondition);
 
                             CastConditions.Add(newCondition);
                         }
