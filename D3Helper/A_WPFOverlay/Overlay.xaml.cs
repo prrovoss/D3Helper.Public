@@ -97,7 +97,8 @@ namespace D3Helper.A_WPFOverlay
             
             
         }
-        
+
+ 
 
         private void Render_UI(object sender, EventArgs e)
         {
@@ -335,7 +336,6 @@ namespace D3Helper.A_WPFOverlay
                             }
 
 
-
                             #region VersionInfo
 
                             DrawScreenText(Colors.OrangeRed, 15, new FontFamily("SansSerif"), "D3", "versioninfo",
@@ -474,6 +474,177 @@ namespace D3Helper.A_WPFOverlay
 
                             get_MouseIfHoveringUiElements();
 
+
+
+
+                            ////*******************************************
+                            //// debug ui rects
+                            ////*******************************************
+                            //foreach (UXControl uxcontrol in UXHelper.Enumerate())
+                            //{
+                            //    try
+                            //    {
+                            //        if (uxcontrol.IsVisible())
+                            //        {
+                            //            UIRect uirect = A_Tools.T_D3UI.UIElement.getRect(uxcontrol.ToString());
+
+                                       
+
+                            //            Rectangle r = new Rectangle();
+                            //            r.BeginInit();
+                            //            r.Width = uirect.Width;
+                            //            r.Height = uirect.Height;
+                            //            r.StrokeThickness = 1;
+                            //            r.Stroke = Brushes.LightBlue;
+
+                            //            Canvas.SetLeft(r, uirect.Left);
+                            //            Canvas.SetTop(r, uirect.Top);
+
+                            //            r.EndInit();
+
+                            //            canvas1.Children.Add(r);
+
+
+                            //            TextBlock t = new TextBlock();
+                            //            t.BeginInit();
+                            //            t.Text = uxcontrol.ToString();
+                            //            t.Foreground = Brushes.LightBlue; //textcolor
+
+                            //            Canvas.SetLeft(t, uirect.Left);
+                            //            Canvas.SetTop(t, uirect.Top);
+
+                            //            t.EndInit();
+                            //            canvas1.Children.Add(t);
+
+
+                            //        }
+                            //    }
+                            //    catch (Exception) { }
+                            //}
+
+
+
+
+                            //*******************************************
+                            //elite circles in range overlay
+                            //*******************************************
+
+                            if (Properties.Settings.Default.Overlay_EliteCircles)
+                            {
+
+                                if (A_Collection.Me.HeroStates.isInGame && A_Collection.Me.HeroGlobals.LocalACD != null)
+                                {
+                                    try
+                                    {
+                                        List<ActorCommonData> eliteInRange = A_Tools.T_ACD.getEliteInRange(6000);
+
+                                        //List<ActorCommonData> eliteInRange = new List<ActorCommonData>();
+                                        //A_Tools.T_ACD.get_MonstersInRange(100, true, true, out eliteInRange) ;
+
+                                        foreach (ActorCommonData elite in eliteInRange)
+                                        {
+                                            Ellipse el = new Ellipse();
+                                            el.BeginInit();
+
+                                            el.Width = 100;
+                                            el.Height = 80;
+
+
+                                            el.StrokeThickness = 8;
+
+                                            if (T_ACD.isEliteYellow(elite))
+                                            {
+                                                el.Stroke = new SolidColorBrush(Color.FromArgb(180, 255, 148, 20));
+                                            }
+
+                                            if (T_ACD.isEliteBlue(elite))
+                                            {
+                                                el.Stroke = new SolidColorBrush(Color.FromArgb(180, 64, 128, 255));
+                                            }
+
+                                            if (T_ACD.isBoss(elite))
+                                            {
+                                                el.Stroke = new SolidColorBrush(Color.FromArgb(180, 255, 96, 0));
+                                                el.StrokeThickness = 10;
+                                            }
+
+
+
+
+
+                                            float rX = 0;
+                                            float rY = 0;
+
+                                            A_Tools.T_World.ToScreenCoordinate(elite.x0D0_WorldPosX, elite.x0D4_WorldPosY, elite.x0D8_WorldPosZ, out rX, out rY);
+
+
+                                            //circle position = circle_center
+                                            rX = rX - (float)el.Width / 2;
+                                            rY = rY - (float)el.Height / 2;
+
+
+                                            Canvas.SetLeft(el, rX);
+                                            Canvas.SetTop(el, rY);
+
+                                            el.EndInit();
+
+                                            canvas1.Children.Add(el);
+
+
+                                            //-----------------------------------------
+                                            //draw elite on minimap
+                                            //-----------------------------------------
+                                            UIRect minimap_rect = A_Tools.T_D3UI.UIElement.getRect("Root.NormalLayer.minimap_dialog_backgroundScreen.minimap_dialog_pve.minimap_frame");
+
+                                            int video_width = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
+                                            int video_height = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
+
+
+                                            int rx_player = video_width / 2;
+                                            int ry_player = video_height / 2;
+
+                                            float rx_player_minimap = minimap_rect.Left + (minimap_rect.Width / 2);
+                                            float ry_player_minimap = minimap_rect.Top + (minimap_rect.Height / 2);
+
+                                            float delta_y = rY - ry_player;
+                                            float delta_x = rX - rx_player;
+
+                                            float factor = 0.075f;
+
+                                            float rx_minimap = rx_player_minimap + delta_x * factor;
+                                            float ry_minimap = ry_player_minimap + delta_y * factor;
+
+                                            Ellipse e_minimap = new Ellipse();
+                                            e_minimap.BeginInit();
+
+                                            double diameter = 10;
+                                            e_minimap.Width = diameter;
+                                            e_minimap.Height = diameter;
+
+                                            e_minimap.Stroke = el.Stroke;
+                                            e_minimap.StrokeThickness = diameter / 2;
+
+
+                                            //circle position = circle_center
+                                            rx_minimap = rx_minimap - (float)e_minimap.Width / 2;
+                                            ry_minimap = ry_minimap - (float)e_minimap.Height / 2;
+
+                                            Canvas.SetLeft(e_minimap, rx_minimap);
+                                            Canvas.SetTop(e_minimap, ry_minimap);
+
+                                            e_minimap.EndInit();
+                                            canvas1.Children.Add(e_minimap);
+
+
+                                        }
+                                    }
+                                    catch (Exception) { }
+                              
+                                }
+                            }
+
+               
+
                         }
 
                         this.Topmost = true;
@@ -506,6 +677,9 @@ namespace D3Helper.A_WPFOverlay
                 }
             }
         }
+
+
+
 
         void get_MouseIfHoveringUiElements()
         {

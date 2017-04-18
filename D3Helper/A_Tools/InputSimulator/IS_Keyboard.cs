@@ -40,12 +40,12 @@ namespace D3Helper.A_Tools.InputSimulator
                 return;
 
             //-- log action
-            if (Properties.Settings.Default.Logger_extendedLog)
-                lock (A_Handler.Log.Exception.HandlerLog)
-                    A_Handler.Log.Exception.HandlerLog.Add(new LogEntry(DateTime.Now,
-                        "Initiating KeyPress for " + Hotkey));
+            //if (Properties.Settings.Default.Logger_extendedLog)
+            //    lock (A_Handler.Log.Exception.HandlerLog)
+            //        A_Handler.Log.Exception.HandlerLog.Add(new LogEntry(DateTime.Now,
+            //            "Initiating KeyPress for " + Hotkey));
+
             
-            //
 
             if (Hotkey == A_Enums.ActionBarSlot.RMB)
             {
@@ -518,7 +518,7 @@ namespace D3Helper.A_Tools.InputSimulator
                     convert_KeyToVirtualKeyCode(A_Collection.Preferences.Hotkeys.Key1_ForceStandStill));
 
                 //-- log action
-                A_Handler.Log.LogEntry.addLogEntry("Pressed Key(" + A_Collection.Preferences.Hotkeys.Key1_ForceStandStill + ")");
+                //A_Handler.Log.LogEntry.addLogEntry("Pressed Key(" + A_Collection.Preferences.Hotkeys.Key1_ForceStandStill + ")");
                 //
             }
             else if (A_Collection.Preferences.Hotkeys.Key2_ForceStandStill != Key.Undefined)
@@ -527,7 +527,7 @@ namespace D3Helper.A_Tools.InputSimulator
                     convert_KeyToVirtualKeyCode(A_Collection.Preferences.Hotkeys.Key2_ForceStandStill));
 
                 //-- log action
-                A_Handler.Log.LogEntry.addLogEntry("Pressed Key(" + A_Collection.Preferences.Hotkeys.Key2_ForceStandStill + ")");
+                //A_Handler.Log.LogEntry.addLogEntry("Pressed Key(" + A_Collection.Preferences.Hotkeys.Key2_ForceStandStill + ")");
                 //
             }
 
@@ -569,7 +569,7 @@ namespace D3Helper.A_Tools.InputSimulator
                 WindowsInput.InputSimulator.SimulateKeyPress(Key);
 
                 //-- log actions
-                A_Handler.Log.LogEntry.addLogEntry("Pressed Key(" + Key + ")");
+                //A_Handler.Log.LogEntry.addLogEntry("Pressed Key(" + Key + ")");
                 //
             }
             catch (Exception)

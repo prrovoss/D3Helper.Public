@@ -149,6 +149,7 @@
             this.page_Experimental = new System.Windows.Forms.TabPage();
             this.label28 = new System.Windows.Forms.Label();
             this.cbox_ConvertMaterialFromTo = new System.Windows.Forms.ComboBox();
+            this.CB_EliteCircles = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.page_General.SuspendLayout();
             this.page_Hotkeys.SuspendLayout();
@@ -1022,6 +1023,7 @@
             this.page_Overlay.BackColor = System.Drawing.SystemColors.Control;
             this.page_Overlay.BackgroundImage = global::D3Helper.Properties.Resources.Background_Monk_50_Settings;
             this.page_Overlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.page_Overlay.Controls.Add(this.CB_EliteCircles);
             this.page_Overlay.Controls.Add(this.CB_ApsAndSnapShotAPs);
             this.page_Overlay.Controls.Add(this.cb_conventionelements);
             this.page_Overlay.Controls.Add(this.cb_skillbuttonsastext);
@@ -1471,6 +1473,18 @@
             this.cbox_ConvertMaterialFromTo.Size = new System.Drawing.Size(257, 21);
             this.cbox_ConvertMaterialFromTo.TabIndex = 37;
             // 
+            // CB_EliteCircles
+            // 
+            this.CB_EliteCircles.AutoSize = true;
+            this.CB_EliteCircles.BackColor = System.Drawing.Color.Transparent;
+            this.CB_EliteCircles.Location = new System.Drawing.Point(6, 158);
+            this.CB_EliteCircles.Name = "CB_EliteCircles";
+            this.CB_EliteCircles.Size = new System.Drawing.Size(80, 17);
+            this.CB_EliteCircles.TabIndex = 9;
+            this.CB_EliteCircles.Text = "Elite Circles";
+            this.CB_EliteCircles.UseVisualStyleBackColor = false;
+            this.CB_EliteCircles.CheckedChanged += new System.EventHandler(this.CB_EliteCircles_CheckedChanged);
+            // 
             // Window_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1626,5 +1640,6 @@
         private System.Windows.Forms.TabPage page_Experimental;
         private System.Windows.Forms.ComboBox cbox_ConvertMaterialFromTo;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.CheckBox CB_EliteCircles;
     }
 }

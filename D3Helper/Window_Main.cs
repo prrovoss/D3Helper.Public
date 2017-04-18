@@ -303,11 +303,11 @@ namespace D3Helper
                         A_Initialize.Th_ICollector.New_ICollector();
                     A_Initialize.Th_Handler.New_Handler();
                     //
-                    if (A_Tools.Version.AppVersion.isOutdated()) // !!!!! REENABLE THIS!!!!!!
-                    {
-                        Window_Outdated WO = new Window_Outdated();
-                        WO.ShowDialog();
-                    }
+                    //if (A_Tools.Version.AppVersion.isOutdated()) // !!!!! REENABLE THIS!!!!!!
+                    //{
+                    //    Window_Outdated WO = new Window_Outdated();
+                    //    WO.ShowDialog();
+                    //}
 
                     System.Timers.Timer UpdateUI = new System.Timers.Timer(1000);
                     UpdateUI.Elapsed += RefreshUI;

@@ -27,33 +27,33 @@ namespace D3Helper
             _this = null;
         }
 
-        private void Changelog_Load(object sender, EventArgs e)
-        {
-            _this = this;
+        //private void Changelog_Load(object sender, EventArgs e)
+        //{
+        //    _this = this;
 
-            this.Top = Properties.Settings.Default.D3Helper_MainForm_StartPosition.Y;
-            this.Left = Properties.Settings.Default.D3Helper_MainForm_StartPosition.X;
+        //    this.Top = Properties.Settings.Default.D3Helper_MainForm_StartPosition.Y;
+        //    this.Left = Properties.Settings.Default.D3Helper_MainForm_StartPosition.X;
 
-            this.VerticalScroll.Enabled = true;
+        //    this.VerticalScroll.Enabled = true;
 
-            try
-            {
+        //    try
+        //    {
 
-                List<string> allLogs = A_TCPClient.TCPClient.send_Instruction(A_Enums.TCPInstructions.GetChangelog, "") as List<string>;
+        //        //List<string> allLogs = A_TCPClient.TCPClient.send_Instruction(A_Enums.TCPInstructions.GetChangelog, "") as List<string>;
 
-                this.lb_changelog.Text = "Changelog" + Environment.NewLine + Environment.NewLine;
+        //        this.lb_changelog.Text = "Changelog" + Environment.NewLine + Environment.NewLine;
 
-                foreach (var entry in allLogs)
-                {
+        //        //foreach (var entry in allLogs)
+        //        //{
                     
-                    this.lb_changelog.Text += entry + Environment.NewLine + Environment.NewLine;
-                }
+        //        //    this.lb_changelog.Text += entry + Environment.NewLine + Environment.NewLine;
+        //        //}
 
 
-                this.Width = this.lb_changelog.Width;
-            }
-            catch { }
-        }
+        //        this.Width = this.lb_changelog.Width;
+        //    }
+        //    catch { }
+        //}
 
         private void lb_changelog_Click(object sender, EventArgs e)
         {

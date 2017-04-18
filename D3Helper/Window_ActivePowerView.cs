@@ -59,37 +59,42 @@ namespace D3Helper
 
         private void Window_ActivePowerView_Closed(object sender, EventArgs e)
         {
-            
+
             Store_UpdatedPowers();
             _this = null;
         }
 
         public static void Get_LatestPowers()
         {
-            List<string> RawPowers = A_TCPClient.TCPClient.send_Instruction(TCPInstructions.GetPowers, "") as List<string>;
+            //List<string> RawPowers = A_TCPClient.TCPClient.send_Instruction(TCPInstructions.GetPowers, "") as List<string>;
 
-            A_Collection.Presets.SNOPowers.CustomPowerNames = A_TCPClient.TCPClient.ConvertToCustomPowerNames(RawPowers);
+            //A_Collection.Presets.SNOPowers.CustomPowerNames = A_TCPClient.TCPClient.ConvertToCustomPowerNames(RawPowers);
+
+            A_Collection.Presets.SNOPowers.CustomPowerNames = new Dictionary<int, string>();
         }
 
         private void Store_UpdatedPowers()
         {
-            List<string> RawPowers = A_TCPClient.TCPClient.send_Instruction(TCPInstructions.GetPowers, "") as List<string>;
+            //List<string> RawPowers = A_TCPClient.TCPClient.send_Instruction(TCPInstructions.GetPowers, "") as List<string>;
 
-            var CleanedPowers = A_TCPClient.TCPClient.ConvertToCustomPowerNames(RawPowers);
+            //var CleanedPowers = A_TCPClient.TCPClient.ConvertToCustomPowerNames(RawPowers);
+            var CleanedPowers = new Dictionary<int, string>();
 
             List<string> Buffer = new List<string>();
 
             foreach (var power in A_Collection.Presets.SNOPowers.CustomPowerNames)
             {
-                if(!CleanedPowers.ContainsKey(power.Key))
+                if (!CleanedPowers.ContainsKey(power.Key))
                     Buffer.Add(power.Key.ToString() + "\t" + power.Value);
             }
 
-            foreach (var tosend in Buffer)
-            {
-                A_TCPClient.TCPClient.send_Instruction(TCPInstructions.StorePower, tosend);
-            }
+            //foreach (var tosend in Buffer)
+            //{
+            //    A_TCPClient.TCPClient.send_Instruction(TCPInstructions.StorePower, tosend);
+            //}
         }
+
+
         private void Window_SkillEditor_Info_Load(object sender, EventArgs e)
         {
             Get_LatestPowers();

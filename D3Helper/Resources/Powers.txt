@@ -268,6 +268,7 @@
 71024	MonsterAffix_Puppetmaster_Minion
 71108	MonsterAffix_Illusionist
 71239	MonsterAffix_Healthlink
+455436	MonsterAffix_Juggernaut
 71548	Wizard_SpectralBlade
 71646	CreepMob_Knockback
 71688	CreepMob_Ranged_Arm_Attack

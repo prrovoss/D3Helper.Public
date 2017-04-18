@@ -490,7 +490,25 @@ namespace D3Helper.Properties {
                 this["Overlay_APS"] = value;
             }
         }
-        
+
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Overlay_EliteCircles
+        {
+            get
+            {
+                return ((bool)(this["Overlay_EliteCircles"]));
+            }
+            set
+            {
+                this["Overlay_EliteCircles"] = value;
+            }
+        }
+
+
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]

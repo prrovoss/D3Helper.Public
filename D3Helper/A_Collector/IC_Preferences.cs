@@ -185,7 +185,7 @@ namespace D3Helper.A_Collector
                 A_Collection.Preferences.Hotkeys.Key1_ActionBarSkill1 =    Hotkey.Get(HotkeyIndex.ActionBarSkill1).PrimaryGesture.Key;
                 A_Collection.Preferences.Hotkeys.ModKey1_ActionBarSkill1 = Hotkey.Get(HotkeyIndex.ActionBarSkill1).PrimaryGesture.Modifiers;
 
-				A_Collection.Preferences.Hotkeys.Key1_ActionBarSkill2 =    Hotkey.Get(HotkeyIndex.ActionBarSkill2).PrimaryGesture.Key;
+                A_Collection.Preferences.Hotkeys.Key1_ActionBarSkill2 =    Hotkey.Get(HotkeyIndex.ActionBarSkill2).PrimaryGesture.Key;
                 A_Collection.Preferences.Hotkeys.ModKey1_ActionBarSkill2 = Hotkey.Get(HotkeyIndex.ActionBarSkill2).PrimaryGesture.Modifiers;
 
 				A_Collection.Preferences.Hotkeys.Key1_ActionBarSkill3 =    Hotkey.Get(HotkeyIndex.ActionBarSkill3).PrimaryGesture.Key;

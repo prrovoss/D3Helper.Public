@@ -45,6 +45,8 @@ namespace D3Helper.A_Collection
         {
             public static List<ACD> AllActors = new List<ACD>();
             public static List<ActorCommonData> MonstersInRange = new List<ActorCommonData>();
+            public static List<ActorCommonData> EliteInRange = new List<ActorCommonData>();
+
             public static List<ActorCommonData> SelectedMonster_MonstersInRange = new List<ActorCommonData>();
             public static double RiftProgressInRange_Points;
             public static double RiftProgressInRange_Percentage;

@@ -79,16 +79,16 @@ namespace D3Helper.A_Handler.SkillHandler
                         if (validgroup)
                         {
                             //-- log action
-                            if (Properties.Settings.Default.Logger_extendedLog)
-                            {
-                                lock (A_Handler.Log.Exception.HandlerLog)
-                                {
-                                    A_Handler.Log.Exception.HandlerLog.Add(new LogEntry(DateTime.Now,
-                                        "Valid Conditions to cast Skill (" + definition.Power.Name + ")"));
-                                    A_Handler.Log.Exception.HandlerLog.Add(new LogEntry(DateTime.Now,
-                                        "using Definition (" + definition.Name + ")"));
-                                }
-                            }
+                            //if (Properties.Settings.Default.Logger_extendedLog)
+                            //{
+                            //    lock (A_Handler.Log.Exception.HandlerLog)
+                            //    {
+                            //        A_Handler.Log.Exception.HandlerLog.Add(new LogEntry(DateTime.Now,
+                            //            "Valid Conditions to cast Skill (" + definition.Power.Name + ")"));
+                            //        A_Handler.Log.Exception.HandlerLog.Add(new LogEntry(DateTime.Now,
+                            //            "using Definition (" + definition.Name + ")"));
+                            //    }
+                            //}
                             //
 
                             return true;
@@ -799,6 +799,11 @@ namespace D3Helper.A_Handler.SkillHandler
                         if (Values[0] == 1)
                             return MonstersInRange.Any(T_ACD.hasAffix_Waller);
                         return !MonstersInRange.Any(T_ACD.hasAffix_Waller);
+
+                    case ConditionType.MonstersInRange_HaveJuggernaut:
+                        if (Values[0] == 1)
+                            return MonstersInRange.Any(T_ACD.hasAffix_Juggernaut);
+                        return !MonstersInRange.Any(T_ACD.hasAffix_Juggernaut);
 
                     case ConditionType.SelectedMonster_IsBuffCount:
                         if (A_Collection.Me.HeroDetails.SelectedMonsterACD != null)

@@ -341,6 +341,7 @@ namespace D3Helper.A_Collection
             new CastCondition(0, ConditionType.MonstersInRange_HaveThunderstorm, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.MonstersInRange_HaveVortex, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.MonstersInRange_HaveWaller, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
+            new CastCondition(0, ConditionType.MonstersInRange_HaveJuggernaut, new double[] {0}, new ConditionValueName[] {ConditionValueName.Bool}),
             new CastCondition(0, ConditionType.Player_HasSkillNotEquipped, new double[] {0}, new ConditionValueName[] {ConditionValueName.PowerSNO}),
             new CastCondition(0, ConditionType.SelectedMonster_IsBuffCount, new double[] {0,0,0}, new ConditionValueName[] {ConditionValueName.PowerSNO, ConditionValueName.AttribID, ConditionValueName.Value}),
             new CastCondition(0, ConditionType.SelectedMonster_IsNotBuffCount, new double[] {0,0,0}, new ConditionValueName[] {ConditionValueName.PowerSNO, ConditionValueName.AttribID, ConditionValueName.Value}),

@@ -12,34 +12,38 @@ namespace D3Helper.A_Tools.Version
 
         public static DateTime LatestOnlineVersion = new DateTime();
 
-        public static bool isOutdated()
-        {
-            try
-            {
-                DateTime latest = get_LatestOnlineVersionDate();
+        //public static bool isOutdated()
+        //{
+        //    try
+        //    {
+        //        DateTime latest = get_LatestOnlineVersionDate();
 
-                LatestOnlineVersion = latest;
+        //        LatestOnlineVersion = latest;
 
-                DateTime current = get_CurrentVersionDate();
+        //        DateTime current = get_CurrentVersionDate();
 
-                if (latest.AddDays(-2) > current)
-                    return true;
+        //        if (latest.AddDays(-2) > current)
+        //            return true;
 
-                return false;
-            }
-            catch (Exception)
-            {
+        //        return false;
+        //    }
+        //    catch (Exception)
+        //    {
                 
-                return false;
-            }
-        }
+        //        return false;
+        //    }
+        //}
+
+
         public static DateTime get_LatestOnlineVersionDate()
         {
-            try
-            {
-                return Convert.ToDateTime(A_TCPClient.TCPClient.send_Instruction(A_Enums.TCPInstructions.GetLatestVersion, ""));
-            }
-            catch { return DateTime.Now; }
+            //try
+            //{
+            //    return Convert.ToDateTime(A_TCPClient.TCPClient.send_Instruction(A_Enums.TCPInstructions.GetLatestVersion, ""));
+            //}
+            //catch { return DateTime.Now; }
+
+            return DateTime.Now;
         }
         public static DateTime get_CurrentVersionDate()
         {

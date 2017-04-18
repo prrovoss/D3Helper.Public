@@ -280,6 +280,46 @@ namespace D3Helper.A_Tools
             }
             catch { return 0; }
         }
+
+        public static List<ActorCommonData> getEliteInRange(int radius)
+        {
+            //List<ActorCommonData> acdsinrange;
+            //List<ActorCommonData> eliteInRange = new List<ActorCommonData>();
+
+
+            //get_MonstersInRange(radius, true, true, out acdsinrange);
+            //foreach (ActorCommonData monsterInRange in acdsinrange)
+            //{
+            //    if (isElite(monsterInRange) && !isEliteIllusionist(monsterInRange)) //dont list summoned illusionists
+            //    {
+            //        eliteInRange.Add(monsterInRange);
+            //    }
+            //}
+
+
+
+            List <ActorCommonData> eliteInRange = new List<ActorCommonData>();
+
+            List<A_Collector.ACD> acdcontainer;
+            lock (A_Collection.Environment.Actors.AllActors) acdcontainer = A_Collection.Environment.Actors.AllActors.ToList();
+
+            foreach (var monster in acdcontainer.Where(x => x.IsMonster))
+            {
+                //if (monster.Distance <= radius)
+                //{
+                    if (isElite(monster._ACD) && !isEliteIllusionist(monster._ACD)) //dont list summoned illusionists
+                    {
+                        eliteInRange.Add(monster._ACD);
+                    }
+                //}
+            }
+
+
+
+            return eliteInRange;
+        }
+
+
         public static int get_MonstersInRange(int radius, bool elite, bool boss, out List<ActorCommonData> acdsinrange)
         {
             acdsinrange = new List<ActorCommonData>();
@@ -336,6 +376,7 @@ namespace D3Helper.A_Tools
             }
             catch { return 0; }
         }
+
         public static bool IsTargetable(ActorCommonData acd)
         {
             if (acd.x000_Id == -1)
@@ -346,6 +387,7 @@ namespace D3Helper.A_Tools
                 acd.GetAttributeValue(AttributeId.Burrowed) < 1 &&
                 acd.GetAttributeValue(AttributeId.Untargetable) == 0;
         }
+
         public static bool isElite(ActorCommonData monster)
         {
             try
@@ -356,7 +398,7 @@ namespace D3Helper.A_Tools
                     case Enigma.D3.Enums.MonsterQuality.Rare:
                     case Enigma.D3.Enums.MonsterQuality.Champion:
                     case Enigma.D3.Enums.MonsterQuality.Boss:
-                    case Enigma.D3.Enums.MonsterQuality.Minion:
+                    //case Enigma.D3.Enums.MonsterQuality.Minion:
                         return true;
 
                     default:
@@ -367,10 +409,10 @@ namespace D3Helper.A_Tools
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
+
         public static bool isBoss(ActorCommonData monster)
         {
             try
@@ -383,6 +425,59 @@ namespace D3Helper.A_Tools
                 return false;
             }
         }
+
+        public static bool isEliteBlue(ActorCommonData monster)
+        {
+            try
+            {
+                return monster.x0B8_MonsterQuality == MonsterQuality.Champion;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public static bool isEliteYellow(ActorCommonData monster)
+        {
+            try
+            {
+                return monster.x0B8_MonsterQuality == MonsterQuality.Rare;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+        public static bool isEliteIllusionist(ActorCommonData monster)
+        {
+            try
+            {
+                //if (hasAffix_Illusionist(monster))
+                //{
+                //    A_Handler.Log.LogEntry.addLogEntry("------------------------------------------------------");
+                //    A_Handler.Log.LogEntry.addLogEntry("Illusionist Affix  : " + hasAffix_Illusionist(monster));
+                //    A_Handler.Log.LogEntry.addLogEntry("SummonedByACDID    : " + monster.GetAttributeValue(AttributeId.SummonedByACDID));
+                //    A_Handler.Log.LogEntry.addLogEntry("SummonedByAutocast : " + monster.GetAttributeValue(AttributeId.SummonedByAutocast));
+                //    A_Handler.Log.LogEntry.addLogEntry("SummonedBySNO      : " + monster.GetAttributeValue(AttributeId.SummonedBySNO));
+                //    A_Handler.Log.LogEntry.addLogEntry("SummonerID         : " + monster.GetAttributeValue(AttributeId.SummonerID));
+                //    A_Handler.Log.LogEntry.addLogEntry("Illusion           : " + monster.GetAttributeValue(AttributeId.Illusion));
+
+                //}
+                //return false;
+
+                return monster.GetAttributeValue(AttributeId.SummonedByACDID) != -1; //if summoned illu this is != -1
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
 
         public static double get_HitpointsPercentage(ActorCommonData monster)
         {
@@ -723,6 +818,23 @@ namespace D3Helper.A_Tools
             }
             catch { return false; }
         }
+
+
+        public static bool hasAffix_Juggernaut(ActorCommonData monster)
+        {
+            try
+            {
+                List<int> AffixPowers = new List<int>()
+                {
+                   455436
+                };
+
+                return isBuff(AffixPowers, monster);
+            }
+            catch { return false; }
+        }
+
+
         public class ConventionOfElements
         {
             

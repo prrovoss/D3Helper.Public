@@ -53,7 +53,7 @@
             this.Name = "Window_Changelog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Changelog";
-            this.Load += new System.EventHandler(this.Changelog_Load);
+            //this.Load += new System.EventHandler(this.Changelog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

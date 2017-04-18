@@ -141,6 +141,7 @@ namespace D3Helper
             this.cb_skillbuttonsastext.Checked = Properties.Settings.Default.overlayskillbuttonsastext;
             this.cb_conventionelements.Checked = Properties.Settings.Default.overlayconventiondraws;
             this.CB_ApsAndSnapShotAPs.Checked = Properties.Settings.Default.Overlay_APS;
+            this.CB_EliteCircles.Checked = Properties.Settings.Default.Overlay_EliteCircles;
 
             this.tb_updaterate.Text = Properties.Settings.Default.D3Helper_UpdateRate.ToString();
             this.tb_riftprogressradius.Text = Properties.Settings.Default.riftprogress_radius.ToString();
@@ -1527,6 +1528,14 @@ namespace D3Helper
             Properties.Settings.Default.Overlay_APS = this.CB_ApsAndSnapShotAPs.Checked;
             Properties.Settings.Default.Save();
         }
+
+        private void CB_EliteCircles_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Overlay_EliteCircles = this.CB_EliteCircles.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+
 
         private void bt_delete_hotkey_autopick_Click(object sender, EventArgs e)
         {

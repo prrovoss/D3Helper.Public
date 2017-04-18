@@ -105,6 +105,8 @@ namespace D3Helper.A_Enums
         SelectedMonster_RiftProgress = 91,
         Party_AllAlive = 92,
         Key_ForceMove = 93,
+        MonstersInRange_HaveJuggernaut = 94,
+
     }
 
     static class ConditionTypeHelper
