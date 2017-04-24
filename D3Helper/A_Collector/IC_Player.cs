@@ -656,11 +656,20 @@ namespace D3Helper.A_Collector
                 lock(A_Collection.Me.HeroGlobals.LocalPlayerData)
                 {
 					var tag = A_Collection.Me.HeroGlobals.LocalACD.GetAnimTag();
-					
-					// Casting/channeling teleport sets anim tag 0x68500 during cast. Instant teleport does not use an anim tag.
-					// Reaching teleport destination animates tag 0x68000 which may or may not be seen depending on load time.
-					// Those tags are valid at least in 2.4.2
-					A_Collection.Me.HeroStates.isTeleporting = tag == 0x68500;
+
+                    //if(tag != 69632)
+                    //{
+                    //    A_Handler.Log.LogEntry.addLogEntry("Tag -> " + tag);
+                    //}
+
+                    //69632 = standing
+                    //410129 = bountie animation
+                    //0x68500 = teleport
+
+                    // Casting/channeling teleport sets anim tag 0x68500 during cast. Instant teleport does not use an anim tag.
+                    // Reaching teleport destination animates tag 0x68000 which may or may not be seen depending on load time.
+                    // Those tags are valid at least in 2.4.2
+                    A_Collection.Me.HeroStates.isTeleporting = (tag == 0x68500) || (tag == 410129);
 				}
 			}
             catch (Exception e)
