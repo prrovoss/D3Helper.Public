@@ -44,6 +44,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BTN_Forum = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.comboBox_simplecast = new System.Windows.Forms.ComboBox();
+            this.checkBox_simpleCast = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // bt_Skill1
@@ -144,7 +146,7 @@
             this.lb_versionlb.BackColor = System.Drawing.Color.Transparent;
             this.lb_versionlb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_versionlb.ForeColor = System.Drawing.Color.Red;
-            this.lb_versionlb.Location = new System.Drawing.Point(539, 9);
+            this.lb_versionlb.Location = new System.Drawing.Point(506, 9);
             this.lb_versionlb.Name = "lb_versionlb";
             this.lb_versionlb.Size = new System.Drawing.Size(138, 13);
             this.lb_versionlb.TabIndex = 7;
@@ -219,6 +221,27 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // comboBox_simplecast
+            // 
+            this.comboBox_simplecast.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_simplecast.FormattingEnabled = true;
+            this.comboBox_simplecast.Location = new System.Drawing.Point(654, 37);
+            this.comboBox_simplecast.Name = "comboBox_simplecast";
+            this.comboBox_simplecast.Size = new System.Drawing.Size(237, 21);
+            this.comboBox_simplecast.TabIndex = 17;
+            this.comboBox_simplecast.SelectedIndexChanged += new System.EventHandler(this.comboBox_simplecast_SelectedIndexChanged);
+            // 
+            // checkBox_simpleCast
+            // 
+            this.checkBox_simpleCast.AutoSize = true;
+            this.checkBox_simpleCast.Location = new System.Drawing.Point(654, 14);
+            this.checkBox_simpleCast.Name = "checkBox_simpleCast";
+            this.checkBox_simpleCast.Size = new System.Drawing.Size(114, 17);
+            this.checkBox_simpleCast.TabIndex = 18;
+            this.checkBox_simpleCast.Text = "Enable SimpleCast";
+            this.checkBox_simpleCast.UseVisualStyleBackColor = true;
+            this.checkBox_simpleCast.CheckedChanged += new System.EventHandler(this.checkBox_simpleCast_CheckedChanged);
+            // 
             // Window_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,6 +250,8 @@
             this.BackgroundImage = global::D3Helper.Properties.Resources.Background_Monk_50_MainWindow;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(903, 102);
+            this.Controls.Add(this.checkBox_simpleCast);
+            this.Controls.Add(this.comboBox_simplecast);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BTN_Forum);
             this.Controls.Add(this.bt_SkillLmb);
@@ -269,6 +294,8 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button BTN_Forum;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox_simplecast;
+        private System.Windows.Forms.CheckBox checkBox_simpleCast;
     }
 }
 

@@ -163,6 +163,7 @@
     <Compile Include="A_Tools\T_ExternalFile.cs" />
     <Compile Include="A_Tools\T_LevelArea.cs" />
     <Compile Include="A_Tools\T_LocalPlayer.cs" />
+    <Compile Include="A_Tools\T_SimpleCast.cs" />
     <Compile Include="A_Tools\T_World.cs" />
     <Compile Include="A_Tools\Version\AppVersion.cs" />
     <Compile Include="A_Enums\ItemTypes.cs" />

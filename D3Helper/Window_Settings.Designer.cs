@@ -111,6 +111,7 @@
             this.bt_delete_hotkey_skillslot2 = new System.Windows.Forms.Button();
             this.bt_delete_hotkey_skillslot1 = new System.Windows.Forms.Button();
             this.page_Overlay = new System.Windows.Forms.TabPage();
+            this.CB_EliteCircles = new System.Windows.Forms.CheckBox();
             this.CB_ApsAndSnapShotAPs = new System.Windows.Forms.CheckBox();
             this.cb_conventionelements = new System.Windows.Forms.CheckBox();
             this.cb_skillbuttonsastext = new System.Windows.Forms.CheckBox();
@@ -149,7 +150,12 @@
             this.page_Experimental = new System.Windows.Forms.TabPage();
             this.label28 = new System.Windows.Forms.Label();
             this.cbox_ConvertMaterialFromTo = new System.Windows.Forms.ComboBox();
-            this.CB_EliteCircles = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button_simplecast_save = new System.Windows.Forms.Button();
+            this.button_simplecast_remove = new System.Windows.Forms.Button();
+            this.button_simplecast_add = new System.Windows.Forms.Button();
+            this.dataGridView_simpleCast = new System.Windows.Forms.DataGridView();
+            this.label29 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.page_General.SuspendLayout();
             this.page_Hotkeys.SuspendLayout();
@@ -159,6 +165,8 @@
             this.page_SkillBuilds.SuspendLayout();
             this.page_AutoPick.SuspendLayout();
             this.page_Experimental.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_simpleCast)).BeginInit();
             this.SuspendLayout();
             // 
             // tb_assignedSkill4
@@ -375,6 +383,7 @@
             this.tabControl1.Controls.Add(this.page_SkillBuilds);
             this.tabControl1.Controls.Add(this.page_AutoPick);
             this.tabControl1.Controls.Add(this.page_Experimental);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1040,6 +1049,18 @@
             this.page_Overlay.TabIndex = 1;
             this.page_Overlay.Text = "Overlay";
             // 
+            // CB_EliteCircles
+            // 
+            this.CB_EliteCircles.AutoSize = true;
+            this.CB_EliteCircles.BackColor = System.Drawing.Color.Transparent;
+            this.CB_EliteCircles.Location = new System.Drawing.Point(6, 158);
+            this.CB_EliteCircles.Name = "CB_EliteCircles";
+            this.CB_EliteCircles.Size = new System.Drawing.Size(80, 17);
+            this.CB_EliteCircles.TabIndex = 9;
+            this.CB_EliteCircles.Text = "Elite Circles";
+            this.CB_EliteCircles.UseVisualStyleBackColor = false;
+            this.CB_EliteCircles.CheckedChanged += new System.EventHandler(this.CB_EliteCircles_CheckedChanged);
+            // 
             // CB_ApsAndSnapShotAPs
             // 
             this.CB_ApsAndSnapShotAPs.AutoSize = true;
@@ -1473,17 +1494,68 @@
             this.cbox_ConvertMaterialFromTo.Size = new System.Drawing.Size(257, 21);
             this.cbox_ConvertMaterialFromTo.TabIndex = 37;
             // 
-            // CB_EliteCircles
+            // tabPage1
             // 
-            this.CB_EliteCircles.AutoSize = true;
-            this.CB_EliteCircles.BackColor = System.Drawing.Color.Transparent;
-            this.CB_EliteCircles.Location = new System.Drawing.Point(6, 158);
-            this.CB_EliteCircles.Name = "CB_EliteCircles";
-            this.CB_EliteCircles.Size = new System.Drawing.Size(80, 17);
-            this.CB_EliteCircles.TabIndex = 9;
-            this.CB_EliteCircles.Text = "Elite Circles";
-            this.CB_EliteCircles.UseVisualStyleBackColor = false;
-            this.CB_EliteCircles.CheckedChanged += new System.EventHandler(this.CB_EliteCircles_CheckedChanged);
+            this.tabPage1.Controls.Add(this.label29);
+            this.tabPage1.Controls.Add(this.button_simplecast_save);
+            this.tabPage1.Controls.Add(this.button_simplecast_remove);
+            this.tabPage1.Controls.Add(this.button_simplecast_add);
+            this.tabPage1.Controls.Add(this.dataGridView_simpleCast);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(557, 650);
+            this.tabPage1.TabIndex = 15;
+            this.tabPage1.Text = "SimpleCast";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button_simplecast_save
+            // 
+            this.button_simplecast_save.Location = new System.Drawing.Point(476, 104);
+            this.button_simplecast_save.Name = "button_simplecast_save";
+            this.button_simplecast_save.Size = new System.Drawing.Size(75, 23);
+            this.button_simplecast_save.TabIndex = 3;
+            this.button_simplecast_save.Text = "save";
+            this.button_simplecast_save.UseVisualStyleBackColor = true;
+            this.button_simplecast_save.Click += new System.EventHandler(this.button_simplecast_save_Click);
+            // 
+            // button_simplecast_remove
+            // 
+            this.button_simplecast_remove.Location = new System.Drawing.Point(476, 58);
+            this.button_simplecast_remove.Name = "button_simplecast_remove";
+            this.button_simplecast_remove.Size = new System.Drawing.Size(75, 23);
+            this.button_simplecast_remove.TabIndex = 2;
+            this.button_simplecast_remove.Text = "remove";
+            this.button_simplecast_remove.UseVisualStyleBackColor = true;
+            this.button_simplecast_remove.Click += new System.EventHandler(this.button_simplecast_remove_Click);
+            // 
+            // button_simplecast_add
+            // 
+            this.button_simplecast_add.Location = new System.Drawing.Point(476, 29);
+            this.button_simplecast_add.Name = "button_simplecast_add";
+            this.button_simplecast_add.Size = new System.Drawing.Size(75, 23);
+            this.button_simplecast_add.TabIndex = 1;
+            this.button_simplecast_add.Text = "add";
+            this.button_simplecast_add.UseVisualStyleBackColor = true;
+            this.button_simplecast_add.Click += new System.EventHandler(this.button_simplecast_add_Click);
+            // 
+            // dataGridView_simpleCast
+            // 
+            this.dataGridView_simpleCast.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_simpleCast.Location = new System.Drawing.Point(6, 29);
+            this.dataGridView_simpleCast.Name = "dataGridView_simpleCast";
+            this.dataGridView_simpleCast.Size = new System.Drawing.Size(464, 615);
+            this.dataGridView_simpleCast.TabIndex = 0;
+            this.dataGridView_simpleCast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_simpleCast_CellContentClick);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 13);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(255, 13);
+            this.label29.TabIndex = 4;
+            this.label29.Text = "AutoCast Skill every x Second (0 or Empty = no cast)";
             // 
             // Window_Settings
             // 
@@ -1516,6 +1588,9 @@
             this.page_AutoPick.PerformLayout();
             this.page_Experimental.ResumeLayout(false);
             this.page_Experimental.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_simpleCast)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1641,5 +1716,11 @@
         private System.Windows.Forms.ComboBox cbox_ConvertMaterialFromTo;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.CheckBox CB_EliteCircles;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button button_simplecast_remove;
+        private System.Windows.Forms.Button button_simplecast_add;
+        private System.Windows.Forms.DataGridView dataGridView_simpleCast;
+        private System.Windows.Forms.Button button_simplecast_save;
+        private System.Windows.Forms.Label label29;
     }
 }

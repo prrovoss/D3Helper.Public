@@ -158,6 +158,13 @@ namespace D3Helper
 
             this.cb_DisableAutocastOnNoOverride.Checked = Properties.Settings.Default.DisableAutocastOnNoOverride;
             this.cbox_ConvertMaterialFromTo.Text = Properties.Settings.Default.ConvertMaterialText;
+
+            //--------------------
+
+            // load simpleCaste settings
+            T_SimpleCast.load_to_datagrid(dataGridView_simpleCast);
+
+
         }
 
         private void Tb_assignedAutoCube_UpgradeRare_KeyDown(object sender, KeyEventArgs e)
@@ -1634,6 +1641,47 @@ namespace D3Helper
             Properties.Settings.Default.Save();
         }
 
+        private void button_simplecast_save_Click(object sender, EventArgs e)
+        {
+            T_SimpleCast.save_from_datagrid(dataGridView_simpleCast);
+            Window_Main.d3helperform.loadSimeCastListToCombobox();
+        }
 
+        private void dataGridView_simpleCast_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button_simplecast_add_Click(object sender, EventArgs e)
+        {
+            try
+            {
+               
+
+                DataTable table = (DataTable)dataGridView_simpleCast.DataSource;
+                DataRow newRow = table.NewRow();
+                newRow["name"] = "new Definition";
+                table.Rows.Add(newRow);
+
+                //dataGridView_simpleCast.Rows.Add("new", 0, 0, 0, 0, 0, 0);
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            };
+        }
+
+        private void button_simplecast_remove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (DataGridViewRow item in this.dataGridView_simpleCast.SelectedRows)
+                {
+                    dataGridView_simpleCast.Rows.RemoveAt(item.Index);
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            };
+        }
     }
 }

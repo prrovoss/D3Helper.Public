@@ -24,7 +24,7 @@ using D3Helper.A_WPFOverlay;
 
 
 using SlimDX.DirectInput;
-
+using D3Helper.A_Tools;
 
 namespace D3Helper
 {
@@ -38,6 +38,9 @@ namespace D3Helper
         public static readonly Version SupportedVersion = Engine.SupportedVersion;
 
         System.Timers.Timer waitForOverlay;
+
+        public bool isSimpleCastEnabled = false;
+        public string selectedSimpleCastName = null;
 
         public Window_Main()
         {
@@ -279,6 +282,14 @@ namespace D3Helper
 
 
 
+            //Use SimpleCast!
+            T_SimpleCast.StartSimpleCastThread();
+
+            //fill combobox for simple cast
+            loadSimeCastListToCombobox();
+
+
+
 
 
 
@@ -319,7 +330,11 @@ namespace D3Helper
                 {
                     this.Text = "You are running a not supported D3Client(" + GetFileVersion() +
                                 ") Supported Version is " + SupportedVersion;
+
+
+ 
                 }
+
 
             });
             t.SetApartmentState(ApartmentState.STA); //must be STA Thread to access GUI
@@ -605,5 +620,26 @@ namespace D3Helper
             Window_SkillEditor se = new Window_SkillEditor();
             se.Show();
         }
+
+        private void comboBox_simplecast_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedSimpleCastName = comboBox_simplecast.Text;
+        }
+
+        private void checkBox_simpleCast_CheckedChanged(object sender, EventArgs e)
+        {
+            isSimpleCastEnabled = checkBox_simpleCast.Checked;
+        }
+
+        public void loadSimeCastListToCombobox()
+        {
+            List<string> simpleCasteNames = T_SimpleCast.getSimpleCastNames();
+            T_SimpleCast.bindListToCombobox(comboBox_simplecast, simpleCasteNames);
+            if (simpleCasteNames.Any())
+            {
+                selectedSimpleCastName = simpleCasteNames[0];
+            }
+        }
+
     }
 }
