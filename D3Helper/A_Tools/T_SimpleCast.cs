@@ -168,7 +168,7 @@ namespace D3Helper.A_Tools
 
             while (true)
             {
-                //nur casten wenn D3 im Vordergrund!
+                //only cast if Diablo III Window is in Foreground!
                 if (!A_Collection.D3Client.Window.isForeground)
                 {
                     continue;
@@ -293,7 +293,7 @@ namespace D3Helper.A_Tools
                                     if (rmb_second_since_last_cast == -1 || rmb_second_since_last_cast == rmb)
                                     {
                                         //cast
-                                        IS_Mouse.LeftClick();
+                                        IS_Mouse.RightClick();
                                         rmb_second_since_last_cast = 0;
                                     }
                                     else
