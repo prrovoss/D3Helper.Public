@@ -176,5 +176,6 @@ namespace D3Helper.A_Enums
         public const string Kanai_Cube_Recipe_Button    = "Root.NormalLayer.vendor_dialog_mainPage.transmute_dialog.LayoutRoot.recipe_button";
         public const string Kanai_Cube_Fill_Button      = "Root.NormalLayer.Kanais_Recipes_main.LayoutRoot.button_fill_currencies";
         public const string Kanai_Cube_Transmute_Button = "Root.NormalLayer.vendor_dialog_mainPage.transmute_dialog.LayoutRoot.transmute_button";
+		public const string Kanai_Cube_Exit_Button      = "Root.NormalLayer.vendor_dialog_mainPage.vendor_button_exit";
     }
 }

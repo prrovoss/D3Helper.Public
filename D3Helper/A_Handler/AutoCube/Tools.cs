@@ -10,6 +10,7 @@ using Enigma.D3.DataTypes;
 using Enigma.D3.Enums;
 using Enigma.D3.Helpers;
 using Enigma.D3.UI.Controls;
+using D3Helper.A_Enums;
 
 namespace D3Helper.A_Handler.AutoCube
 {

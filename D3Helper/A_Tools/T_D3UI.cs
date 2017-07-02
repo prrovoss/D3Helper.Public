@@ -53,6 +53,51 @@ namespace D3Helper.A_Tools
                 catch { return default(UIRect); }
 
             }
+
+
+            public static void leftClick(UIRect uirect)
+            {
+                try
+                {
+                    A_Tools.InputSimulator.IS_Mouse.LeftClick((int)uirect.Left, (int)uirect.Top, (int)uirect.Right - 5, (int)uirect.Bottom);
+                    System.Threading.Thread.Sleep(250);
+                }
+                catch { }
+            }
+
+            public static void leftClick(string control)
+            {
+                try
+                {
+                    UIRect uirect = A_Tools.T_D3UI.UIElement.getRect(control);
+                    leftClick(uirect);
+                }
+                catch { }
+            }
+
+
+            public static void rightClick(UIRect uirect)
+            {
+                try
+                {
+                    A_Tools.InputSimulator.IS_Mouse.RightCLick((int)uirect.Left, (int)uirect.Top, (int)uirect.Right - 5, (int)uirect.Bottom);
+                    System.Threading.Thread.Sleep(250);
+                }
+                catch { }
+            }
+
+
+            public static void rightClick(string control)
+            {
+                try
+                {
+                    UIRect uirect = A_Tools.T_D3UI.UIElement.getRect(control);
+                    rightClick(uirect);
+                }
+                catch { }
+            }
+
+
         }
         public class Inventory
         {

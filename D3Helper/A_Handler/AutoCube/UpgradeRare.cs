@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Enigma.D3;
 using Enigma.D3.UI;
+using D3Helper.A_Enums;
 
 namespace D3Helper.A_Handler.AutoCube
 {
@@ -14,8 +15,6 @@ namespace D3Helper.A_Handler.AutoCube
     {
         public static bool IsUpgrading_Rare = false;
 
-        private const string BTN_Transmute =
-            "Root.NormalLayer.vendor_dialog_mainPage.transmute_dialog.LayoutRoot.transmute_button";
 
         public static void DoUpgrade()
         {
@@ -35,8 +34,7 @@ namespace D3Helper.A_Handler.AutoCube
                         s1.Start(); ///////////
 
                         var UpgradableItems = Tools.Get_Items("rare");
-                        List<ActorCommonData> Materials;
-                        var Count_AvailableEnchants = Tools.Get_AvailableEnchants_UpgradeRare(out Materials);
+                        var Count_AvailableEnchants = 50;
 
                         var Count_Enchants = 0;
 
@@ -47,33 +45,47 @@ namespace D3Helper.A_Handler.AutoCube
 
                             if (Tools.ClickOnCube(CubeStand))
                             {
+                                //receipe button
+                                A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Recipe_Button);
+
+                                //press next button 2x for upgrade rare menu
+                                A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Page_Next);
+                                A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Page_Next);
+                                
+                                
+                                //put item in cube
                                 UIRect UIRect_item =
                                     A_Collection.D3UI.InventoryItemUIRectMesh.FirstOrDefault(
                                         x => x.Key.ItemSlotX == item.x118_ItemSlotX && x.Key.ItemSlotY == item.x11C_ItemSlotY).Value;
 
-                                A_Tools.InputSimulator.IS_Mouse.RightCLick((int)UIRect_item.Left, (int)UIRect_item.Top, (int)UIRect_item.Right, (int)UIRect_item.Bottom);
-                                Thread.Sleep(200);
+                                A_Tools.T_D3UI.UIElement.rightClick(UIRect_item);
 
-                                foreach (var material in Materials)
-                                {
-                                    UIRect UIRect_material =
-                                    A_Collection.D3UI.InventoryItemUIRectMesh.FirstOrDefault(
-                                        x => x.Key.ItemSlotX == material.x118_ItemSlotX && x.Key.ItemSlotY == material.x11C_ItemSlotY)
-                                        .Value;
 
-                                    A_Tools.InputSimulator.IS_Mouse.RightCLick((int)UIRect_material.Left, (int)UIRect_material.Top, (int)UIRect_material.Right, (int)UIRect_material.Bottom);
-                                    Thread.Sleep(100);
-                                }
+                                //fill
+                                A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Fill_Button);
 
-                                UIRect Transmute = A_Tools.T_D3UI.UIElement.getRect(BTN_Transmute);
+                                //transmute
+                                A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Transmute_Button);
 
-                                A_Tools.InputSimulator.IS_Mouse.LeftClick((int)Transmute.Left, (int)Transmute.Top, (int)Transmute.Right-10, (int)Transmute.Bottom);
-                                Thread.Sleep(500);
 
+
+                                //close all windows
+                                int close_timeout = 4;
                                 while (Tools.IsVendorPage_Visible())
                                 {
-                                    A_Tools.InputSimulator.IS_Keyboard.Close_AllWindows();
+                                    //A_Tools.InputSimulator.IS_Keyboard.Close_AllWindows(); //doesnt work if not assigned :D
+
+                                    //Press "X" - Button in Kanais Cube
+                                    A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Exit_Button);
+
+     
                                     Thread.Sleep(250);
+
+                                    close_timeout--;
+                                    if(close_timeout == 0)
+                                    {
+                                        break;
+                                    }
                                 }
 
 
