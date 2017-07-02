@@ -807,6 +807,27 @@
     <Content Include="OverlaySettings.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\necro\necro_skeletalmage.png" />
+    <None Include="Resources\necro\necro_siphonblood.png" />
+    <None Include="Resources\necro\necro_simulacrum.png" />
+    <None Include="Resources\necro\necro_revive.png" />
+    <None Include="Resources\necro\necro_leech.png" />
+    <None Include="Resources\necro\necro_landofthedead.png" />
+    <None Include="Resources\necro\necro_grimscythe.png" />
+    <None Include="Resources\necro\necro_frailty.png" />
+    <None Include="Resources\necro\necro_devour.png" />
+    <None Include="Resources\necro\necro_decrepify.png" />
+    <None Include="Resources\necro\necro_deathnova.png" />
+    <None Include="Resources\necro\necro_corpselance.png" />
+    <None Include="Resources\necro\necro_corpseexplosion.png" />
+    <None Include="Resources\necro\necro_commandskeletons.png" />
+    <None Include="Resources\necro\necro_commandgolem.png" />
+    <None Include="Resources\necro\necro_bonespirit.png" />
+    <None Include="Resources\necro\necro_bonespikes.png" />
+    <None Include="Resources\necro\necro_bonespear.png" />
+    <None Include="Resources\necro\necro_bonearmor.png" />
+    <None Include="Resources\necro\necro_bloodrush.png" />
+    <None Include="Resources\necro\necro_armyofthedead.png" />
     <None Include="Resources\BattleNetAuctionHouse_MenuTitleBar.png" />
     <Resource Include="Resources\menu_iconsettings.png" />
     <Resource Include="Resources\menu0.png" />
