@@ -58,6 +58,8 @@ namespace D3Helper.A_WPFOverlay
 
         private static IntPtr _parentHandle;
 
+        public static string selected_uxcontrol = null;
+
         public Overlay()
         {
             while (Engine.Current == null) { System.Threading.Thread.Sleep(1); }
@@ -477,50 +479,65 @@ namespace D3Helper.A_WPFOverlay
 
 
 
-                            ////*******************************************
-                            //// debug ui rects
-                            ////*******************************************
-                            //foreach (UXControl uxcontrol in UXHelper.Enumerate())
-                            //{
-                            //    try
-                            //    {
-                            //        if (uxcontrol.IsVisible())
-                            //        {
-                            //            UIRect uirect = A_Tools.T_D3UI.UIElement.getRect(uxcontrol.ToString());
+                            //*******************************************
+                            // debug ui rects
+                            //*******************************************
+                            if (Properties.Settings.Default.overlayfps)
+                            {
+
+                                foreach (UXControl uxcontrol in UXHelper.Enumerate())
+                                {
+                                    try
+                                    {
+                                        if (uxcontrol.IsVisible())
+                                        {
+                                            UIRect uirect = A_Tools.T_D3UI.UIElement.getRect(uxcontrol.ToString());
 
 
 
-                            //            Rectangle r = new Rectangle();
-                            //            r.BeginInit();
-                            //            r.Width = uirect.Width;
-                            //            r.Height = uirect.Height;
-                            //            r.StrokeThickness = 1;
-                            //            r.Stroke = Brushes.LightBlue;
+                                            Rectangle r = new Rectangle();
+                                            r.BeginInit();
+                                            r.Width = uirect.Width;
+                                            r.Height = uirect.Height;
+                                            r.StrokeThickness = 1;
+                                            r.Stroke = Brushes.LightBlue;
 
-                            //            Canvas.SetLeft(r, uirect.Left);
-                            //            Canvas.SetTop(r, uirect.Top);
+                                            Canvas.SetLeft(r, uirect.Left);
+                                            Canvas.SetTop(r, uirect.Top);
 
-                            //            r.EndInit();
-
-                            //            canvas1.Children.Add(r);
+                                            r.EndInit();
 
 
-                            //            TextBlock t = new TextBlock();
-                            //            t.BeginInit();
-                            //            t.Text = uxcontrol.ToString();
-                            //            t.Foreground = Brushes.LightBlue; //textcolor
+                                            TextBlock t = new TextBlock();
+                                            t.BeginInit();
+                                            t.Text = uxcontrol.ToString();
+                                            t.Foreground = Brushes.LightBlue; //textcolor
 
-                            //            Canvas.SetLeft(t, uirect.Left);
-                            //            Canvas.SetTop(t, uirect.Top);
+                                            Canvas.SetLeft(t, uirect.Left);
+                                            Canvas.SetTop(t, uirect.Top);
 
-                            //            t.EndInit();
-                            //            canvas1.Children.Add(t);
+                                            t.EndInit();
 
 
-                            //        }
-                            //    }
-                            //    catch (Exception) { }
-                            //}
+                                            //only render selected item
+                                            if(selected_uxcontrol != null && selected_uxcontrol.Any())
+                                            {
+                                                if (t.Text.ToLower().Contains(selected_uxcontrol.ToLower()))
+                                                {
+                                                    canvas1.Children.Add(r);
+                                                    canvas1.Children.Add(t);
+                                                }
+                                            }else
+                                            {
+                                                //render all
+                                                canvas1.Children.Add(r);
+                                                canvas1.Children.Add(t);
+                                            }
+                                        }
+                                    }
+                                    catch (Exception) { }
+                                }
+                            }
 
 
 

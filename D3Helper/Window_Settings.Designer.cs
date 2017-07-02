@@ -111,6 +111,8 @@
             this.bt_delete_hotkey_skillslot2 = new System.Windows.Forms.Button();
             this.bt_delete_hotkey_skillslot1 = new System.Windows.Forms.Button();
             this.page_Overlay = new System.Windows.Forms.TabPage();
+            this.button_get_ui_elements = new System.Windows.Forms.Button();
+            this.textBox_filter_ui_elemets_listbox = new System.Windows.Forms.TextBox();
             this.CB_EliteCircles = new System.Windows.Forms.CheckBox();
             this.CB_ApsAndSnapShotAPs = new System.Windows.Forms.CheckBox();
             this.cb_conventionelements = new System.Windows.Forms.CheckBox();
@@ -151,11 +153,12 @@
             this.label28 = new System.Windows.Forms.Label();
             this.cbox_ConvertMaterialFromTo = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label29 = new System.Windows.Forms.Label();
             this.button_simplecast_save = new System.Windows.Forms.Button();
             this.button_simplecast_remove = new System.Windows.Forms.Button();
             this.button_simplecast_add = new System.Windows.Forms.Button();
             this.dataGridView_simpleCast = new System.Windows.Forms.DataGridView();
-            this.label29 = new System.Windows.Forms.Label();
+            this.listBox_ui_elements = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.page_General.SuspendLayout();
             this.page_Hotkeys.SuspendLayout();
@@ -1032,6 +1035,9 @@
             this.page_Overlay.BackColor = System.Drawing.SystemColors.Control;
             this.page_Overlay.BackgroundImage = global::D3Helper.Properties.Resources.Background_Monk_50_Settings;
             this.page_Overlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.page_Overlay.Controls.Add(this.listBox_ui_elements);
+            this.page_Overlay.Controls.Add(this.button_get_ui_elements);
+            this.page_Overlay.Controls.Add(this.textBox_filter_ui_elemets_listbox);
             this.page_Overlay.Controls.Add(this.CB_EliteCircles);
             this.page_Overlay.Controls.Add(this.CB_ApsAndSnapShotAPs);
             this.page_Overlay.Controls.Add(this.cb_conventionelements);
@@ -1048,6 +1054,25 @@
             this.page_Overlay.Size = new System.Drawing.Size(557, 650);
             this.page_Overlay.TabIndex = 1;
             this.page_Overlay.Text = "Overlay";
+            // 
+            // button_get_ui_elements
+            // 
+            this.button_get_ui_elements.Location = new System.Drawing.Point(435, 254);
+            this.button_get_ui_elements.Name = "button_get_ui_elements";
+            this.button_get_ui_elements.Size = new System.Drawing.Size(107, 23);
+            this.button_get_ui_elements.TabIndex = 42;
+            this.button_get_ui_elements.Text = "get UI Elements";
+            this.button_get_ui_elements.UseVisualStyleBackColor = true;
+            this.button_get_ui_elements.Click += new System.EventHandler(this.button_get_ui_elements_Click);
+            // 
+            // textBox_filter_ui_elemets_listbox
+            // 
+            this.textBox_filter_ui_elemets_listbox.Location = new System.Drawing.Point(7, 254);
+            this.textBox_filter_ui_elemets_listbox.Name = "textBox_filter_ui_elemets_listbox";
+            this.textBox_filter_ui_elemets_listbox.Size = new System.Drawing.Size(136, 20);
+            this.textBox_filter_ui_elemets_listbox.TabIndex = 41;
+            this.textBox_filter_ui_elemets_listbox.TextChanged += new System.EventHandler(this.textBox_filter_ui_elemets_listbox_TextChanged_1);
+            this.textBox_filter_ui_elemets_listbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_filter_ui_elemets_listbox_KeyUp);
             // 
             // CB_EliteCircles
             // 
@@ -1509,6 +1534,15 @@
             this.tabPage1.Text = "SimpleCast";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 13);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(255, 13);
+            this.label29.TabIndex = 4;
+            this.label29.Text = "AutoCast Skill every x Second (0 or Empty = no cast)";
+            // 
             // button_simplecast_save
             // 
             this.button_simplecast_save.Location = new System.Drawing.Point(476, 104);
@@ -1548,14 +1582,16 @@
             this.dataGridView_simpleCast.TabIndex = 0;
             this.dataGridView_simpleCast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_simpleCast_CellContentClick);
             // 
-            // label29
+            // listBox_ui_elements
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(6, 13);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(255, 13);
-            this.label29.TabIndex = 4;
-            this.label29.Text = "AutoCast Skill every x Second (0 or Empty = no cast)";
+            this.listBox_ui_elements.FormattingEnabled = true;
+            this.listBox_ui_elements.HorizontalScrollbar = true;
+            this.listBox_ui_elements.Location = new System.Drawing.Point(7, 283);
+            this.listBox_ui_elements.Name = "listBox_ui_elements";
+            this.listBox_ui_elements.Size = new System.Drawing.Size(535, 355);
+            this.listBox_ui_elements.TabIndex = 43;
+            this.listBox_ui_elements.SelectedIndexChanged += new System.EventHandler(this.listBox_ui_elements_SelectedIndexChanged);
+            this.listBox_ui_elements.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_filter_ui_elemets_listbox_KeyUp);
             // 
             // Window_Settings
             // 
@@ -1722,5 +1758,8 @@
         private System.Windows.Forms.DataGridView dataGridView_simpleCast;
         private System.Windows.Forms.Button button_simplecast_save;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox textBox_filter_ui_elemets_listbox;
+        private System.Windows.Forms.Button button_get_ui_elements;
+        private System.Windows.Forms.ListBox listBox_ui_elements;
     }
 }

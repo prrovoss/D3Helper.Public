@@ -134,7 +134,6 @@
     <Compile Include="A_Enums\HeroClass.cs" />
     <Compile Include="A_Enums\ParagonXPTable.cs" />
     <Compile Include="A_Enums\Powers.cs" />
-    <Compile Include="A_Enums\TCPInstructions.cs" />
     <Compile Include="A_Enums\UIElements.cs" />
     <Compile Include="A_Handler\AutoCube\Tools.cs" />
     <Compile Include="A_Handler\AutoCube\ConvertMaterial.cs" />

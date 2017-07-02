@@ -146,6 +146,7 @@ namespace D3Helper.A_Enums
         public const string Bar_GRiftProgress =
             "Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.greater_rift_container.rift_progress_bar";
 
+
         public const string ParagonPointSelect = "Root.NormalLayer.Paragon_main.LayoutRoot.ParagonPointSelect";
 
         public const string ParagonPointSelect_BonusX_Base = "Root.NormalLayer.Paragon_main.LayoutRoot.ParagonPointSelect.Bonuses.bonus"; // add X 0-3 use with Extension only
@@ -168,5 +169,12 @@ namespace D3Helper.A_Enums
         public const string ParagonPointSelect_SpentPoint_Bonus1 = "Root.NormalLayer.Paragon_main.LayoutRoot.ParagonPointSelect.Bonuses.bonus1.IncreaseStat";
         public const string ParagonPointSelect_SpentPoint_Bonus2 = "Root.NormalLayer.Paragon_main.LayoutRoot.ParagonPointSelect.Bonuses.bonus2.IncreaseStat";
         public const string ParagonPointSelect_SpentPoint_Bonus3 = "Root.NormalLayer.Paragon_main.LayoutRoot.ParagonPointSelect.Bonuses.bonus3.IncreaseStat";
+
+
+        public const string Kanai_Cube_Page_Next        = "Root.NormalLayer.Kanais_Recipes_main.LayoutRoot.PageControls.page_next";
+        public const string Kanai_Cube_Page_Previous    = "Root.NormalLayer.Kanais_Recipes_main.LayoutRoot.PageControls.page_previous";
+        public const string Kanai_Cube_Recipe_Button    = "Root.NormalLayer.vendor_dialog_mainPage.transmute_dialog.LayoutRoot.recipe_button";
+        public const string Kanai_Cube_Fill_Button      = "Root.NormalLayer.Kanais_Recipes_main.LayoutRoot.button_fill_currencies";
+        public const string Kanai_Cube_Transmute_Button = "Root.NormalLayer.vendor_dialog_mainPage.transmute_dialog.LayoutRoot.transmute_button";
     }
 }

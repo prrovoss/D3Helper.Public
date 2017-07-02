@@ -15,6 +15,8 @@ using D3Helper.A_Handler.SkillBuildSwap;
 using D3Helper.A_Tools;
 using Key = SlimDX.DirectInput.Key;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
+using Enigma.D3.Helpers;
+using Enigma.D3.UI.Controls;
 
 namespace D3Helper
 {
@@ -27,6 +29,8 @@ namespace D3Helper
 
         public static Window_Settings _this = null;
 
+        public static List<UXControl> visible_uxcontrols = null;
+
         public Window_Settings()
         {
             InitializeComponent();
@@ -38,6 +42,7 @@ namespace D3Helper
         private void FormClose(Object sender, FormClosedEventArgs e)
         {
             _this = null;
+            A_WPFOverlay.Overlay.selected_uxcontrol = null;
         }
 
         private void Settings_Load(object sender, EventArgs e)
@@ -1683,5 +1688,84 @@ namespace D3Helper
                 MessageBox.Show(ex.Message);
             };
         }
+
+        private void button_get_ui_elements_Click(object sender, EventArgs e)
+        {
+            visible_uxcontrols = new List<UXControl>();
+            foreach (UXControl uxcontrol in UXHelper.Enumerate())
+            {
+                try
+                {
+                    if (uxcontrol.IsVisible())
+                    {
+                        visible_uxcontrols.Add(uxcontrol);
+                        listBox_ui_elements.Items.Add(uxcontrol.ToString());
+                    }
+                }
+                catch (Exception) { }
+            }
+        }
+
+
+
+        private void listbox_ui_elemts_copySelectedValuesToClipboard()
+        {
+            var builder = new StringBuilder();
+            foreach (string item in listBox_ui_elements.SelectedItems)
+            {
+                builder.AppendLine(item);
+                //builder.AppendLine(item.SubItems[1].Text);
+            }
+
+            Clipboard.SetText(builder.ToString());
+        }
+
+        private void textBox_filter_ui_elemets_listbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sender != listBox_ui_elements) return;
+
+            //strg+c
+            if (e.Control && e.KeyCode == Keys.C)
+                listbox_ui_elemts_copySelectedValuesToClipboard();
+        }
+
+        private void textBox_filter_ui_elemets_listbox_TextChanged_1(object sender, EventArgs e)
+        {
+            if(visible_uxcontrols != null && visible_uxcontrols.Any())
+            {
+                listBox_ui_elements.BeginUpdate();
+                listBox_ui_elements.Items.Clear();
+
+                string text = textBox_filter_ui_elemets_listbox.Text;
+
+                if (!string.IsNullOrEmpty(text))
+                {
+
+
+                    foreach (UXControl ux in visible_uxcontrols)
+                    {
+                        string str = ux.ToString();
+
+                        if (str.Contains(text))
+                        {
+                            listBox_ui_elements.Items.Add(str);
+                        }
+                    }
+                }
+
+                listBox_ui_elements.EndUpdate();
+            }
+        }
+
+        private void listBox_ui_elements_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string text = (string)listBox_ui_elements.SelectedItem;
+            if(text != null)
+            {
+                A_WPFOverlay.Overlay.selected_uxcontrol = text;
+                Clipboard.SetText(text);
+            }
+        }
+
     }
 }
