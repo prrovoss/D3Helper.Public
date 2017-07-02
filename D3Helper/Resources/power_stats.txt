@@ -859,3 +859,129 @@
 243141	3	1	725	2	20	12	Wizard_Wormhole	Blazar
 243141	4	5	700	2	20	12	Wizard_Wormhole	Spellsteal
 243141	5	3	700	2	20	12	Wizard_Wormhole	Absolute Zero
+451490	0	-1	500	-1	20	-1	necro_bonespear	No Rune
+451490	1	-1	500	-1	20	-1	necro_bonespear	Crystallization
+451490	2	-1	500	-1	20	-1	necro_bonespear	Shatter
+451490	3	-1	500	-1	20	-1	necro_bonespear	Blighted Marrow
+451490	4	-1	650	-1	10	-1	necro_bonespear	Blood Spear
+451490	5	-1	300	-1	20	-1	necro_bonespear	Teeth
+451491	0	-1	-1	-1	10	-1	necro_decrepify	No Rune
+451491	1	-1	-1	-1	10	-1	necro_decrepify	Enfeeblement
+451491	2	-1	-1	-1	10	-1	necro_decrepify	Opportunist
+451491	3	-1	-1	-1	10	-1	necro_decrepify	Borrowed Time
+451491	4	-1	-1	-1	10	-1	necro_decrepify	Wither
+451491	5	-1	-1	-1	10	-1	necro_decrepify	Dizzying Curse
+451537	0	-1	450	-1	-1	45	necro_commandgolem	No Rune
+451537	1	-1	2000	2	-1	45	necro_commandgolem	Bone Golem
+451537	2	-1	450	-1	-1	45	necro_commandgolem	Blood Golem
+451537	3	-1	450	-1	-1	45	necro_commandgolem	Decay Golem
+451537	4	-1	450	-1	-1	45	necro_commandgolem	Flesh Golem
+451537	5	-1	450	-1	-1	45	necro_commandgolem	Ice Golem
+453563	0	-1	300	-1	-1	-1	necro_siphonblood	No Rune
+453563	1	-1	300	-1	-1	-1	necro_siphonblood	Suppress
+453563	2	-1	300	-1	-1	-1	necro_siphonblood	Purity of Essence
+453563	3	-1	300	-1	-1	-1	necro_siphonblood	Drain Life
+453563	4	-1	300	-1	-1	-1	necro_siphonblood	Power Shift
+453563	5	-1	300	-1	-1	-1	necro_siphonblood	Blood Sucker
+453801	0	-1	-1	-1	50	-1	necro_commandskeletons	No Rune
+453801	1	-1	-1	-1	25	-1	necro_commandskeletons	Enforcer
+453801	2	-1	-1	-1	50	-1	necro_commandskeletons	Dark Mending
+453801	3	-1	-1	-1	50	-1	necro_commandskeletons	Freezing Grasp
+453801	4	-1	215	-1	50	-1	necro_commandskeletons	Kill Command
+453801	5	-1	-1	-1	50	-1	necro_commandskeletons	Frenzy
+454090	0	-1	-1	-1	5	5	necro_bloodrush	No Rune
+454090	1	-1	-1	-1	5	5	necro_bloodrush	Transfusion
+454090	2	-1	-1	-1	5	5	necro_bloodrush	Hemostasis
+454090	3	-1	-1	-1	5	5	necro_bloodrush	Metabolism
+454090	4	-1	-1	-1	5	5	necro_bloodrush	Potency
+454090	5	-1	-1	-1	5	5	necro_bloodrush	Molting
+454174	0	-1	350	-1	-1	-1	necro_corpseexplosion	No Rune
+454174	1	-1	350	-1	-1	-1	necro_corpseexplosion	Shrapnel
+454174	2	-1	350	-1	-1	-1	necro_corpseexplosion	Final Embrace
+454174	3	-1	525	-1	-1	-1	necro_corpseexplosion	Close Quarters
+454174	4	-1	350	-1	-1	-1	necro_corpseexplosion	Bloody Mess
+454174	5	-1	350	-1	-1	-1	necro_corpseexplosion	Dead Cold
+460358	0	-1	12000	-1	-1	120	necro_armyofthedead	No Rune
+460358	1	-1	14000	5	-1	120	necro_armyofthedead	Blighted Grasp
+460358	2	-1	12000	-1	-1	120	necro_armyofthedead	Frozen Army
+460358	3	-1	50000	4	-1	120	necro_armyofthedead	Unconventional Warfare
+460358	4	-1	12000	-1	-1	120	necro_armyofthedead	Death Valley
+460358	5	-1	15500	5	20	120	necro_armyofthedead	Dead Storm
+460757	0	-1	-1	-1	-1	-1	necro_devour	No Rune
+460757	1	-1	-1	-1	-1	-1	necro_devour	Cannibalize
+460757	2	-1	-1	-1	-1	-1	necro_devour	Ruthless
+460757	3	-1	-1	-1	-1	-1	necro_devour	Voracious
+460757	4	-1	-1	-1	-1	-1	necro_devour	Devouring Aura
+460757	5	-1	-1	-1	-1	-1	necro_devour	Satiated
+460870	0	-1	-1	-1	10	-1	necro_frailty	No Rune
+460870	1	-1	-1	-1	10	-1	necro_frailty	Early Grave
+460870	2	-1	-1	-1	10	-1	necro_frailty	Harvest Essence
+460870	3	-1	100	-1	10	-1	necro_frailty	Volatile Death
+460870	4	-1	-1	-1	10	-1	necro_frailty	Scent of Blood
+460870	5	-1	-1	-1	10	-1	necro_frailty	Aura of Frailty
+461650	0	-1	1750	-1	-1	-1	necro_corpselance	No Rune
+461650	1	-1	1750	-1	-1	-1	necro_corpselance	Ricochet
+461650	2	-1	1750	-1	-1	-1	necro_corpselance	Brittle Touch
+461650	3	-1	2275	-1	2	-1	necro_corpselance	Blood Lance
+461650	4	-1	1750	-1	-1	-1	necro_corpselance	Visceral Impact
+461650	5	-1	1750	-1	-1	-1	necro_corpselance	Shredding Splinters
+462089	0	-1	400	-1	40	-1	necro_skeletalmage	No Rune
+462089	1	-1	400	-1	40	-1	necro_skeletalmage	Gift of Death
+462089	2	-1	400	-1	40	-1	necro_skeletalmage	Singularity
+462089	3	-1	400	-1	40	-1	necro_skeletalmage	Life Support
+462089	4	-1	400	-1	40	-1	necro_skeletalmage	Contamination
+462089	5	-1	400	-1	40	-1	necro_skeletalmage	Skeleton Archer
+462147	0	-1	150	-1	24	-1	necro_bonespikes	No Rune
+462147	1	-1	100	-1	24	-1	necro_bonespikes	Sudden Impact
+462147	2	-1	150	-1	24	-1	necro_bonespikes	Path of Bones
+462147	3	-1	225	-1	24	-1	necro_bonespikes	Bone Pillars
+462147	4	-1	150	-1	24	-1	necro_bonespikes	Frost Spikes
+462147	5	-1	50	2	24	-1	necro_bonespikes	Blood Spikes
+462198	0	-1	150	-1	-1	-1	necro_grimscythe	No Rune
+462198	1	-1	150	-1	-1	-1	necro_grimscythe	Blood Scythe
+462198	2	-1	150	-1	-1	-1	necro_grimscythe	Execution
+462198	3	-1	150	-1	-1	-1	necro_grimscythe	Frost Scythe
+462198	4	-1	150	-1	-1	-1	necro_grimscythe	Dual Scythes
+462198	5	-1	150	-1	-1	-1	necro_grimscythe	Cursed Scythe
+462239	0	-1	-1	-1	-1	-1	necro_revive	No Rune
+462239	1	-1	-1	-1	-1	-1	necro_revive	Purgatory
+462239	2	-1	-1	-1	-1	-1	necro_revive	Oblation
+462239	3	-1	-1	-1	-1	-1	necro_revive	Personal Army
+462239	4	-1	-1	-1	-1	-1	necro_revive	Recklessness
+462239	5	-1	-1	-1	-1	-1	necro_revive	Horrific Return
+462243	0	-1	350	-1	20	-1	necro_deathnova	No Rune
+462243	1	-1	225	-1	20	-1	necro_deathnova	Tendril Nova
+462243	2	-1	475	-1	20	-1	necro_deathnova	Bone Nova
+462243	3	-1	450	-1	20	-1	necro_deathnova	Blood Nova
+462243	4	-1	350	-1	20	-1	necro_deathnova	Blight
+462243	5	-1	350	-1	20	-1	necro_deathnova	Unstable Compound
+462255	0	-1	-1	-1	10	-1	necro_leech	No Rune
+462255	1	-1	-1	-1	10	-1	necro_leech	Osmosis
+462255	2	-1	-1	-1	10	-1	necro_leech	Transmittable
+462255	3	-1	-1	-1	10	-1	necro_leech	Sanguine End
+462255	4	-1	-1	-1	10	-1	necro_leech	Cursed Ground
+462255	5	-1	-1	-1	10	-1	necro_leech	Blood Flask
+464896	0	-1	4000	-1	-1	-1	necro_bonespirit	No Rune
+464896	1	-1	4000	-1	5	-1	necro_bonespirit	Possession
+464896	2	-1	4000	-1	-1	-1	necro_bonespirit	Panic Attack
+464896	3	-1	4000	-1	-1	-1	necro_bonespirit	Poltergeist
+464896	4	-1	1250	-1	-1	-1	necro_bonespirit	Unfinished Business
+464896	5	-1	4000	-1	-1	-1	necro_bonespirit	Astral Projection
+465350	0	-1	-1	-1	25	120	necro_simulacrum	No Rune
+465350	1	-1	-1	-1	25	120	necro_simulacrum	Reservoir
+465350	2	-1	-1	-1	25	120	necro_simulacrum	Cursed Form
+465350	3	-1	-1	-1	25	120	necro_simulacrum	Blood Debt
+465350	4	-1	-1	-1	25	120	necro_simulacrum	Blood and Bone
+465350	5	-1	-1	-1	25	120	necro_simulacrum	Self Sacrifice
+465839	0	-1	-1	-1	-1	120	necro_landofthedead	No Rune
+465839	1	-1	-1	-1	-1	120	necro_landofthedead	Invigoration
+465839	2	-1	-1	-1	-1	120	necro_landofthedead	Frozen Lands
+465839	3	-1	10000	10	-1	120	necro_landofthedead	Plaguelands
+465839	4	-1	-1	-1	-1	120	necro_landofthedead	Land of Plenty
+465839	5	-1	-1	-1	-1	120	necro_landofthedead	Shallow Graves
+466857	0	-1	125	-1	10	-1	necro_bonearmor	No Rune
+466857	1	-1	145	-1	10	-1	necro_bonearmor	Vengeful Armaments
+466857	2	-1	125	-1	10	-1	necro_bonearmor	Limited Immunity
+466857	3	-1	125	-1	10	-1	necro_bonearmor	Dislocation
+466857	4	-1	125	-1	20	-1	necro_bonearmor	Thy Flesh Sustained
+466857	5	-1	125	-1	10	-1	necro_bonearmor	Harvest of Anguish
