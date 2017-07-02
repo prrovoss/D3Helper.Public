@@ -62,8 +62,8 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                //var PlayerDataCollection = PlayerDataManager.Instance.x0038_Items;
-                var PlayerDataCollection = Engine.Current.ObjectManager.x7B0_Storage.x134_Ptr_PlayerDataManager.Dereference().x0038_Items;
+                var PlayerDataCollection = PlayerDataManager.Instance.x0038_Items;
+                //var PlayerDataCollection = Engine.Current.ObjectManager.x7B0_Storage.x134_Ptr_PlayerDataManager.Dereference().x0038_Items;
 
                 int index = 1;
 

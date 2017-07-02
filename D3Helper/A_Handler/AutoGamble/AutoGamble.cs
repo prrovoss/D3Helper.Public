@@ -129,8 +129,8 @@ namespace D3Helper.A_Handler.AutoGamble
         {
             try
             {
-                return ObjectManager.Instance.x9EC_Ptr_10000Bytes_UI.Dereference().x0828_LastClicked;
-                //return UIManager.Instance.x0828_LastClicked;
+                //return ObjectManager.Instance.x9EC_Ptr_10000Bytes_UI.Dereference().x0828_LastClicked;
+                return UIManager.Instance.x0828_LastClicked;
             }
             catch { return null; }
         }
@@ -138,8 +138,8 @@ namespace D3Helper.A_Handler.AutoGamble
         {
             try
             {
-                return ObjectManager.Instance.x9EC_Ptr_10000Bytes_UI.Dereference().x0008_MouseCapture;
-                //return UIManager.Instance.x0008_MouseCapture;
+                //return ObjectManager.Instance.x9EC_Ptr_10000Bytes_UI.Dereference().x0008_MouseCapture;
+                return UIManager.Instance.x0008_MouseCapture;
             }
             catch { return null; }
         }

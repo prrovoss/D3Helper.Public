@@ -841,7 +841,7 @@ namespace D3Helper.A_Handler.SkillBuildSwap
                     Thread.Sleep(50);
                     A_Tools.InputSimulator.IS_Mouse.LeftUp(0, 0);
 
-                    while (Engine.Current.ObjectManager.xA00_PlayerInput.Dereference().x14_StructStart_Min56Bytes ==
+                    while (Engine.Current.ObjectManager.xA30_PlayerInput.Dereference().x14_StructStart_Min56Bytes ==
                            37088)
                     {
                         A_Tools.InputSimulator.IS_Mouse.RightCLick();

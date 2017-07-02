@@ -488,7 +488,7 @@ namespace D3Helper.A_WPFOverlay
                             //        {
                             //            UIRect uirect = A_Tools.T_D3UI.UIElement.getRect(uxcontrol.ToString());
 
-                                       
+
 
                             //            Rectangle r = new Rectangle();
                             //            r.BeginInit();
@@ -521,6 +521,34 @@ namespace D3Helper.A_WPFOverlay
                             //    }
                             //    catch (Exception) { }
                             //}
+
+
+
+
+
+
+                            //**************************************
+                            // print LevelAreaName of me and other Players
+                            // not working :S
+                            //**************************************
+
+                            //string heroname = A_Collection.Me.HeroGlobals.LocalPlayerData.GetHeroName();
+                            //int levelAreaSnoId = A_Collection.Me.HeroGlobals.LocalPlayerData.x9644_LevelAreaSnoId;
+                            //A_Collection.LevelArea area = A_Collection.LevelArea.get_LevelAreaNameBySnoId(levelAreaSnoId);
+                            //if (area != null)
+                            //{
+                            //    TextBlock t = new TextBlock();
+                            //    t.BeginInit();
+                            //    t.Text = area.Name;
+                            //    t.Foreground = Brushes.LightBlue; //textcolor
+
+                            //    Canvas.SetLeft(t, 10);
+                            //    Canvas.SetTop(t, 10);
+
+                            //    t.EndInit();
+                            //    canvas1.Children.Add(t);
+                            //}
+
 
 
 
@@ -589,6 +617,51 @@ namespace D3Helper.A_WPFOverlay
                                             el.EndInit();
 
                                             canvas1.Children.Add(el);
+
+
+
+                                            //-----------------------------------------
+                                            //draw elite health in Percentage
+                                            //-----------------------------------------
+                                            try
+                                            {
+                                                double hitpointsCurrent = elite.GetAttributeValue(Enigma.D3.Enums.AttributeId.HitpointsCur);
+                                                double hitpointsMax = elite.GetAttributeValue(Enigma.D3.Enums.AttributeId.HitpointsMax);
+                                                if(hitpointsMax > 0)
+                                                {
+                                                    //center text in circle
+                                                    float rX_center = rX + (float)el.Width / 2;
+                                                    float rY_center = rY + (float)el.Height / 2;
+
+
+                                                    int health_percentage = (int)((hitpointsCurrent / hitpointsMax) * 100);
+
+                                                    TextBlock t = new TextBlock();
+                                                    t.BeginInit();
+                                                    t.Text = health_percentage + "%";
+                                        
+                                                    t.Foreground = el.Stroke; //textcolor same as circle
+                                                    t.Background = Brushes.White;
+                                                    t.FontSize = 16;
+
+                                                    Canvas.SetLeft(t, rX_center);
+                                                    Canvas.SetTop(t, rY_center);
+
+                                                    t.EndInit();
+                                                    canvas1.Children.Add(t);
+                                            
+                                                }
+
+                                            }
+                                            catch (Exception)
+                                            {
+       
+                                            }
+
+
+
+
+
 
 
                                             //-----------------------------------------

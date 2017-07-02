@@ -166,7 +166,7 @@ namespace D3Helper.A_Tools
 
 
                 
-                var ListB = Engine.Current.ObjectManager.xA00_PlayerInput.Dereference().x00_ListB_Of_ActorId.ToList();
+                var ListB = Engine.Current.ObjectManager.xA30_PlayerInput.Dereference().x00_ListB_Of_ActorId.ToList();
                 
 
                 if (ListB.Count() > 0)
@@ -174,7 +174,7 @@ namespace D3Helper.A_Tools
                     var selectedActorId = ListB.ToList()[0];
 
                     
-                    var selectedtype = Engine.Current.ObjectManager.xA00_PlayerInput.Dereference().x14_StructStart_Min56Bytes;
+                    var selectedtype = Engine.Current.ObjectManager.xA30_PlayerInput.Dereference().x14_StructStart_Min56Bytes;
 
                     if (selectedtype == 44580)
                     {

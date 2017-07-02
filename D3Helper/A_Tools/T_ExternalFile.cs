@@ -1008,7 +1008,20 @@ namespace D3Helper.A_Tools
                         }
                     }
                 }
-            }
+
+                //fix AttribId +5 for Patch 2.5.0-->2.6
+                if (castCondition.version == 250)
+                {
+                    if (castCondition.ValueNames.Length > 1)
+                    {
+                        if (castCondition.ValueNames[1].Equals(ConditionValueName.AttribID))
+                        {
+                            castCondition.Values[1] = castCondition.Values[1] + 5;
+                            castCondition.version = 260;
+                        }
+                    }
+                }
+               }
 
 
             private static SkillData Convert_ToClass(_SkillData_int Data)

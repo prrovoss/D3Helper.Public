@@ -19,6 +19,11 @@ namespace D3Helper.A_Tools
             try
             {
                 Process[] p = Process.GetProcessesByName("Diablo III");
+                if(p == null || !p.Any())
+                {
+                    p = Process.GetProcessesByName("Diablo III64");
+                }
+
                 IntPtr hWnd = p[0].MainWindowHandle;
                 
                 return hWnd;

@@ -33,6 +33,25 @@ namespace D3Helper.A_Collection
         public string InternalName { get; set; }
         public string Name { get; set; }
         public int HostAreaSNO { get; set; }
+
+
+        public static A_Collection.LevelArea get_LevelAreaNameBySnoId(int levelAreaSnoId)
+        {
+            try
+            {
+                A_Collection.LevelArea area = A_Collection.Environment.Areas.AreaList.Where(x => x.Key.SNO == levelAreaSnoId).First().Value;
+                if (area != null)
+                {
+                    return area;
+                }
+            }
+            catch (Exception e)
+            {
+                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
+            }
+            return null;
+        }
+
     }
     class Environment
     {

@@ -177,7 +177,7 @@ namespace D3Helper.A_Collection
             this.comment = null;
             this.enabled = true;
 
-            this.version = 250;
+            this.version = 260;
         }
         
         public int ConditionGroup { get; set; }

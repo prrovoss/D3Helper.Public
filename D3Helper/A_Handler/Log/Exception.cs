@@ -68,6 +68,14 @@ namespace D3Helper.A_Handler.Log
 
         public static void log_Exceptions()
         {
+            bool enableExceptionLog = true;
+
+            if(enableExceptionLog == false)
+            {
+                return;
+            }
+
+
             try
             {
                 List<ExceptionLogEntry> ExceptionsToWrite = new List<ExceptionLogEntry>();

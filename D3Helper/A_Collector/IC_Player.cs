@@ -193,9 +193,9 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                A_Collection.Environment.Scene.GameTick = Engine.Current.ObjectManager.x7B0_Storage.x120_GameTick;
+                //A_Collection.Environment.Scene.GameTick = Engine.Current.ObjectManager.x7B0_Storage.x120_GameTick;
 
-                //A_Collection.Environment.Scene.GameTick = Storage.Instance.GetGameTick();
+                A_Collection.Environment.Scene.GameTick = Storage.Instance.GetGameTick();
 
             }
             catch (Exception e)

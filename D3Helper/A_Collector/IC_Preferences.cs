@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Enigma.D3;
+
+using Enigma.D3.Enums;
 using Enigma.D3.Memory.Input;
 
 namespace D3Helper.A_Collector
