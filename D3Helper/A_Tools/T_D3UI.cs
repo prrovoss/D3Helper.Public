@@ -60,7 +60,10 @@ namespace D3Helper.A_Tools
                 try
                 {
                     A_Tools.InputSimulator.IS_Mouse.LeftClick((int)uirect.Left, (int)uirect.Top, (int)uirect.Right - 5, (int)uirect.Bottom);
-                    System.Threading.Thread.Sleep(250);
+
+                    Random random = new Random();
+                    int random_sleep = (int)random.Next(200, 250);
+                    System.Threading.Thread.Sleep(random_sleep);
                 }
                 catch { }
             }
@@ -81,7 +84,10 @@ namespace D3Helper.A_Tools
                 try
                 {
                     A_Tools.InputSimulator.IS_Mouse.RightCLick((int)uirect.Left, (int)uirect.Top, (int)uirect.Right - 5, (int)uirect.Bottom);
-                    System.Threading.Thread.Sleep(250);
+
+                    Random random = new Random();
+                    int random_sleep = (int)random.Next(200, 250);
+                    System.Threading.Thread.Sleep(random_sleep);
                 }
                 catch { }
             }
