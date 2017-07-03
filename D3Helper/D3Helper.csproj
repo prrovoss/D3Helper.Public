@@ -1037,9 +1037,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Enigma.D3\Enigma.D3.Assets\Enigma.D3.Assets.csproj">
+      <Project>{4b2bf057-3425-4520-8535-3372d330c653}</Project>
+      <Name>Enigma.D3.Assets</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Enigma.D3\Enigma.D3.Core\Enigma.D3.Core.csproj">
       <Project>{e01f9c34-f404-48dc-92e2-991da7adf9eb}</Project>
       <Name>Enigma.D3.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Enigma.D3\Enigma.D3.MemoryModel\Enigma.D3.MemoryModel.csproj">
+      <Project>{92e7130d-9363-458c-abe5-a71f240a9b78}</Project>
+      <Name>Enigma.D3.MemoryModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Enigma.D3\Enigma.D3.Memory\Enigma.D3.Memory.csproj">
       <Project>{23848103-7dc0-4ab0-958f-b8793ffd1f2d}</Project>

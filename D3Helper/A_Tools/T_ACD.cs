@@ -328,7 +328,7 @@ namespace D3Helper.A_Tools
             {
 
 
-                var localindex = A_Collection.Me.HeroGlobals.LocalDataIndex;
+                //var localindex = A_Collection.Me.HeroGlobals.LocalDataIndex;
 
 
                 List<A_Collector.ACD> acdcontainer;

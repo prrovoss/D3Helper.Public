@@ -14,17 +14,41 @@ namespace D3Helper.A_Tools
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
-        private static IntPtr GetDiabloWindowHandle()
+
+
+        public static Process GetDiabloProcess()
         {
             try
             {
                 Process[] p = Process.GetProcessesByName("Diablo III");
-                if(p == null || !p.Any())
+                if (p == null || !p.Any())
                 {
                     p = Process.GetProcessesByName("Diablo III64");
                 }
 
-                IntPtr hWnd = p[0].MainWindowHandle;
+                if (p != null && p.Any())
+                {
+                    return p[0];
+                }
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+            return null;
+        }
+
+
+        public static IntPtr GetDiabloWindowHandle()
+        {
+            try
+            {
+                Process process = GetDiabloProcess();
+
+                IntPtr hWnd = process.MainWindowHandle;
                 
                 return hWnd;
             }

@@ -1,42 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
-using System.Linq.Expressions;
 using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using D3Helper.A_Collection;
 using Enigma.D3;
 using Enigma.D3.UI;
 using Enigma.D3.Helpers;
 
 using D3Helper.A_Tools;
-using D3Helper.A_Collector;
 using D3Helper.A_Enums;
 using Enigma.D3.UI.Controls;
-using SlimDX.DirectInput;
-using SlimDX.DirectWrite;
-using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
 using Color = System.Windows.Media.Color;
 using Environment = System.Environment;
 using FontFamily = System.Windows.Media.FontFamily;
 using Point = System.Drawing.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
+using Enigma.D3.MemoryModel;
 
 namespace D3Helper.A_WPFOverlay
 {
@@ -62,7 +50,8 @@ namespace D3Helper.A_WPFOverlay
 
         public Overlay()
         {
-            while (Engine.Current == null) { System.Threading.Thread.Sleep(1); }
+            //while (Engine.Current == null) { System.Threading.Thread.Sleep(1); }
+            while (MemoryContext.Current == null) { System.Threading.Thread.Sleep(1); }
 
             ResizeMode = ResizeMode.NoResize;
             WindowStyle = WindowStyle.None;
@@ -105,16 +94,17 @@ namespace D3Helper.A_WPFOverlay
         private void Render_UI(object sender, EventArgs e)
         {
 
-            while (Engine.Current == null) System.Threading.Thread.Sleep(50);
+            //while (Engine.Current == null) System.Threading.Thread.Sleep(50);
+            while (MemoryContext.Current == null) System.Threading.Thread.Sleep(50);
 
-            var tick = Engine.Current.ApplicationLoopCount;
+            var tick = MemoryContext.Current.DataSegment.ApplicationLoopCount
             if (tick != _tick)
             {
                 _tick = tick;
 
                 try
                 {
-                    if (Engine.Current == null) Environment.Exit(1);
+                    if (MemoryContext.Current == null) Environment.Exit(1);
 
                     if (A_Collection.D3Client.Window.isForeground && 
                         !A_Collection.D3UI.isOpenGameMenu &&

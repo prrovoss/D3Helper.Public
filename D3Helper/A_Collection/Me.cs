@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Enigma.D3;
+//using Enigma.D3;
 
 using D3Helper.A_Enums;
 using D3Helper.A_Collector;
 using D3Helper.A_Handler.SkillBuildSwap;
 using D3Helper.A_Tools;
+using Enigma.D3.MemoryModel.Core;
+
 
 namespace D3Helper.A_Collection
 {
@@ -24,10 +26,11 @@ namespace D3Helper.A_Collection
         public class HeroGlobals
         {
             //-- Hero Globals
-            public static ActorCommonData LocalACD;                                                 // default: null
-            public static PlayerData LocalPlayerData;                                               // default: null    
+            public static Enigma.D3.ActorCommonData LocalACD;                                                 // default: null
+            public static Enigma.D3.MemoryModel.Core.PlayerData LocalPlayerData;                                               // default: null  
+
             public static long HeroID;                                                              // default: -1
-            public static int LocalDataIndex;                                                       // default: -1
+            //public static int LocalDataIndex;                                                       // default: -1
             public static string HeroName = String.Empty;                                           // default: null
             public static HeroClass HeroClass;                                                      // default: None
             public static int Lvl;                                                                  // default: -1 min: 1 max: 70
@@ -61,11 +64,11 @@ namespace D3Helper.A_Collection
             public static double ResourceSecondary_Percentage;                                      // default: -1 min: 0 max: 100
             public static List<ActivePower> ActivePowers = new List<ActivePower>();                 // default: null
             public static List<int> PassiveSkills = new List<int>(); 
-            public static List<ActorCommonData> EquippedItems = new List<ActorCommonData>();        // default: null
+            public static List<Enigma.D3.ActorCommonData> EquippedItems = new List<Enigma.D3.ActorCommonData>();        // default: null
             public static Dictionary<int, int> ActiveSkills = new Dictionary<int, int>();
-            public static ActorCommonData SelectedMonsterACD;
+            public static Enigma.D3.ActorCommonData SelectedMonsterACD;
             public static double Distance_SelectedMonsterACD;
-            public static ActorCommonData SelectedDestructibleACD;
+            public static Enigma.D3.ActorCommonData SelectedDestructibleACD;
             public static double Distance_SelectedDestructibleACD;
             public static DamageType CurrentConventionElement;
             public static DamageType NextConventionElement;
@@ -82,7 +85,7 @@ namespace D3Helper.A_Collection
         {
             //--
             public static int PlayersInGame;                                                        // default: -1 min: 0 max: 3
-            public static List<ACD> PartyMemberInRange = new List<ACD>();
+            public static List<A_Collector.ACD> PartyMemberInRange = new List<A_Collector.ACD>();
             public static PlayerData PartyMember1;
             public static PlayerData PartyMember2;
             public static PlayerData PartyMember3;

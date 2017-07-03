@@ -106,7 +106,8 @@ namespace D3Helper.A_Collector
 
                             lock (A_Collection.Me.HeroGlobals.LocalPlayerData)
                             {
-								var activeskillslist = A_Collection.Me.HeroGlobals.LocalPlayerData.GetActiveSkills();
+              
+								var activeskillslist = A_Collection.Me.HeroGlobals.LocalPlayerData.PlayerSavedData.ActiveSkillSavedData;
 
                                 for (int i = 0; i < activeskillslist.Count(); i++)
                                 {
@@ -141,12 +142,13 @@ namespace D3Helper.A_Collector
             {
                 if (A_Collection.Me.HeroGlobals.LocalPlayerData != null)
                 {
-                    PlayerData Local;
+                    Enigma.D3.MemoryModel.Core.PlayerData Local;
                     lock (A_Collection.Me.HeroGlobals.LocalPlayerData)
                         Local = A_Collection.Me.HeroGlobals.LocalPlayerData;
 
                     List<int> Buffer = new List<int>();
 					Buffer = Local.GetPassivePowerSnoIds().ToList();
+                   
 
                     lock (A_Collection.Me.HeroDetails.PassiveSkills) A_Collection.Me.HeroDetails.PassiveSkills = Buffer;
                 }

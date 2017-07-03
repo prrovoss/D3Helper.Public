@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 
-using Enigma.D3;
-using Enigma.D3.Memory;
+using Enigma.D3.MemoryModel;
+using D3Helper.A_Tools;
 
 namespace D3Helper.A_Initialize
 {
@@ -26,13 +23,29 @@ namespace D3Helper.A_Initialize
         }
         private static void Execute()
         {
-            EngineOptions engineOptions = new EngineOptions();
-            engineOptions.VersionMatching = VersionMatching.MajorMinorBuild;
+            //EngineOptions engineOptions = new EngineOptions();
+            //engineOptions.VersionMatching = VersionMatching.MajorMinorBuild;
 
-            while(Engine.Create(engineOptions) == null) { System.Threading.Thread.Sleep(50); }
+
+
+            while(T_D3Client.GetDiabloProcess() == null)
+            {
+                System.Threading.Thread.Sleep(50);
+            }
+
+            MemoryContext.FromProcess();
+
+            while(MemoryContext.Current == null)
+            {
+                System.Threading.Thread.Sleep(1);
+            }
+
+
+
+            //while (Engine.Create(engineOptions) == null) { System.Threading.Thread.Sleep(50); }
 
             
-            while (Engine.Current == null) { System.Threading.Thread.Sleep(1); }
+            //while (Engine.Current == null) { System.Threading.Thread.Sleep(1); }
 
             
             while (true)
@@ -40,7 +53,8 @@ namespace D3Helper.A_Initialize
                 try
                 {
                    
-                    var tick = Engine.Current.ApplicationLoopCount;
+                    //var tick = Engine.Current.ApplicationLoopCount;
+                    var tick = MemoryContext.Current.DataSegment.ApplicationLoopCount;
                     if (tick != _tick)
                     {
                         _tick = tick;

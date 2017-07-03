@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-
-using Enigma.D3;
-using Enigma.D3.Helpers;
+using D3Helper.A_Tools;
 
 namespace D3Helper.A_Collector
 {
@@ -41,7 +35,9 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                A_Collection.D3Client.Window.D3ClientRect = A_Tools.T_D3Client.getClient_Rect(Engine.Current.Process.MainWindowHandle);
+                A_Collection.D3Client.Window.D3ClientRect = A_Tools.T_D3Client.getClient_Rect(T_D3Client.GetDiabloWindowHandle());
+
+                //A_Collection.D3Client.Window.D3ClientRect = A_Tools.T_D3Client.getClient_Rect(Engine.Current.Process.MainWindowHandle);
             }
             catch (Exception e)
             {

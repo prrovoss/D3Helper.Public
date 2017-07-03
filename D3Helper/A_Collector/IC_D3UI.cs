@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Enigma.D3;
-using Enigma.D3.UI;
 
 namespace D3Helper.A_Collector
 {

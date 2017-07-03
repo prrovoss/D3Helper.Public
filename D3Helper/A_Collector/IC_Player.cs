@@ -13,6 +13,7 @@ using D3Helper.A_Tools;
 using D3Helper.A_Collector;
 using Enigma.D3.Enums;
 using DamageType = D3Helper.A_Enums.DamageType;
+using Enigma.D3.MemoryModel;
 
 namespace D3Helper.A_Collector
 {
@@ -111,7 +112,7 @@ namespace D3Helper.A_Collector
                             _lastTotalXP = DateTime.Now;
                         }
 
-                        get_LocalDataIndex();
+                        //get_LocalDataIndex();
 
                         if (_lastPlayersInGame.AddMilliseconds(1000) <= DateTime.Now)
                         {
@@ -180,7 +181,10 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                A_Collection.Environment.Scene.Counter_CurrentFrame = ObjectManager.Instance.x038_Counter_CurrentFrame;
+                //TODO replace with MemoryModel
+                MemoryContext.Current.DataSegment.ObjectManager.
+
+                A_Collection.Environment.Scene.Counter_CurrentFrame = ObjectManager.Instance.x038_Counter_CurrentFrame; 
             }
             catch (Exception e)
             {
@@ -195,7 +199,8 @@ namespace D3Helper.A_Collector
             {
                 //A_Collection.Environment.Scene.GameTick = Engine.Current.ObjectManager.x7B0_Storage.x120_GameTick;
 
-                A_Collection.Environment.Scene.GameTick = Storage.Instance.GetGameTick();
+                //A_Collection.Environment.Scene.GameTick = Storage.Instance.GetGameTick();
+                A_Collection.Environment.Scene.GameTick = MemoryContext.Current.DataSegment.ObjectManager.GameTick;
 
             }
             catch (Exception e)
@@ -209,10 +214,14 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                if(A_Collection.Me.HeroGlobals.LocalPlayerData == null)
-                    A_Collection.Me.HeroGlobals.LocalPlayerData = PlayerData.Local;
+                int localPlayerIndex = MemoryContext.Current.DataSegment.ObjectManager.Player.LocalPlayerIndex;
+                Enigma.D3.MemoryModel.Core.PlayerData localPlayerData = MemoryContext.Current.DataSegment.ObjectManager.PlayerDataManager[localPlayerIndex];
+
+                //TODO translate to PlayerData from D3.MemoryModel
+                if (A_Collection.Me.HeroGlobals.LocalPlayerData == null)
+                    A_Collection.Me.HeroGlobals.LocalPlayerData = localPlayerData; // PlayerData.Local;
                 else
-                lock (A_Collection.Me.HeroGlobals.LocalPlayerData) A_Collection.Me.HeroGlobals.LocalPlayerData = PlayerData.Local;
+                    lock (A_Collection.Me.HeroGlobals.LocalPlayerData) A_Collection.Me.HeroGlobals.LocalPlayerData = localPlayerData; //PlayerData.Local;
             }
             catch (Exception e)
             {
@@ -286,8 +295,8 @@ namespace D3Helper.A_Collector
                 lock(A_Collection.Me.HeroGlobals.LocalPlayerData)
                 {
                     A_Collection.Me.HeroGlobals.HeroID = A_Collection.Me.HeroGlobals.LocalPlayerData.GetHeroId();
-                    lock (A_Collection.Me.HeroGlobals.HeroName) A_Collection.Me.HeroGlobals.HeroName = A_Collection.Me.HeroGlobals.LocalPlayerData.GetHeroName();
-                    A_Collection.Me.HeroGlobals.HeroClass = (A_Enums.HeroClass)A_Collection.Me.HeroGlobals.LocalPlayerData.GetHeroClass();
+                    lock (A_Collection.Me.HeroGlobals.HeroName) A_Collection.Me.HeroGlobals.HeroName = A_Collection.Me.HeroGlobals.LocalPlayerData.HeroName;
+                    A_Collection.Me.HeroGlobals.HeroClass = (A_Enums.HeroClass)A_Collection.Me.HeroGlobals.LocalPlayerData.HeroClass;
                 }
             }
             catch (Exception e)
@@ -303,8 +312,8 @@ namespace D3Helper.A_Collector
             {
                 lock(A_Collection.Me.HeroGlobals.LocalPlayerData)
                 {
-                    A_Collection.Me.HeroGlobals.Lvl = A_Collection.Me.HeroGlobals.LocalPlayerData.GetLevel();
-                    A_Collection.Me.HeroGlobals.Alt_Lvl = A_Collection.Me.HeroGlobals.LocalPlayerData.GetAltLevel();
+                    A_Collection.Me.HeroGlobals.Lvl = A_Collection.Me.HeroGlobals.LocalPlayerData.Level;
+                    A_Collection.Me.HeroGlobals.Alt_Lvl = A_Collection.Me.HeroGlobals.LocalPlayerData.AltLevel;
                 }
             }
             catch (Exception e)
@@ -319,7 +328,7 @@ namespace D3Helper.A_Collector
             try
             {
                 lock(A_Collection.Me.HeroGlobals.LocalACD) A_Collection.Me.HeroDetails.Hitpoints = A_Collection.Me.HeroGlobals.LocalACD.GetAttributeValue(Enigma.D3.Enums.AttributeId.HitpointsCur);
-                lock(A_Collection.Me.HeroGlobals.LocalPlayerData) A_Collection.Me.HeroDetails.Hitpoints_Percentage = A_Collection.Me.HeroGlobals.LocalPlayerData.GetLifePercentage() * 100;
+                lock(A_Collection.Me.HeroGlobals.LocalPlayerData) A_Collection.Me.HeroDetails.Hitpoints_Percentage = A_Collection.Me.HeroGlobals.LocalPlayerData.LifePercentage * 100;
 
                 if (A_Collection.Me.HeroDetails.Hitpoints < 0.001)
                     A_Collection.Me.HeroDetails.SnapShotted_APS = A_Collection.Me.HeroDetails.AttacksPerSecondTotal;
@@ -481,20 +490,20 @@ namespace D3Helper.A_Collector
         }
 
 
-        private static void get_LocalDataIndex()
-        {
-            try
-            {
+        //private static void get_LocalDataIndex()
+        //{
+        //    try
+        //    {
 
-                lock(A_Collection.Me.HeroGlobals.LocalPlayerData) A_Collection.Me.HeroGlobals.LocalDataIndex = A_Collection.Me.HeroGlobals.LocalPlayerData.x0000_Index;
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.ExceptionLogEntry newEntry = new A_Handler.Log.ExceptionLogEntry(e, DateTime.Now, A_Enums.ExceptionThread.ICollector);
+        //        lock(A_Collection.Me.HeroGlobals.LocalPlayerData) A_Collection.Me.HeroGlobals.LocalDataIndex = A_Collection.Me.HeroGlobals.LocalPlayerData.x0000_Index;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        A_Handler.Log.ExceptionLogEntry newEntry = new A_Handler.Log.ExceptionLogEntry(e, DateTime.Now, A_Enums.ExceptionThread.ICollector);
 
-                lock (A_Handler.Log.Exception.ExceptionLog) A_Handler.Log.Exception.ExceptionLog.Add(newEntry);
-            }
-        }
+        //        lock (A_Handler.Log.Exception.ExceptionLog) A_Handler.Log.Exception.ExceptionLog.Add(newEntry);
+        //    }
+        //}
 
 
         private static void get_PlayersInGame()
@@ -778,7 +787,7 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                PlayerData local;
+                Enigma.D3.MemoryModel.Core.PlayerData local;
                 lock (A_Collection.Me.HeroGlobals.LocalPlayerData) local = A_Collection.Me.HeroGlobals.LocalPlayerData;
 
                 if (local != null)
