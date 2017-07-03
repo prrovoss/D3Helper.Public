@@ -37,6 +37,7 @@ using Environment = System.Environment;
 using FontFamily = System.Windows.Media.FontFamily;
 using Point = System.Drawing.Point;
 using Rectangle = System.Windows.Shapes.Rectangle;
+using D3Helper.A_Handler.AutoCube;
 
 namespace D3Helper.A_WPFOverlay
 {
@@ -257,6 +258,50 @@ namespace D3Helper.A_WPFOverlay
                                     Canvas.SetTop(AutoGambleStatus,
                                         Inventory_MainPage.Top + (Inventory_MainPage.Height*40/1000));
                                     canvas1.Children.Add(AutoGambleStatus);
+                                }
+
+                                //*********************************************************
+                                // mark ancient,primals in Inventory
+                                //*********************************************************
+                                var itemsInInventory = Tools.Get_Items("legendary");
+                                foreach(var item in itemsInInventory)
+                                {
+                                    var ancientRank = item.GetAttributeValue(Enigma.D3.Enums.AttributeId.AncientRank);
+                                    if(ancientRank > 0)
+                                    {
+                                        //get UIrect of actorcommondata item
+                                        UIRect UIRect_item =
+                                            A_Collection.D3UI.InventoryItemUIRectMesh.FirstOrDefault(
+                                                x => x.Key.ItemSlotX == item.x118_ItemSlotX && x.Key.ItemSlotY == item.x11C_ItemSlotY).Value;
+
+
+                                        string txt = "A";
+                                        if(ancientRank == 1)
+                                        {
+                                            txt = "A";
+                                        }else if(ancientRank == 2)
+                                        {
+                                            txt = "P";
+                                        }
+
+                                        TextBlock t = new TextBlock();
+                                        t.BeginInit();
+                                        t.Text = txt;
+                                        t.FontSize = 12;
+                                        t.FontWeight = FontWeights.Bold;
+                                        t.Foreground = Brushes.Orange; //textcolor
+
+                                        Canvas.SetLeft(t, UIRect_item.Left + +4);
+                                        Canvas.SetTop(t, UIRect_item.Top + +4);
+
+                                        t.EndInit();
+
+                                        canvas1.Children.Add(t);
+
+                                    }
+
+                                    
+
                                 }
                             }
 

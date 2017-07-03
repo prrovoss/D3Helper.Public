@@ -78,6 +78,8 @@ namespace D3Helper.A_Handler.AutoCube
         {
             int QualityRange1 = 0;
             int QualityRange2 = 0;
+            bool ancient = false;
+            bool primal = false;
 
             List<ActorCommonData> Items = new List<ActorCommonData>();
 
@@ -94,6 +96,20 @@ namespace D3Helper.A_Handler.AutoCube
                 case "rare":
                     QualityRange1 = 6;
                     QualityRange2 = 8;
+                    break;
+                case "legendary":
+                    QualityRange1 = 9;
+                    QualityRange2 = 9;
+                    break;
+                case "ancient":
+                    QualityRange1 = 9;
+                    QualityRange2 = 9;
+                    ancient = true;
+                    break;
+                case "primal":
+                    QualityRange1 = 9;
+                    QualityRange2 = 9;
+                    primal = true;
                     break;
             }
 
@@ -141,7 +157,26 @@ namespace D3Helper.A_Handler.AutoCube
                             var name = item.x004_Name; // not needed but nice for debug    
                             var quality = item.GetAttributeValue(AttributeId.ItemQualityLevel);
                             if (quality >= QualityRange1 && quality <= QualityRange2) // Magic
-                                Items.Add(item);
+                                if (ancient)
+                                {
+                                    var ancientRank = item.GetAttributeValue(AttributeId.AncientRank);
+                                    if(ancientRank == 1)
+                                    {
+                                        Items.Add(item);
+                                    }
+                                }
+                                else if (primal)
+                                {
+                                    var ancientRank = item.GetAttributeValue(AttributeId.AncientRank);
+                                    if (ancientRank == 2)
+                                    {
+                                        Items.Add(item);
+                                    }
+                                }
+                                else
+                                {
+                                    Items.Add(item);
+                                }
                             break;
                     }
                 }
