@@ -9,6 +9,7 @@ using Enigma.D3;
 using Enigma.D3.UI;
 using Enigma.D3.UI.Controls;
 using Enigma.D3.Helpers;
+using Enigma.D3.Assets;
 
 namespace D3Helper.A_Handler.AutoGamble
 {
@@ -173,7 +174,30 @@ namespace D3Helper.A_Handler.AutoGamble
                 //uint bloodshardGBId = 2603730171;
                 lock(A_Collection.Me.HeroGlobals.LocalPlayerData)
                 {
-                    return A_Collection.Me.HeroGlobals.LocalPlayerData.GetCurrency(CurrencyType.X1Shard);
+                    //long amount =  A_Collection.Me.HeroGlobals.LocalPlayerData.GetCurrency(CurrencyType.X1Shard);
+
+                   
+                    //Enigma.D3.Assets.GameBalance.CurrencyConversionTable.CurrencyConversionTableEntry[1]  // - None - = -1, Gold = 0, BloodShards = 1, Platinum = 2, Reusable Parts = 3, Arcane Dust = 4, Veiled Crystal = 5, Deaths Breath = 6, Forgotten Soul = 7, Khanduran Rune = 8, Caldeum Nightshade = 9, Arreat War Tapestry = 10, Corrupted Angel Flesh = 11, Westmarch Holy Water = 12, Demon Organ Diablo = 13, Demon Organ Ghom = 14, Demon Organ Siege Breaker = 15, Demon Organ Skeleton King = 16, Demon Organ Eye = 17, Demon Organ Spine Cord = 18, Demon Organ Tooth = 19
+
+
+                    //for patch 2.6.0 workaround. since enigmaframework not updated this part
+                    int baseOffset = 0x9D08; //for patch 2.6.0 
+                    const int size = 24; // { int index, int 0, long value, int 0, int 0 }
+                    const int offset = 8;
+                    long amount = -1;
+                    //while (amount != 114366383051)
+                    //{
+                    //    baseOffset++;
+                        amount = A_Collection.Me.HeroGlobals.LocalPlayerData.Read<long>(baseOffset + size * (int)CurrencyType.X1Shard + offset);
+                    //    if (baseOffset > 0xFFFF)
+                    //    {
+                    //        amount = -1;
+                    //        break;
+                    //    }
+                    //}
+
+
+                    return amount;
                 }
 
 
