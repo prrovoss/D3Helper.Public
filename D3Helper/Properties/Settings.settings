@@ -104,18 +104,6 @@
     <Setting Name="overlayconventiondraws" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="HotkeySkillBuild1" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HotkeySkillBuild2" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HotkeySkillBuild3" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HotkeySkillBuild4" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="Overlay_APS" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -167,5 +155,9 @@
     <Setting Name="ConvertMaterialTo" Type="System.String" Scope="User">
       <Value Profile="(Default)">normal</Value>
     </Setting>
+    <Setting Name="Overlay_EliteCircles" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    
   </Settings>
 </SettingsFile>
