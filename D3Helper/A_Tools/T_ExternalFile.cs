@@ -42,28 +42,6 @@ namespace D3Helper.A_Tools
     }
 
     
-
-    public class GearSwapItem
-    {
-        public GearSwapItem(long heroID, int swapId, double itemSeed, int itemSlotX, int itemSlotY,
-            ItemSlotSize itemSize)
-        {
-            this.HeroID = heroID;
-            this.SwapId = swapId;
-            this.ItemSeed = itemSeed;
-            this.ItemSlotX = itemSlotX;
-            this.ItemSlotY = itemSlotY;
-            this.ItemSize = itemSize;
-        }
-
-        public long HeroID { get; set; }
-        public int SwapId { get; set; }
-        public double ItemSeed { get; set; }
-        public int ItemSlotX { get; set; }
-        public int ItemSlotY { get; set; }
-        public ItemSlotSize ItemSize { get; set; }
-    }
-
     public enum ItemSlotSize
     {
         _1x1 = 0,
@@ -317,69 +295,6 @@ namespace D3Helper.A_Tools
             }
         }
 
-        public class GearSwaps
-        {
-            public static void Load()
-            {
-                try
-                {
-                    if (File.Exists(A_Collection.Me.GearSwap.GearSwaps_FilePath))
-                    {
-                        List<GearSwapItem> _GearSwaps = new List<GearSwapItem>();
-
-                        var Lines = File.ReadAllLines(A_Collection.Me.GearSwap.GearSwaps_FilePath);
-
-                        foreach (var line in Lines)
-                        {
-                            var splitContent = line.Split('\t');
-
-                            long HeroId = long.Parse(splitContent[0]);
-                            double ItemSeed = double.Parse(splitContent[1]);
-                            ItemSlotSize ItemSize =
-                                (ItemSlotSize) System.Enum.Parse(typeof (ItemSlotSize), splitContent[2]);
-                            int ItemSlotX = int.Parse(splitContent[3]);
-                            int ItemSlotY = int.Parse(splitContent[4]);
-                            int SwapId = int.Parse(splitContent[5]);
-
-                            _GearSwaps.Add(new GearSwapItem(HeroId, SwapId, ItemSeed, ItemSlotX, ItemSlotY, ItemSize));
-                        }
-
-                        A_Collection.Me.GearSwap.GearSwaps = _GearSwaps;
-                    }
-                }
-                catch
-                {
-                }
-            }
-
-            public static void Save()
-            {
-                try
-                {
-                    var _GearSwaps = A_Collection.Me.GearSwap.GearSwaps;
-
-                    string Content = "";
-
-                    foreach (var Swap in _GearSwaps)
-                    {
-                        Content =
-                            Content +
-                            Swap.HeroID + "\t" +
-                            Swap.ItemSeed + "\t" +
-                            Swap.ItemSize + "\t" +
-                            Swap.ItemSlotX + "\t" +
-                            Swap.ItemSlotY + "\t" +
-                            Swap.SwapId +
-                            System.Environment.NewLine;
-                    }
-
-                    File.WriteAllText(A_Collection.Me.GearSwap.GearSwaps_FilePath, Content);
-                }
-                catch
-                {
-                }
-            }
-        }
 
         public class AutoCastOverrides
         {

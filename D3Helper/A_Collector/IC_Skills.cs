@@ -13,7 +13,6 @@ namespace D3Helper.A_Collector
 {
     class IC_Skills
     {
-        private static DateTime _lastGearSwapUpdate = DateTime.Now;
         private static DateTime _lastPassiveUpdate = DateTime.Now;
 
         public static void Collect()
@@ -35,11 +34,6 @@ namespace D3Helper.A_Collector
 
                     update_AutoCastOverrides();
 
-                    if (_lastGearSwapUpdate.AddMilliseconds(250) <= DateTime.Now)
-                    {
-                        update_GearSwapitems();
-                        _lastGearSwapUpdate = DateTime.Now;
-                    }
                 }
             }
             catch (Exception e)
@@ -271,19 +265,6 @@ namespace D3Helper.A_Collector
         }
 
 
-        private static void update_GearSwapitems()
-        {
-            try
-            {
-                if(A_Collection.Me.GearSwap.GearSwaps.Count > 0 && A_Collection.D3UI.isOpenInventory && !A_Handler.GearSwap.GearSwap.isSwaping)
-                {
-                    A_Handler.GearSwap.GearSwap.UpdateSwapItems();
-                }
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
-            }
-        }
+
     }
 }

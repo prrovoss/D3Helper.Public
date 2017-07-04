@@ -14,26 +14,11 @@
     <Setting Name="HotkeySlot4" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="HotkeyEditMode" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HotkeyGearSwap1" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="AutoPotionBool" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="AutoPotionValue" Type="System.Double" Scope="User">
       <Value Profile="(Default)">20</Value>
-    </Setting>
-    <Setting Name="HotkeyGearSwap2" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HotkeyGearSwap3" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="HotkeyGearSwap4" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="HotkeySlotRmb" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

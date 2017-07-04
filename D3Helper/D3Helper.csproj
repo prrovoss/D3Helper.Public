@@ -141,7 +141,6 @@
     <Compile Include="A_Handler\AutoGamble\AutoGamble.cs" />
     <Compile Include="A_Handler\AutoPick\AutoPick.cs" />
     <Compile Include="A_Handler\EventHandler\EventHandler.cs" />
-    <Compile Include="A_Handler\GearSwap\GearSwap.cs" />
     <Compile Include="A_Handler\HealthPotion\HealthPotion.cs" />
     <Compile Include="A_Handler\Log\Exception.cs" />
     <Compile Include="A_Handler\ParagonPointSpender\ParagonPointSpender.cs" />
@@ -267,7 +266,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\actorintownbuff.png" />

@@ -64,11 +64,8 @@ namespace D3Helper
             this.tb_assignedSkill4.ReadOnly = true;
             this.tb_assignedSkillRMB.ReadOnly = true;
             this.tb_assignedSkillLMB.ReadOnly = true;
-            this.tb_assignedEditMode.ReadOnly = true;
-            this.tb_assignedGearSwap1.ReadOnly = true;
-            this.tb_assignedGearSwap2.ReadOnly = true;
-            this.tb_assignedGearSwap3.ReadOnly = true;
-            this.tb_assignedGearSwap4.ReadOnly = true;
+            
+            
             this.tb_assignedParagonPoints1.ReadOnly = true;
             this.tb_assignedParagonPoints2.ReadOnly = true;
             this.tb_assignedParagonPoints3.ReadOnly = true;
@@ -85,11 +82,7 @@ namespace D3Helper
             this.tb_assignedSkill4.KeyDown += tb_assignedSkill4_KeyDown;
             this.tb_assignedSkillRMB.KeyDown += tb_assignedSkillRMB_KeyDown;
             this.tb_assignedSkillLMB.KeyDown += tb_assignedSkillLMB_KeyDown;
-            this.tb_assignedEditMode.KeyDown += tb_assignedEditMode_KeyDown;
-            this.tb_assignedGearSwap1.KeyDown += tb_assignedGearSwap1_KeyDown;
-            this.tb_assignedGearSwap2.KeyDown += tb_assignedGearSwap2_KeyDown;
-            this.tb_assignedGearSwap3.KeyDown += tb_assignedGearSwap3_KeyDown;
-            this.tb_assignedGearSwap4.KeyDown += tb_assignedGearSwap4_KeyDown;
+
             this.tb_assignedParagonPoints1.KeyDown += tb_assignedParagonPoints1_KeyDown;
             this.tb_assignedParagonPoints2.KeyDown += tb_assignedParagonPoints2_KeyDown;
             this.tb_assignedParagonPoints3.KeyDown += tb_assignedParagonPoints3_KeyDown;
@@ -106,11 +99,7 @@ namespace D3Helper
             this.tb_assignedSkill4.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlot4).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlot4).Modifiers);
             this.tb_assignedSkillRMB.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlotRmb).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlotRmb).Modifiers);
             this.tb_assignedSkillLMB.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlotLmb).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlotLmb).Modifiers);
-            this.tb_assignedEditMode.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyEditMode).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyEditMode).Modifiers);
-            this.tb_assignedGearSwap1.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap1).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap1).Modifiers);
-            this.tb_assignedGearSwap2.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap2).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap2).Modifiers);
-            this.tb_assignedGearSwap3.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap3).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap3).Modifiers);
-            this.tb_assignedGearSwap4.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap4).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap4).Modifiers);
+
             this.tb_assignedParagonPoints1.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints1).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints1).Modifiers);
             this.tb_assignedParagonPoints2.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints2).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints2).Modifiers);
             this.tb_assignedParagonPoints3.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints3).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints3).Modifiers);
@@ -359,26 +348,6 @@ namespace D3Helper
 
         }
 
-        void tb_assignedEditMode_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedEditMode.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeyEditMode = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
-
 
         private string get_HotkeyText(Key key, List<Key> modifiers)
         {
@@ -417,85 +386,7 @@ namespace D3Helper
             Properties.Settings.Default.Save();
         }
 
-        void tb_assignedGearSwap4_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedGearSwap4.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeyGearSwap4 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
-
-        void tb_assignedGearSwap3_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedGearSwap3.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeyGearSwap3 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
-
-        void tb_assignedGearSwap2_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedGearSwap2.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeyGearSwap2 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
-
-        void tb_assignedGearSwap1_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedGearSwap1.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeyGearSwap1 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
+        
 
         void tb_assignedSkill4_KeyDown(object sender, KeyEventArgs e)
         {
@@ -619,11 +510,6 @@ namespace D3Helper
             Properties.Settings.Default.Save();
         }
         
-        private void tb_assignedEditMode_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void bt_delete_hotkey_skillslot1_Click(object sender, EventArgs e)
         {
 
@@ -671,56 +557,6 @@ namespace D3Helper
             {
                 this.tb_assignedSkillRMB.Text = "";
                 Properties.Settings.Default.HotkeySlotRmb = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_gearswap_editmode_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedEditMode.Text.Length > 1)
-            {
-                this.tb_assignedEditMode.Text = "";
-                Properties.Settings.Default.HotkeyEditMode = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_gearswap1_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedGearSwap1.Text.Length > 1)
-            {
-                this.tb_assignedGearSwap1.Text = "";
-                Properties.Settings.Default.HotkeyGearSwap1 = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_gearswap2_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedGearSwap2.Text.Length > 1)
-            {
-                this.tb_assignedGearSwap2.Text = "";
-                Properties.Settings.Default.HotkeyGearSwap2 = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_gearswap3_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedGearSwap3.Text.Length > 1)
-            {
-                this.tb_assignedGearSwap3.Text = "";
-                Properties.Settings.Default.HotkeyGearSwap3 = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_gearswap4_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedGearSwap4.Text.Length > 1)
-            {
-                this.tb_assignedGearSwap4.Text = "";
-                Properties.Settings.Default.HotkeyGearSwap4 = "";
                 Properties.Settings.Default.Save();
             }
         }

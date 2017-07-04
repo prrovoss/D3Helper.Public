@@ -110,16 +110,7 @@ namespace D3Helper.A_Collection
             
             //
         }
-        public class GearSwap
-        {
-            //--
-            public static string GearSwaps_FilePath = path.AppDir + @"\gearswaps.txt";
-            public static List<GearSwapItem> GearSwaps = new List<GearSwapItem>();
-            public static int Selected_SwapId = 1;                                                  // default: 1 min: 1 max: 4
-            public static bool isEditing = false;
-            public static bool editModeEnabled = false;
-            //
-        }
+
         public class AutoCastOverrides
         {
             //--

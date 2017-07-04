@@ -38,19 +38,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tb_assignedSkill1 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.tb_assignedEditMode = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tb_assignedGearSwap1 = new System.Windows.Forms.TextBox();
             this.cb_autopotion = new System.Windows.Forms.CheckBox();
             this.tb_autopotionhpvalue = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.tb_assignedGearSwap2 = new System.Windows.Forms.TextBox();
-            this.tb_assignedGearSwap3 = new System.Windows.Forms.TextBox();
-            this.tb_assignedGearSwap4 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label13 = new System.Windows.Forms.Label();
             this.tb_assignedSkillRMB = new System.Windows.Forms.TextBox();
@@ -70,10 +60,6 @@
             this.bt_delete_hotkey_autopick = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.tb_assignedAutoPick = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.bt_delete_hotkey_autogamble = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.tb_assignedAutoGambleHotkey = new System.Windows.Forms.TextBox();
@@ -92,17 +78,13 @@
             this.tb_assignedParagonPoints2 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.tb_assignedParagonPoints1 = new System.Windows.Forms.TextBox();
-            this.bt_delete_hotkey_gearswap4 = new System.Windows.Forms.Button();
-            this.bt_delete_hotkey_gearswap3 = new System.Windows.Forms.Button();
-            this.bt_delete_hotkey_gearswap2 = new System.Windows.Forms.Button();
-            this.bt_delete_hotkey_gearswap1 = new System.Windows.Forms.Button();
-            this.bt_delete_hotkey_gearswap_editmode = new System.Windows.Forms.Button();
             this.bt_delete_hotkey_skillslotrmb = new System.Windows.Forms.Button();
             this.bt_delete_hotkey_skillslot4 = new System.Windows.Forms.Button();
             this.bt_delete_hotkey_skillslot3 = new System.Windows.Forms.Button();
             this.bt_delete_hotkey_skillslot2 = new System.Windows.Forms.Button();
             this.bt_delete_hotkey_skillslot1 = new System.Windows.Forms.Button();
             this.page_Overlay = new System.Windows.Forms.TabPage();
+            this.listBox_ui_elements = new System.Windows.Forms.ListBox();
             this.button_get_ui_elements = new System.Windows.Forms.Button();
             this.textBox_filter_ui_elemets_listbox = new System.Windows.Forms.TextBox();
             this.CB_EliteCircles = new System.Windows.Forms.CheckBox();
@@ -145,7 +127,6 @@
             this.button_simplecast_remove = new System.Windows.Forms.Button();
             this.button_simplecast_add = new System.Windows.Forms.Button();
             this.dataGridView_simpleCast = new System.Windows.Forms.DataGridView();
-            this.listBox_ui_elements = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.page_General.SuspendLayout();
             this.page_Hotkeys.SuspendLayout();
@@ -227,41 +208,6 @@
             this.tb_assignedSkill1.TabIndex = 13;
             this.tb_assignedSkill1.TextChanged += new System.EventHandler(this.tb_assignedSkill1_TextChanged);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Location = new System.Drawing.Point(10, 177);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 13);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "GearSwap Edit Mode";
-            // 
-            // tb_assignedEditMode
-            // 
-            this.tb_assignedEditMode.Location = new System.Drawing.Point(241, 171);
-            this.tb_assignedEditMode.Name = "tb_assignedEditMode";
-            this.tb_assignedEditMode.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedEditMode.TabIndex = 16;
-            this.tb_assignedEditMode.TextChanged += new System.EventHandler(this.tb_assignedEditMode_TextChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Location = new System.Drawing.Point(10, 203);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "GearSwap 1";
-            // 
-            // tb_assignedGearSwap1
-            // 
-            this.tb_assignedGearSwap1.Location = new System.Drawing.Point(241, 197);
-            this.tb_assignedGearSwap1.Name = "tb_assignedGearSwap1";
-            this.tb_assignedGearSwap1.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedGearSwap1.TabIndex = 18;
-            // 
             // cb_autopotion
             // 
             this.cb_autopotion.AutoSize = true;
@@ -291,57 +237,6 @@
             this.label7.Size = new System.Drawing.Size(15, 13);
             this.label7.TabIndex = 21;
             this.label7.Text = "%";
-            // 
-            // tb_assignedGearSwap2
-            // 
-            this.tb_assignedGearSwap2.Location = new System.Drawing.Point(241, 223);
-            this.tb_assignedGearSwap2.Name = "tb_assignedGearSwap2";
-            this.tb_assignedGearSwap2.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedGearSwap2.TabIndex = 22;
-            // 
-            // tb_assignedGearSwap3
-            // 
-            this.tb_assignedGearSwap3.Location = new System.Drawing.Point(241, 249);
-            this.tb_assignedGearSwap3.Name = "tb_assignedGearSwap3";
-            this.tb_assignedGearSwap3.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedGearSwap3.TabIndex = 23;
-            // 
-            // tb_assignedGearSwap4
-            // 
-            this.tb_assignedGearSwap4.Location = new System.Drawing.Point(241, 275);
-            this.tb_assignedGearSwap4.Name = "tb_assignedGearSwap4";
-            this.tb_assignedGearSwap4.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedGearSwap4.TabIndex = 24;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Location = new System.Drawing.Point(10, 229);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(66, 13);
-            this.label10.TabIndex = 25;
-            this.label10.Text = "GearSwap 2";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Location = new System.Drawing.Point(10, 255);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(66, 13);
-            this.label11.TabIndex = 26;
-            this.label11.Text = "GearSwap 3";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Location = new System.Drawing.Point(10, 281);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(66, 13);
-            this.label12.TabIndex = 27;
-            this.label12.Text = "GearSwap 4";
             // 
             // label13
             // 
@@ -450,10 +345,6 @@
             this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_autopick);
             this.page_Hotkeys.Controls.Add(this.label19);
             this.page_Hotkeys.Controls.Add(this.tb_assignedAutoPick);
-            this.page_Hotkeys.Controls.Add(this.label18);
-            this.page_Hotkeys.Controls.Add(this.label17);
-            this.page_Hotkeys.Controls.Add(this.label16);
-            this.page_Hotkeys.Controls.Add(this.label15);
             this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_autogamble);
             this.page_Hotkeys.Controls.Add(this.label14);
             this.page_Hotkeys.Controls.Add(this.tb_assignedAutoGambleHotkey);
@@ -472,11 +363,6 @@
             this.page_Hotkeys.Controls.Add(this.tb_assignedParagonPoints2);
             this.page_Hotkeys.Controls.Add(this.label24);
             this.page_Hotkeys.Controls.Add(this.tb_assignedParagonPoints1);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_gearswap4);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_gearswap3);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_gearswap2);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_gearswap1);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_gearswap_editmode);
             this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_skillslotrmb);
             this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_skillslot4);
             this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_skillslot3);
@@ -486,22 +372,12 @@
             this.page_Hotkeys.Controls.Add(this.tb_assignedSkillRMB);
             this.page_Hotkeys.Controls.Add(this.tb_assignedSkill4);
             this.page_Hotkeys.Controls.Add(this.label13);
-            this.page_Hotkeys.Controls.Add(this.label12);
             this.page_Hotkeys.Controls.Add(this.label3);
-            this.page_Hotkeys.Controls.Add(this.label11);
             this.page_Hotkeys.Controls.Add(this.label4);
-            this.page_Hotkeys.Controls.Add(this.label10);
             this.page_Hotkeys.Controls.Add(this.tb_assignedSkill2);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedGearSwap4);
             this.page_Hotkeys.Controls.Add(this.label5);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedGearSwap3);
             this.page_Hotkeys.Controls.Add(this.label6);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedGearSwap2);
             this.page_Hotkeys.Controls.Add(this.tb_assignedSkill1);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedEditMode);
-            this.page_Hotkeys.Controls.Add(this.label8);
-            this.page_Hotkeys.Controls.Add(this.label9);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedGearSwap1);
             this.page_Hotkeys.Location = new System.Drawing.Point(4, 25);
             this.page_Hotkeys.Name = "page_Hotkeys";
             this.page_Hotkeys.Padding = new System.Windows.Forms.Padding(3);
@@ -771,66 +647,6 @@
             this.tb_assignedParagonPoints1.Size = new System.Drawing.Size(250, 20);
             this.tb_assignedParagonPoints1.TabIndex = 46;
             // 
-            // bt_delete_hotkey_gearswap4
-            // 
-            this.bt_delete_hotkey_gearswap4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_gearswap4.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_gearswap4.Location = new System.Drawing.Point(497, 273);
-            this.bt_delete_hotkey_gearswap4.Name = "bt_delete_hotkey_gearswap4";
-            this.bt_delete_hotkey_gearswap4.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_gearswap4.TabIndex = 44;
-            this.bt_delete_hotkey_gearswap4.Text = "X";
-            this.bt_delete_hotkey_gearswap4.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_gearswap4.Click += new System.EventHandler(this.bt_delete_hotkey_gearswap4_Click);
-            // 
-            // bt_delete_hotkey_gearswap3
-            // 
-            this.bt_delete_hotkey_gearswap3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_gearswap3.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_gearswap3.Location = new System.Drawing.Point(497, 247);
-            this.bt_delete_hotkey_gearswap3.Name = "bt_delete_hotkey_gearswap3";
-            this.bt_delete_hotkey_gearswap3.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_gearswap3.TabIndex = 43;
-            this.bt_delete_hotkey_gearswap3.Text = "X";
-            this.bt_delete_hotkey_gearswap3.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_gearswap3.Click += new System.EventHandler(this.bt_delete_hotkey_gearswap3_Click);
-            // 
-            // bt_delete_hotkey_gearswap2
-            // 
-            this.bt_delete_hotkey_gearswap2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_gearswap2.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_gearswap2.Location = new System.Drawing.Point(497, 222);
-            this.bt_delete_hotkey_gearswap2.Name = "bt_delete_hotkey_gearswap2";
-            this.bt_delete_hotkey_gearswap2.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_gearswap2.TabIndex = 42;
-            this.bt_delete_hotkey_gearswap2.Text = "X";
-            this.bt_delete_hotkey_gearswap2.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_gearswap2.Click += new System.EventHandler(this.bt_delete_hotkey_gearswap2_Click);
-            // 
-            // bt_delete_hotkey_gearswap1
-            // 
-            this.bt_delete_hotkey_gearswap1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_gearswap1.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_gearswap1.Location = new System.Drawing.Point(497, 195);
-            this.bt_delete_hotkey_gearswap1.Name = "bt_delete_hotkey_gearswap1";
-            this.bt_delete_hotkey_gearswap1.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_gearswap1.TabIndex = 41;
-            this.bt_delete_hotkey_gearswap1.Text = "X";
-            this.bt_delete_hotkey_gearswap1.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_gearswap1.Click += new System.EventHandler(this.bt_delete_hotkey_gearswap1_Click);
-            // 
-            // bt_delete_hotkey_gearswap_editmode
-            // 
-            this.bt_delete_hotkey_gearswap_editmode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_gearswap_editmode.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_gearswap_editmode.Location = new System.Drawing.Point(497, 170);
-            this.bt_delete_hotkey_gearswap_editmode.Name = "bt_delete_hotkey_gearswap_editmode";
-            this.bt_delete_hotkey_gearswap_editmode.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_gearswap_editmode.TabIndex = 40;
-            this.bt_delete_hotkey_gearswap_editmode.Text = "X";
-            this.bt_delete_hotkey_gearswap_editmode.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_gearswap_editmode.Click += new System.EventHandler(this.bt_delete_hotkey_gearswap_editmode_Click);
-            // 
             // bt_delete_hotkey_skillslotrmb
             // 
             this.bt_delete_hotkey_skillslotrmb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -915,6 +731,17 @@
             this.page_Overlay.Size = new System.Drawing.Size(557, 650);
             this.page_Overlay.TabIndex = 1;
             this.page_Overlay.Text = "Overlay";
+            // 
+            // listBox_ui_elements
+            // 
+            this.listBox_ui_elements.FormattingEnabled = true;
+            this.listBox_ui_elements.HorizontalScrollbar = true;
+            this.listBox_ui_elements.Location = new System.Drawing.Point(7, 283);
+            this.listBox_ui_elements.Name = "listBox_ui_elements";
+            this.listBox_ui_elements.Size = new System.Drawing.Size(535, 355);
+            this.listBox_ui_elements.TabIndex = 43;
+            this.listBox_ui_elements.SelectedIndexChanged += new System.EventHandler(this.listBox_ui_elements_SelectedIndexChanged);
+            this.listBox_ui_elements.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_filter_ui_elemets_listbox_KeyUp);
             // 
             // button_get_ui_elements
             // 
@@ -1394,17 +1221,6 @@
             this.dataGridView_simpleCast.TabIndex = 0;
             this.dataGridView_simpleCast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_simpleCast_CellContentClick);
             // 
-            // listBox_ui_elements
-            // 
-            this.listBox_ui_elements.FormattingEnabled = true;
-            this.listBox_ui_elements.HorizontalScrollbar = true;
-            this.listBox_ui_elements.Location = new System.Drawing.Point(7, 283);
-            this.listBox_ui_elements.Name = "listBox_ui_elements";
-            this.listBox_ui_elements.Size = new System.Drawing.Size(535, 355);
-            this.listBox_ui_elements.TabIndex = 43;
-            this.listBox_ui_elements.SelectedIndexChanged += new System.EventHandler(this.listBox_ui_elements_SelectedIndexChanged);
-            this.listBox_ui_elements.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_filter_ui_elemets_listbox_KeyUp);
-            // 
             // Window_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1450,19 +1266,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tb_assignedSkill1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox tb_assignedEditMode;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox tb_assignedGearSwap1;
         private System.Windows.Forms.CheckBox cb_autopotion;
         private System.Windows.Forms.TextBox tb_autopotionhpvalue;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tb_assignedGearSwap2;
-        private System.Windows.Forms.TextBox tb_assignedGearSwap3;
-        private System.Windows.Forms.TextBox tb_assignedGearSwap4;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tb_assignedSkillRMB;
@@ -1473,11 +1279,6 @@
         private System.Windows.Forms.CheckBox cb_skillbuttons;
         private System.Windows.Forms.CheckBox cb_xptracker;
         private System.Windows.Forms.CheckBox cb_fps;
-        private System.Windows.Forms.Button bt_delete_hotkey_gearswap4;
-        private System.Windows.Forms.Button bt_delete_hotkey_gearswap3;
-        private System.Windows.Forms.Button bt_delete_hotkey_gearswap2;
-        private System.Windows.Forms.Button bt_delete_hotkey_gearswap1;
-        private System.Windows.Forms.Button bt_delete_hotkey_gearswap_editmode;
         private System.Windows.Forms.Button bt_delete_hotkey_skillslotrmb;
         private System.Windows.Forms.Button bt_delete_hotkey_skillslot4;
         private System.Windows.Forms.Button bt_delete_hotkey_skillslot3;
@@ -1519,10 +1320,6 @@
         private System.Windows.Forms.TextBox TB_ParagonPointsSetupName;
         private System.Windows.Forms.Button BTN_ParagonPointsSave;
         private System.Windows.Forms.Button BTN_ParagonPointsDeleteTab;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox CB_ApsAndSnapShotAPs;
         private System.Windows.Forms.Button bt_delete_hotkey_autopick;
         private System.Windows.Forms.Label label19;
