@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 //using Enigma.D3;
 
@@ -25,7 +22,7 @@ namespace D3Helper.A_Collection
         public class HeroGlobals
         {
             //-- Hero Globals
-            public static Enigma.D3.ActorCommonData LocalACD;                                                 // default: null
+            public static Enigma.D3.MemoryModel.Core.ACD LocalACD;                                                 // default: null
             public static PlayerData LocalPlayerData;                                               // default: null  
 
             public static long HeroID;                                                              // default: -1
@@ -63,11 +60,11 @@ namespace D3Helper.A_Collection
             public static double ResourceSecondary_Percentage;                                      // default: -1 min: 0 max: 100
             public static List<ActivePower> ActivePowers = new List<ActivePower>();                 // default: null
             public static List<int> PassiveSkills = new List<int>(); 
-            public static List<Enigma.D3.ActorCommonData> EquippedItems = new List<Enigma.D3.ActorCommonData>();        // default: null
+            public static List<Enigma.D3.MemoryModel.Core.ACD> EquippedItems = new List<Enigma.D3.MemoryModel.Core.ACD>();        // default: null
             public static Dictionary<int, int> ActiveSkills = new Dictionary<int, int>();
-            public static Enigma.D3.ActorCommonData SelectedMonsterACD;
+            public static Enigma.D3.MemoryModel.Core.ACD SelectedMonsterACD;
             public static double Distance_SelectedMonsterACD;
-            public static Enigma.D3.ActorCommonData SelectedDestructibleACD;
+            public static Enigma.D3.MemoryModel.Core.ACD SelectedDestructibleACD;
             public static double Distance_SelectedDestructibleACD;
             public static DamageType CurrentConventionElement;
             public static DamageType NextConventionElement;

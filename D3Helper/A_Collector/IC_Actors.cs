@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using Enigma.D3;
 using Enigma.D3.Enums;
 using Enigma.D3.Helpers;
+using Enigma.D3.MemoryModel;
 
 namespace D3Helper.A_Collector
 {
     public class ACD
     {
-        public ACD(ActorCommonData _acd, bool isMonster, bool isPlayer, double distance, double progress)
+        public ACD(Enigma.D3.MemoryModel.Core.ACD _acd, bool isMonster, bool isPlayer, double distance, double progress)
         {
             this._ACD = _acd;
             this.IsMonster = isMonster;
@@ -23,7 +24,7 @@ namespace D3Helper.A_Collector
             this.Progress = progress;
         }
 
-        public ActorCommonData _ACD { get; set; }
+        public Enigma.D3.MemoryModel.Core.ACD _ACD { get; set; }
         public bool IsMonster { get; set; }
         public bool IsPlayer { get; set; }
         public double Distance { get; set; }
@@ -62,31 +63,37 @@ namespace D3Helper.A_Collector
                         location >= Enigma.D3.Enums.ItemLocation.PlayerHead &&
                         location <= Enigma.D3.Enums.ItemLocation.PlayerNeck;
 
-                        var acdcontainer = ActorCommonData.Container.ToList();
+                        //var acdcontainer = ActorCommonData.Container.ToList();
+                        var acdcontainer = MemoryContext.Current.DataSegment.ObjectManager.ACDManager.ActorCommonData;
 
                         
                         for(int i = 0; i < acdcontainer.Count(); i++)
                         {
-                            if(acdcontainer[i].x000_Id == -1)
+                            if(acdcontainer[i].ID == -1)
                                 continue;
 
-                            ActorCommonData acd = acdcontainer[i];
+                            var acd = acdcontainer[i];
                             
                            
                             bool isMonster = false;
                             isMonster = A_Tools.T_ACD.IsValidMonster(acd); // Experimental
 
                             bool isPlayer = false;
-                            if (!isMonster && acd.x17C_ActorType == ActorType.Player)
+                            if (!isMonster && acd.ActorType == ActorType.Player)
                                 isPlayer = true;
                             
                             double progress = 0;
                             if (isMonster && Properties.Settings.Default.overlayriftprogress)
                                 progress = A_Tools.T_ACD.get_RiftProgress(acd);
 
-                            double distance = A_Tools.T_ACD.get_Distance(acd.x0D0_WorldPosX, acd.x0D4_WorldPosY);
-                            
+                   
+                            //double distance = A_Tools.T_ACD.get_Distance(acd.x0D0_WorldPosX, acd.x0D4_WorldPosY);
+
+                            double distance = A_Tools.T_ACD.get_Distance(acd.Position.X, acd.Position.Y);
+
                             A_Collection.Environment.Actors.AllActors.Add(new ACD(acd, isMonster, isPlayer, distance, progress));
+
+
 
                             if (isEquipped(acd.x114_ItemLocation))
                             {

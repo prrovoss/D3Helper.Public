@@ -29,14 +29,14 @@ namespace D3Helper.A_Tools
                 return 0;
             }
         }
-        public static double get_RiftProgress(ActorCommonData monster)
+        public static double get_RiftProgress(Enigma.D3.MemoryModel.Core.ACD monster)
         {
             try
             {
                 if (A_Collection.Presets.Monsters.Monsters_RiftProgress.Count > 0)
                 {
                    
-                    return A_Collection.Presets.Monsters.Monsters_RiftProgress[monster.x090_ActorSnoId];
+                    return A_Collection.Presets.Monsters.Monsters_RiftProgress[monster.ActorSNO];
                 }
                 return 0;
             }
@@ -113,12 +113,12 @@ namespace D3Helper.A_Tools
             }
             catch { return 0; }
         }
-        public static bool IsValidMonster(ActorCommonData acd)
+        public static bool IsValidMonster(Enigma.D3.MemoryModel.Core.ACD acd)
         {
-            return acd.x180_Hitpoints > 0.00001 &&
+            return acd.Hitpoints > 0.00001 &&
              (acd.x190_Flags_Is_Trail_Proxy_Etc & 1) == 0 &&
-             acd.x17C_ActorType == Enigma.D3.Enums.ActorType.Monster &&
-             acd.x188_TeamId == 10;
+             acd.ActorType == Enigma.D3.Enums.ActorType.Monster &&
+             acd.TeamID == 10;
         }
         public static bool IsTreasureGoblin(ActorCommonData Acd)
         {

@@ -66,20 +66,31 @@ namespace D3Helper.A_Collector
 
                 //Enigma.D3.MemoryModel.Core.PlayerData playerDataNew = MemoryContext.Current.DataSegment.ObjectManager.PlayerDataManager[x]; 
 
-                var PlayerDataCollection = !DEPRECATED! PlayerDataManager.Instance.x0038_Items;
+                var PlayerDataCollection = new List<Enigma.D3.MemoryModel.Core.PlayerData>();
+                for (int i=0;i < MemoryContext.Current.DataSegment.ObjectManager.PlayerDataManager.Count; i++)
+                {
+                    PlayerDataCollection.Add(MemoryContext.Current.DataSegment.ObjectManager.PlayerDataManager[i]);
+                }
+
+
+                //var PlayerDataCollection = !DEPRECATED! PlayerDataManager.Instance.x0038_Items;
                 //var PlayerDataCollection = Engine.Current.ObjectManager.x7B0_Storage.x134_Ptr_PlayerDataManager.Dereference().x0038_Items;
+
+
+
 
                 int index = 1;
 
                 foreach (var playerdata in PlayerDataCollection)
                 {
-                   if(playerdata.x0004_AcdId == A_Collection.Me.HeroGlobals.LocalPlayerData.x0004_AcdId)
+
+                   if(playerdata.ACDID == A_Collection.Me.HeroGlobals.LocalPlayerData.ACDID)
                         continue;
 
                     switch (index)
                     {
                         case 1:
-                            if (playerdata.x0008_ActorId != -1)
+                            if (playerdata.ActorID != -1)
                                 A_Collection.Me.Party.PartyMember1 = playerdata;
                             else
                             {
@@ -88,7 +99,7 @@ namespace D3Helper.A_Collector
                             break;
 
                         case 2:
-                            if (playerdata.x0008_ActorId != -1)
+                            if (playerdata.ActorID != -1)
                                 A_Collection.Me.Party.PartyMember2 = playerdata;
                             else
                             {
@@ -97,7 +108,7 @@ namespace D3Helper.A_Collector
                             break;
 
                         case 3:
-                            if (playerdata.x0008_ActorId != -1)
+                            if (playerdata.ActorID != -1)
                                 A_Collection.Me.Party.PartyMember3 = playerdata;
                             else
                             {
@@ -121,7 +132,6 @@ namespace D3Helper.A_Collector
         {
             try
             {
-
                 for (int i = 1; i < 4; i++)
                 {
                     switch (i)
@@ -131,7 +141,7 @@ namespace D3Helper.A_Collector
                             {
                                 var acd =
                                     A_Collection.Me.Party.PartyMemberInRange.FirstOrDefault(
-                                        x => x._ACD.x08C_ActorId == A_Collection.Me.Party.PartyMember1.x0008_ActorId);
+                                        x => x._ACD.x08C_ActorId == A_Collection.Me.Party.PartyMember1.ActorID);
                                 if (acd != null)
                                 {
                                     if (acd._ACD.GetAttributeValue((AttributeId)746, A_Enums.Powers.Convention_PowerSno) > 0)
@@ -142,7 +152,7 @@ namespace D3Helper.A_Collector
                                         A_Collection.Me.Party.PartyMember1_NextConventionElement =
                                             A_Tools.T_ACD.ConventionOfElements.getNextConventionElement(
                                                 A_Collection.Me.Party.PartyMember1_CurrentConventionElement,
-                                                (A_Enums.HeroClass) A_Collection.Me.Party.PartyMember1.x964C_HeroClass);
+                                                (A_Enums.HeroClass) A_Collection.Me.Party.PartyMember1.HeroClass); //old .x964C_HeroClass
 
                                         A_Collection.Me.Party.PartyMember1_Convention_TicksLeft =
                                             A_Tools.T_ACD.ConventionOfElements.getConventionTicksLeft(
@@ -175,7 +185,7 @@ namespace D3Helper.A_Collector
                             {
                                 var acd =
                                     A_Collection.Me.Party.PartyMemberInRange.FirstOrDefault(
-                                        x => x._ACD.x08C_ActorId == A_Collection.Me.Party.PartyMember2.x0008_ActorId);
+                                        x => x._ACD.x08C_ActorId == A_Collection.Me.Party.PartyMember2.ActorID);
                                 if (acd != null)
                                 {
                                     if (acd._ACD.GetAttributeValue((AttributeId)746, A_Enums.Powers.Convention_PowerSno) > 0)
@@ -186,7 +196,7 @@ namespace D3Helper.A_Collector
                                         A_Collection.Me.Party.PartyMember2_NextConventionElement =
                                             A_Tools.T_ACD.ConventionOfElements.getNextConventionElement(
                                                 A_Collection.Me.Party.PartyMember2_CurrentConventionElement,
-                                                (A_Enums.HeroClass)A_Collection.Me.Party.PartyMember2.x964C_HeroClass);
+                                                (A_Enums.HeroClass)A_Collection.Me.Party.PartyMember2.HeroClass);
 
                                         A_Collection.Me.Party.PartyMember2_Convention_TicksLeft =
                                             A_Tools.T_ACD.ConventionOfElements.getConventionTicksLeft(
@@ -219,7 +229,7 @@ namespace D3Helper.A_Collector
                             {
                                 var acd =
                                     A_Collection.Me.Party.PartyMemberInRange.FirstOrDefault(
-                                        x => x._ACD.x08C_ActorId == A_Collection.Me.Party.PartyMember3.x0008_ActorId);
+                                        x => x._ACD.x08C_ActorId == A_Collection.Me.Party.PartyMember3.ActorID);
                                 if (acd != null)
                                 {
                                     if (acd._ACD.GetAttributeValue((AttributeId)746, A_Enums.Powers.Convention_PowerSno) > 0)
@@ -230,7 +240,7 @@ namespace D3Helper.A_Collector
                                         A_Collection.Me.Party.PartyMember3_NextConventionElement =
                                             A_Tools.T_ACD.ConventionOfElements.getNextConventionElement(
                                                 A_Collection.Me.Party.PartyMember3_CurrentConventionElement,
-                                                (A_Enums.HeroClass)A_Collection.Me.Party.PartyMember3.x964C_HeroClass);
+                                                (A_Enums.HeroClass)A_Collection.Me.Party.PartyMember3.HeroClass);
 
                                         A_Collection.Me.Party.PartyMember3_Convention_TicksLeft =
                                             A_Tools.T_ACD.ConventionOfElements.getConventionTicksLeft(

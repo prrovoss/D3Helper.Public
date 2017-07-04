@@ -184,9 +184,9 @@ namespace D3Helper.A_Handler.AutoPick
 
         private class Filter
         {
-            public static bool IsValid(ActorCommonData acd)
+            public static bool IsValid(Enigma.D3.MemoryModel.Core.ACD acd)
             {
-                return acd.x000_Id != -1;
+                return acd.ID != -1;
             }
 
             public static bool IsAncient(ActorCommonData acd)
