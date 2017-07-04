@@ -35,14 +35,15 @@ namespace D3Helper.A_Collector
             }
         }
 
-
+        //is currently used only to detect if Player has opened a contextmenu. maybe we can get d3helper work without that?
         private static void get_UIElementMouseOver()
         {
             try
             {
                //A_Collection.D3UI.UIElement_MouseOver = UIManager.Instance.x0A30_MouseOver.x008_Name;
-               
-               A_Collection.D3UI.UIElement_MouseOver = Engine.Current.ObjectManager.xA1C_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
+             
+                //TODO replace with MemoryModel.
+               A_Collection.D3UI.UIElement_MouseOver = !DEPRECATED! Engine.Current.ObjectManager.xA1C_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
             }
             catch (Exception e)
             {

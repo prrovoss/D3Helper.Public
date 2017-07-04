@@ -26,7 +26,7 @@ namespace D3Helper.A_Collection
         {
             //-- Hero Globals
             public static Enigma.D3.ActorCommonData LocalACD;                                                 // default: null
-            public static Enigma.D3.MemoryModel.Core.PlayerData LocalPlayerData;                                               // default: null  
+            public static PlayerData LocalPlayerData;                                               // default: null  
 
             public static long HeroID;                                                              // default: -1
             //public static int LocalDataIndex;                                                       // default: -1
@@ -48,8 +48,8 @@ namespace D3Helper.A_Collection
             public static bool isResuracting;                                                       // default: false
             public static bool isInParty;                                                           // default: false
             public static bool isAlive;                                                             // default: false
-            public static bool isUsingPower;                                                        // default: false
-            public static bool usedNewPower;
+            //public static bool isUsingPower;                                                        // default: false
+            //public static bool usedNewPower;
             //
         }
         public class HeroDetails

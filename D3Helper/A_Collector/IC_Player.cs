@@ -781,7 +781,7 @@ namespace D3Helper.A_Collector
             }
         }
 
-        private static int LastUsedPower = -1;
+        //private static int LastUsedPower = -1;
 
         private static void get_isUsingPower()
         {
@@ -794,21 +794,21 @@ namespace D3Helper.A_Collector
                 {
                     A_Collection.Me.HeroDetails.CurrentlyUsingPower = local.GetPowerUse();
 
-                    if (local.GetPowerUse() == LastUsedPower)
-                        A_Collection.Me.HeroStates.usedNewPower = false;
-                    else
-                        A_Collection.Me.HeroStates.usedNewPower = true;
+                    //if (local.GetPowerUse() == LastUsedPower)
+                    //    A_Collection.Me.HeroStates.usedNewPower = false;
+                    //else
+                    //    A_Collection.Me.HeroStates.usedNewPower = true;
 
-                    LastUsedPower = local.GetPowerUse();
+                    //LastUsedPower = local.GetPowerUse();
 
-                    if (local.xA0E0_PowerUse != -1)
-                    {
-                        A_Collection.Me.HeroStates.isUsingPower = true;
-                    }
-                    else
-                    {
-                        A_Collection.Me.HeroStates.isUsingPower = false;
-                    }
+                    //if (local.xA0E0_PowerUse != -1)
+                    //{
+                    //    A_Collection.Me.HeroStates.isUsingPower = true;
+                    //}
+                    //else
+                    //{
+                    //    A_Collection.Me.HeroStates.isUsingPower = false;
+                    //}
                 }
                 else
                 {
