@@ -49,10 +49,7 @@ namespace D3Helper.A_Collector
                 Hotkey paragonpoints3 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints3);
                 Hotkey paragonpoints4 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints4);
                 Hotkey autogamble = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoGamble);
-                Hotkey skillbuild1 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild1);
-                Hotkey skillbuild2 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild2);
-                Hotkey skillbuild3 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild3);
-                Hotkey skillbuild4 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild4);
+
                 Hotkey autopick = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoPick);
                 Hotkey autocube_upgraderare = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoCube_UpgradeRare);
                 Hotkey autocube_convertmaterial = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoCube_ConvertMaterial);
@@ -76,10 +73,6 @@ namespace D3Helper.A_Collector
                 hotkeys.Add(paragonpoints3, "paragonpoints3");
                 hotkeys.Add(paragonpoints4, "paragonpoints4");
                 hotkeys.Add(autogamble, "autogamble");
-                hotkeys.Add(skillbuild1, "skillbuild1");
-                hotkeys.Add(skillbuild2, "skillbuild2");
-                hotkeys.Add(skillbuild3, "skillbuild3");
-                hotkeys.Add(skillbuild4, "skillbuild4");
                 hotkeys.Add(autopick, "autopick");
                 hotkeys.Add(autocube_upgraderare, "autocube_upgraderare");
                 hotkeys.Add(autocube_convertmaterial, "autocube_convertmaterial");
@@ -289,42 +282,6 @@ namespace D3Helper.A_Collector
                                     Properties.Settings.Default.AutoGambleBool =
                                         !Properties.Settings.Default.AutoGambleBool;
                                     Properties.Settings.Default.Save();
-                                    break;
-
-                                case "skillbuild1":
-                                    if (!A_Collection.Me.SkillBuilds.Is_SwapingBuild)
-                                    {
-                                        A_Collection.Me.SkillBuilds.SelectedSkillBuild = 0;
-
-                                        A_Handler.SkillBuildSwap.SkillBuildSwap.DoSwap();
-                                    }
-                                    break;
-
-                                case "skillbuild2":
-                                    if (!A_Collection.Me.SkillBuilds.Is_SwapingBuild)
-                                    {
-                                        A_Collection.Me.SkillBuilds.SelectedSkillBuild = 1;
-
-                                        A_Handler.SkillBuildSwap.SkillBuildSwap.DoSwap();
-                                    }
-                                    break;
-
-                                case "skillbuild3":
-                                    if (!A_Collection.Me.SkillBuilds.Is_SwapingBuild)
-                                    {
-                                        A_Collection.Me.SkillBuilds.SelectedSkillBuild = 2;
-
-                                        A_Handler.SkillBuildSwap.SkillBuildSwap.DoSwap();
-                                    }
-                                    break;
-
-                                case "skillbuild4":
-                                    if (!A_Collection.Me.SkillBuilds.Is_SwapingBuild)
-                                    {
-                                        A_Collection.Me.SkillBuilds.SelectedSkillBuild = 3;
-
-                                        A_Handler.SkillBuildSwap.SkillBuildSwap.DoSwap();
-                                    }
                                     break;
 
                                 case "autopick":

@@ -13,7 +13,6 @@ namespace D3Helper.A_Collector
         private static bool OverridesLoaded = false;
         private static bool CustomDefinitionsLoaded = false;
         private static bool ParagonPointsLoaded = false;
-        private static bool SkillBuildsLoaded = false;
 
         private static bool external_files_loaded = false;
 
@@ -29,7 +28,6 @@ namespace D3Helper.A_Collector
                     load_SkillPowers();
                     load_SNOPowers();
                     load_ParagonPointSetups();
-                    load_SkillBuilds();
                     load_GearSwaps();
                     load_Tooltips_ConditionTypes();
                     load_AutoCastOverrides();
@@ -153,24 +151,6 @@ namespace D3Helper.A_Collector
                     A_Tools.T_ExternalFile.ParagonPointSpenderSettings.Load();
 
                     ParagonPointsLoaded = true;
-                }
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ECollector);
-            }
-        }
-
-
-        private static void load_SkillBuilds()
-        {
-            try
-            {
-                if (!SkillBuildsLoaded)
-                {
-                    A_Tools.T_ExternalFile.SkillBuilds.Load();
-
-                    SkillBuildsLoaded = true;
                 }
             }
             catch (Exception e)

@@ -70,14 +70,6 @@
             this.bt_delete_hotkey_autopick = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.tb_assignedAutoPick = new System.Windows.Forms.TextBox();
-            this.bt_delete_hotkey_skillbuild4 = new System.Windows.Forms.Button();
-            this.bt_delete_hotkey_skillbuild3 = new System.Windows.Forms.Button();
-            this.bt_delete_hotkey_skillbuild2 = new System.Windows.Forms.Button();
-            this.bt_delete_hotkey_skillbuild1 = new System.Windows.Forms.Button();
-            this.tb_assignedSkillBuild4 = new System.Windows.Forms.TextBox();
-            this.tb_assignedSkillBuild3 = new System.Windows.Forms.TextBox();
-            this.tb_assignedSkillBuild2 = new System.Windows.Forms.TextBox();
-            this.tb_assignedSkillBuild1 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -133,11 +125,6 @@
             this.BTN_ParagonPointsReload = new System.Windows.Forms.Button();
             this.BTN_ParagonPointsNew = new System.Windows.Forms.Button();
             this.TabControl_ParagonPoints = new System.Windows.Forms.TabControl();
-            this.page_SkillBuilds = new System.Windows.Forms.TabPage();
-            this.BTN_SkillBuilds_DeleteSelected = new System.Windows.Forms.Button();
-            this.TB_SkillBuilds_NameInput = new System.Windows.Forms.TextBox();
-            this.BTN_SkillBuilds_LoadIngameBuild = new System.Windows.Forms.Button();
-            this.Panel_SkillBuilds_View = new System.Windows.Forms.Panel();
             this.page_AutoPick = new System.Windows.Forms.TabPage();
             this.CB_AutoPick_Rares = new System.Windows.Forms.CheckBox();
             this.CB_AutoPick_Magics = new System.Windows.Forms.CheckBox();
@@ -165,7 +152,6 @@
             this.page_Overlay.SuspendLayout();
             this.page_Auto.SuspendLayout();
             this.page_ParagonPoints.SuspendLayout();
-            this.page_SkillBuilds.SuspendLayout();
             this.page_AutoPick.SuspendLayout();
             this.page_Experimental.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -383,7 +369,6 @@
             this.tabControl1.Controls.Add(this.page_Auto);
             this.tabControl1.Controls.Add(this.page_SkillEditor);
             this.tabControl1.Controls.Add(this.page_ParagonPoints);
-            this.tabControl1.Controls.Add(this.page_SkillBuilds);
             this.tabControl1.Controls.Add(this.page_AutoPick);
             this.tabControl1.Controls.Add(this.page_Experimental);
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -465,14 +450,6 @@
             this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_autopick);
             this.page_Hotkeys.Controls.Add(this.label19);
             this.page_Hotkeys.Controls.Add(this.tb_assignedAutoPick);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_skillbuild4);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_skillbuild3);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_skillbuild2);
-            this.page_Hotkeys.Controls.Add(this.bt_delete_hotkey_skillbuild1);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedSkillBuild4);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedSkillBuild3);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedSkillBuild2);
-            this.page_Hotkeys.Controls.Add(this.tb_assignedSkillBuild1);
             this.page_Hotkeys.Controls.Add(this.label18);
             this.page_Hotkeys.Controls.Add(this.label17);
             this.page_Hotkeys.Controls.Add(this.label16);
@@ -618,122 +595,6 @@
             this.tb_assignedAutoPick.Name = "tb_assignedAutoPick";
             this.tb_assignedAutoPick.Size = new System.Drawing.Size(250, 20);
             this.tb_assignedAutoPick.TabIndex = 75;
-            // 
-            // bt_delete_hotkey_skillbuild4
-            // 
-            this.bt_delete_hotkey_skillbuild4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_skillbuild4.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_skillbuild4.Location = new System.Drawing.Point(497, 530);
-            this.bt_delete_hotkey_skillbuild4.Name = "bt_delete_hotkey_skillbuild4";
-            this.bt_delete_hotkey_skillbuild4.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_skillbuild4.TabIndex = 74;
-            this.bt_delete_hotkey_skillbuild4.Text = "X";
-            this.bt_delete_hotkey_skillbuild4.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_skillbuild4.Click += new System.EventHandler(this.bt_delete_hotkey_skillbuild4_Click);
-            // 
-            // bt_delete_hotkey_skillbuild3
-            // 
-            this.bt_delete_hotkey_skillbuild3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_skillbuild3.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_skillbuild3.Location = new System.Drawing.Point(497, 504);
-            this.bt_delete_hotkey_skillbuild3.Name = "bt_delete_hotkey_skillbuild3";
-            this.bt_delete_hotkey_skillbuild3.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_skillbuild3.TabIndex = 73;
-            this.bt_delete_hotkey_skillbuild3.Text = "X";
-            this.bt_delete_hotkey_skillbuild3.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_skillbuild3.Click += new System.EventHandler(this.bt_delete_hotkey_skillbuild3_Click);
-            // 
-            // bt_delete_hotkey_skillbuild2
-            // 
-            this.bt_delete_hotkey_skillbuild2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_skillbuild2.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_skillbuild2.Location = new System.Drawing.Point(497, 476);
-            this.bt_delete_hotkey_skillbuild2.Name = "bt_delete_hotkey_skillbuild2";
-            this.bt_delete_hotkey_skillbuild2.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_skillbuild2.TabIndex = 72;
-            this.bt_delete_hotkey_skillbuild2.Text = "X";
-            this.bt_delete_hotkey_skillbuild2.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_skillbuild2.Click += new System.EventHandler(this.bt_delete_hotkey_skillbuild2_Click);
-            // 
-            // bt_delete_hotkey_skillbuild1
-            // 
-            this.bt_delete_hotkey_skillbuild1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_delete_hotkey_skillbuild1.ForeColor = System.Drawing.Color.Red;
-            this.bt_delete_hotkey_skillbuild1.Location = new System.Drawing.Point(497, 450);
-            this.bt_delete_hotkey_skillbuild1.Name = "bt_delete_hotkey_skillbuild1";
-            this.bt_delete_hotkey_skillbuild1.Size = new System.Drawing.Size(25, 20);
-            this.bt_delete_hotkey_skillbuild1.TabIndex = 71;
-            this.bt_delete_hotkey_skillbuild1.Text = "X";
-            this.bt_delete_hotkey_skillbuild1.UseVisualStyleBackColor = true;
-            this.bt_delete_hotkey_skillbuild1.Click += new System.EventHandler(this.bt_delete_hotkey_skillbuild1_Click);
-            // 
-            // tb_assignedSkillBuild4
-            // 
-            this.tb_assignedSkillBuild4.Location = new System.Drawing.Point(241, 529);
-            this.tb_assignedSkillBuild4.Name = "tb_assignedSkillBuild4";
-            this.tb_assignedSkillBuild4.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedSkillBuild4.TabIndex = 70;
-            // 
-            // tb_assignedSkillBuild3
-            // 
-            this.tb_assignedSkillBuild3.Location = new System.Drawing.Point(241, 503);
-            this.tb_assignedSkillBuild3.Name = "tb_assignedSkillBuild3";
-            this.tb_assignedSkillBuild3.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedSkillBuild3.TabIndex = 69;
-            // 
-            // tb_assignedSkillBuild2
-            // 
-            this.tb_assignedSkillBuild2.Location = new System.Drawing.Point(241, 477);
-            this.tb_assignedSkillBuild2.Name = "tb_assignedSkillBuild2";
-            this.tb_assignedSkillBuild2.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedSkillBuild2.TabIndex = 68;
-            // 
-            // tb_assignedSkillBuild1
-            // 
-            this.tb_assignedSkillBuild1.Location = new System.Drawing.Point(241, 451);
-            this.tb_assignedSkillBuild1.Name = "tb_assignedSkillBuild1";
-            this.tb_assignedSkillBuild1.Size = new System.Drawing.Size(250, 20);
-            this.tb_assignedSkillBuild1.TabIndex = 67;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Location = new System.Drawing.Point(10, 534);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(58, 13);
-            this.label18.TabIndex = 66;
-            this.label18.Text = "SkillBuild 4";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.Transparent;
-            this.label17.Location = new System.Drawing.Point(10, 508);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(58, 13);
-            this.label17.TabIndex = 65;
-            this.label17.Text = "SkillBuild 3";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Location = new System.Drawing.Point(10, 480);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(58, 13);
-            this.label16.TabIndex = 64;
-            this.label16.Text = "SkillBuild 2";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Location = new System.Drawing.Point(10, 454);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(58, 13);
-            this.label15.TabIndex = 63;
-            this.label15.Text = "SkillBuild 1";
             // 
             // bt_delete_hotkey_autogamble
             // 
@@ -1300,55 +1161,6 @@
             this.TabControl_ParagonPoints.Size = new System.Drawing.Size(382, 462);
             this.TabControl_ParagonPoints.TabIndex = 0;
             // 
-            // page_SkillBuilds
-            // 
-            this.page_SkillBuilds.BackgroundImage = global::D3Helper.Properties.Resources.Background_Monk_50_Settings;
-            this.page_SkillBuilds.Controls.Add(this.BTN_SkillBuilds_DeleteSelected);
-            this.page_SkillBuilds.Controls.Add(this.TB_SkillBuilds_NameInput);
-            this.page_SkillBuilds.Controls.Add(this.BTN_SkillBuilds_LoadIngameBuild);
-            this.page_SkillBuilds.Controls.Add(this.Panel_SkillBuilds_View);
-            this.page_SkillBuilds.Location = new System.Drawing.Point(4, 25);
-            this.page_SkillBuilds.Name = "page_SkillBuilds";
-            this.page_SkillBuilds.Size = new System.Drawing.Size(557, 650);
-            this.page_SkillBuilds.TabIndex = 12;
-            this.page_SkillBuilds.Text = "SkillBuilds";
-            this.page_SkillBuilds.UseVisualStyleBackColor = true;
-            // 
-            // BTN_SkillBuilds_DeleteSelected
-            // 
-            this.BTN_SkillBuilds_DeleteSelected.Location = new System.Drawing.Point(412, 14);
-            this.BTN_SkillBuilds_DeleteSelected.Name = "BTN_SkillBuilds_DeleteSelected";
-            this.BTN_SkillBuilds_DeleteSelected.Size = new System.Drawing.Size(94, 23);
-            this.BTN_SkillBuilds_DeleteSelected.TabIndex = 3;
-            this.BTN_SkillBuilds_DeleteSelected.Text = "Delete Selected";
-            this.BTN_SkillBuilds_DeleteSelected.UseVisualStyleBackColor = true;
-            this.BTN_SkillBuilds_DeleteSelected.Click += new System.EventHandler(this.BTN_SkillBuilds_DeleteSelected_Click);
-            // 
-            // TB_SkillBuilds_NameInput
-            // 
-            this.TB_SkillBuilds_NameInput.Location = new System.Drawing.Point(3, 16);
-            this.TB_SkillBuilds_NameInput.Name = "TB_SkillBuilds_NameInput";
-            this.TB_SkillBuilds_NameInput.Size = new System.Drawing.Size(205, 20);
-            this.TB_SkillBuilds_NameInput.TabIndex = 2;
-            // 
-            // BTN_SkillBuilds_LoadIngameBuild
-            // 
-            this.BTN_SkillBuilds_LoadIngameBuild.Location = new System.Drawing.Point(214, 14);
-            this.BTN_SkillBuilds_LoadIngameBuild.Name = "BTN_SkillBuilds_LoadIngameBuild";
-            this.BTN_SkillBuilds_LoadIngameBuild.Size = new System.Drawing.Size(109, 23);
-            this.BTN_SkillBuilds_LoadIngameBuild.TabIndex = 1;
-            this.BTN_SkillBuilds_LoadIngameBuild.Text = "Load Ingame Build";
-            this.BTN_SkillBuilds_LoadIngameBuild.UseVisualStyleBackColor = true;
-            this.BTN_SkillBuilds_LoadIngameBuild.Click += new System.EventHandler(this.BTN_SkillBuilds_LoadIngameBuild_Click);
-            // 
-            // Panel_SkillBuilds_View
-            // 
-            this.Panel_SkillBuilds_View.BackColor = System.Drawing.Color.Transparent;
-            this.Panel_SkillBuilds_View.Location = new System.Drawing.Point(3, 48);
-            this.Panel_SkillBuilds_View.Name = "Panel_SkillBuilds_View";
-            this.Panel_SkillBuilds_View.Size = new System.Drawing.Size(533, 460);
-            this.Panel_SkillBuilds_View.TabIndex = 0;
-            // 
             // page_AutoPick
             // 
             this.page_AutoPick.BackgroundImage = global::D3Helper.Properties.Resources.Background_Monk_50_Settings;
@@ -1618,8 +1430,6 @@
             this.page_Auto.PerformLayout();
             this.page_ParagonPoints.ResumeLayout(false);
             this.page_ParagonPoints.PerformLayout();
-            this.page_SkillBuilds.ResumeLayout(false);
-            this.page_SkillBuilds.PerformLayout();
             this.page_AutoPick.ResumeLayout(false);
             this.page_AutoPick.PerformLayout();
             this.page_Experimental.ResumeLayout(false);
@@ -1709,19 +1519,6 @@
         private System.Windows.Forms.TextBox TB_ParagonPointsSetupName;
         private System.Windows.Forms.Button BTN_ParagonPointsSave;
         private System.Windows.Forms.Button BTN_ParagonPointsDeleteTab;
-        private System.Windows.Forms.TabPage page_SkillBuilds;
-        private System.Windows.Forms.Panel Panel_SkillBuilds_View;
-        private System.Windows.Forms.Button BTN_SkillBuilds_LoadIngameBuild;
-        private System.Windows.Forms.TextBox TB_SkillBuilds_NameInput;
-        private System.Windows.Forms.Button BTN_SkillBuilds_DeleteSelected;
-        private System.Windows.Forms.Button bt_delete_hotkey_skillbuild4;
-        private System.Windows.Forms.Button bt_delete_hotkey_skillbuild3;
-        private System.Windows.Forms.Button bt_delete_hotkey_skillbuild2;
-        private System.Windows.Forms.Button bt_delete_hotkey_skillbuild1;
-        private System.Windows.Forms.TextBox tb_assignedSkillBuild4;
-        private System.Windows.Forms.TextBox tb_assignedSkillBuild3;
-        private System.Windows.Forms.TextBox tb_assignedSkillBuild2;
-        private System.Windows.Forms.TextBox tb_assignedSkillBuild1;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 using D3Helper.A_Enums;
 using D3Helper.A_Collector;
-using D3Helper.A_Handler.SkillBuildSwap;
 using D3Helper.A_Tools;
 using Enigma.D3.MemoryModel.Core;
 
@@ -138,12 +137,5 @@ namespace D3Helper.A_Collection
             //
         }
 
-        public class SkillBuilds
-        {
-            public static string SkillBuilds_FilePath = path.AppDir + @"\skillbuilds.txt";
-            public static Dictionary<SkillBuildSwap.SkillBuild, long> Builds = new Dictionary<SkillBuildSwap.SkillBuild, long>();
-            public static bool Is_SwapingBuild = false;                                           // default: false
-            public static int SelectedSkillBuild = 0;                                      // default: 0 min: 0 max: 3
-        }
     }
 }

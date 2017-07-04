@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using D3Helper.A_Collector;
 using D3Helper.A_Enums;
-using D3Helper.A_Handler.SkillBuildSwap;
 using D3Helper.A_Tools;
 using Key = SlimDX.DirectInput.Key;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
@@ -49,8 +48,6 @@ namespace D3Helper
         {
             _this = this;
 
-            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, Panel_SkillBuilds_View, new object[] { true });
-
             Load_Setups();
 
             TabControl_ParagonPoints.BackColor = Color.Transparent;
@@ -77,10 +74,7 @@ namespace D3Helper
             this.tb_assignedParagonPoints3.ReadOnly = true;
             this.tb_assignedParagonPoints4.ReadOnly = true;
             this.tb_assignedAutoGambleHotkey.ReadOnly = true;
-            this.tb_assignedSkillBuild1.ReadOnly = true;
-            this.tb_assignedSkillBuild2.ReadOnly = true;
-            this.tb_assignedSkillBuild3.ReadOnly = true;
-            this.tb_assignedSkillBuild4.ReadOnly = true;
+
             this.tb_assignedAutoPick.ReadOnly = true;
             this.tb_assignedAutoCube_UpgradeRare.ReadOnly = true;
             this.tb_assignedAutoCube_ConvertMaterial.ReadOnly = true;
@@ -101,10 +95,7 @@ namespace D3Helper
             this.tb_assignedParagonPoints3.KeyDown += tb_assignedParagonPoints3_KeyDown;
             this.tb_assignedParagonPoints4.KeyDown += tb_assignedParagonPoints4_KeyDown;
             this.tb_assignedAutoGambleHotkey.KeyDown += Tb_assignedAutoGambleHotkey_KeyDown;
-            this.tb_assignedSkillBuild1.KeyDown += Tb_assignedSkillBuild1_KeyDown;
-            this.tb_assignedSkillBuild2.KeyDown += Tb_assignedSkillBuild2_KeyDown;
-            this.tb_assignedSkillBuild3.KeyDown += Tb_assignedSkillBuild3_KeyDown;
-            this.tb_assignedSkillBuild4.KeyDown += Tb_assignedSkillBuild4_KeyDown;
+
             this.tb_assignedAutoPick.KeyDown += Tb_assignedAutoPick_KeyDown;
             this.tb_assignedAutoCube_UpgradeRare.KeyDown += Tb_assignedAutoCube_UpgradeRare_KeyDown;
             this.tb_assignedAutoCube_ConvertMaterial.KeyDown += Tb_assignedAutoCube_ConvertMaterial_KeyDown;
@@ -125,10 +116,7 @@ namespace D3Helper
             this.tb_assignedParagonPoints3.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints3).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints3).Modifiers);
             this.tb_assignedParagonPoints4.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints4).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints4).Modifiers);
             this.tb_assignedAutoGambleHotkey.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoGamble).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoGamble).Modifiers);
-            this.tb_assignedSkillBuild1.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild1).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild1).Modifiers);
-            this.tb_assignedSkillBuild2.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild2).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild2).Modifiers);
-            this.tb_assignedSkillBuild3.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild3).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild3).Modifiers);
-            this.tb_assignedSkillBuild4.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild4).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySkillBuild4).Modifiers);
+
             this.tb_assignedAutoPick.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoPick).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoPick).Modifiers);
             this.tb_assignedAutoCube_UpgradeRare.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoCube_UpgradeRare).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoCube_UpgradeRare).Modifiers);
             this.tb_assignedAutoCube_ConvertMaterial.Text = get_HotkeyText(H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoCube_ConvertMaterial).Key, H_Keyboard.get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyAutoCube_ConvertMaterial).Modifiers);
@@ -232,85 +220,6 @@ namespace D3Helper
             Properties.Settings.Default.Save();
         }
 
-        private void Tb_assignedSkillBuild4_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedSkillBuild4.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeySkillBuild4 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
-
-        private void Tb_assignedSkillBuild3_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedSkillBuild3.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeySkillBuild3 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
-
-        private void Tb_assignedSkillBuild2_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedSkillBuild2.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeySkillBuild2 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
-
-        private void Tb_assignedSkillBuild1_KeyDown(object sender, KeyEventArgs e)
-        {
-            Keys Key = e.KeyCode;
-
-            SlimDX.DirectInput.Key key = A_Tools.InputSimulator.IS_Keyboard.convert_KeysToKey(Key);
-
-            List<SlimDX.DirectInput.Key> Modifiers = new List<Key>();
-
-            if (e.Alt)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftAlt);
-            if (e.Control)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftControl);
-            if (e.Shift)
-                Modifiers.Add(SlimDX.DirectInput.Key.LeftShift);
-
-            this.tb_assignedSkillBuild1.Text = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.HotkeySkillBuild1 = get_HotkeyText(key, Modifiers);
-            Properties.Settings.Default.Save();
-        }
 
         private void Tb_assignedAutoGambleHotkey_KeyDown(object sender, KeyEventArgs e)
         {
@@ -342,10 +251,6 @@ namespace D3Helper
                     Window_SkillEditor SE = new Window_SkillEditor();
                     SE.Show();
                 }
-            }
-            if (tabControl1.SelectedIndex == 6)
-            {
-                SkillBuild_UpdateView();
             }
         }
 
@@ -1177,363 +1082,17 @@ namespace D3Helper
                 this.TabControl_ParagonPoints.TabPages.RemoveAt(TabControl_ParagonPoints.SelectedIndex);
         }
 
-        private void BTN_SkillBuilds_LoadIngameBuild_Click(object sender, EventArgs e)
-        {
-            SkillBuild_LoadIngame();
-            SkillBuild_UpdateView();
-
-            A_Tools.T_ExternalFile.SkillBuilds.Save();
-        }
-
-        private void SkillBuild_LoadIngame()
-        {
-            try
-            {
-                var selected = Panel_SkillBuilds_View.Controls.OfType<CheckBox>().Where(x => x.Checked);
-
-                if (selected.Count() == 0)
-                {
-                    if (TB_SkillBuilds_NameInput.Text.Length < 1)
-                    {
-                        MessageBox.Show("Please enter a name");
-                        return;
-                    }
-
-                    int countExistingBuilds =
-                        A_Collection.Me.SkillBuilds.Builds.Where(x => x.Value == A_Collection.Me.HeroGlobals.HeroID)
-                            .Count();
-
-                    if (countExistingBuilds == 4)
-                    {
-                        MessageBox.Show("You cannot add more then 4 Builds per hero");
-                        return;
-                    }
-
-                    Dictionary<int, int> ActiveSkills;
-                    lock (A_Collection.Me.HeroDetails.ActiveSkills)
-                        ActiveSkills = A_Collection.Me.HeroDetails.ActiveSkills.ToDictionary(x => x.Key, y => y.Value);
-
-                    List<int> PassiveSkills;
-                    lock (A_Collection.Me.HeroDetails.PassiveSkills)
-                        PassiveSkills = A_Collection.Me.HeroDetails.PassiveSkills.ToList();
-
-                    SkillBuildSwap.SkillBuild NewBuild = new SkillBuildSwap.SkillBuild(countExistingBuilds,
-                        TB_SkillBuilds_NameInput.Text, new List<SkillBuildSwap.ActiveSkill>(),
-                        new List<SkillBuildSwap.PassiveSkill>());
-
-                    foreach (var active in ActiveSkills)
-                    {
-                        NewBuild.ActiveSkills.Add(new SkillBuildSwap.ActiveSkill(active.Key, active.Value));
-                    }
-
-                    foreach (var passive in PassiveSkills)
-                    {
-                        NewBuild.PassiveSkills.Add(new SkillBuildSwap.PassiveSkill(passive));
-                    }
-
-                    if (!SkillBuild_AlreadyExists(NewBuild))
-                    {
-
-                        A_Collection.Me.SkillBuilds.Builds.Add(NewBuild, A_Collection.Me.HeroGlobals.HeroID);
-
-                        TB_SkillBuilds_NameInput.Clear();
-                    }
-                }
-                else
-                {
-                    if (selected.Count() > 1)
-                    {
-                        MessageBox.Show(
-                            "You have selected more then one Build. Please choose only one Build for the override!");
-                        return;
-                    }
-                    else if (selected.Count() == 1)
-                    {
-                        Dictionary<int, int> ActiveSkills;
-                        lock (A_Collection.Me.HeroDetails.ActiveSkills)
-                            ActiveSkills = A_Collection.Me.HeroDetails.ActiveSkills.ToDictionary(x => x.Key, y => y.Value);
-
-                        List<int> PassiveSkills;
-                        lock (A_Collection.Me.HeroDetails.PassiveSkills)
-                            PassiveSkills = A_Collection.Me.HeroDetails.PassiveSkills.ToList();
-
-                        int buildId = int.Parse(selected.First().Name);
-
-                        SkillBuildSwap.SkillBuild ExistingBuild = A_Collection.Me.SkillBuilds.Builds.FirstOrDefault(x => x.Value == A_Collection.Me.HeroGlobals.HeroID && x.Key.Id == buildId).Key;
-
-                        ExistingBuild.ActiveSkills.Clear();
-                        ExistingBuild.PassiveSkills.Clear();
-
-                        foreach (var active in ActiveSkills)
-                        {
-                            ExistingBuild.ActiveSkills.Add(new SkillBuildSwap.ActiveSkill(active.Key, active.Value));
-                        }
-
-                        foreach (var passive in PassiveSkills)
-                        {
-                            ExistingBuild.PassiveSkills.Add(new SkillBuildSwap.PassiveSkill(passive));
-                        }
-
-                    }
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
-        private bool SkillBuild_AlreadyExists(SkillBuildSwap.SkillBuild Build)
-        {
-            var Builds = A_Collection.Me.SkillBuilds.Builds.Where(x => x.Value == A_Collection.Me.HeroGlobals.HeroID);
 
 
+  
 
-            foreach (var build in Builds)
-            {
-                var actives = build.Key.ActiveSkills;
-                var passives = build.Key.PassiveSkills;
-
-                var count_actives = actives.Count;
-                var count_passives = passives.Count;
-
-                var count_equals = 0;
-
-                foreach (var active in Build.ActiveSkills)
-                {
-                    if (actives.FirstOrDefault(x => x.PowerSno == active.PowerSno && x.Rune == active.Rune) != null)
-                        count_equals++;
-                }
-
-                foreach (var passive in Build.PassiveSkills)
-                {
-                    if (passives.FirstOrDefault(x => x.PowerSno == passive.PowerSno) != null)
-                        count_equals++;
-                }
-
-                if (count_equals == count_actives + count_passives)
-                    return true;
-
-                count_equals = 0;
-
-            }
-
-            return false;
-        }
-
-        private void SkillBuild_UpdateView()
-        {
-            try
-            {
-
-                Panel_SkillBuilds_View.Controls.Clear();
-
-                var CurrentBuilds =
-                    A_Collection.Me.SkillBuilds.Builds.Where(x => x.Value == A_Collection.Me.HeroGlobals.HeroID)
-                        .ToList();
-
-                for (int i = 0; i < CurrentBuilds.Count(); i++)
-                {
-                    var Build = CurrentBuilds[i];
-
-                    // Add CheckBox
-                    CheckBox selector = new CheckBox();
-                    selector.Top = Panel_SkillBuilds_View.Top + 32 * i;
-                    selector.Left = Panel_SkillBuilds_View.Left;
-                    selector.Name = i.ToString();
-                    selector.BackColor = Color.Transparent;
-                    selector.AutoSize = true;
-
-                    Panel_SkillBuilds_View.Controls.Add(selector);
-
-                    foreach (var active in Build.Key.ActiveSkills)
-                    {
-                        if (active.PowerSno == 0)
-                            continue;
-
-                        var power =
-                            A_Collection.Presets.SkillPowers.AllSkillPowers.First(x => x.PowerSNO == active.PowerSno);
-
-                        //-- Add Active Skill Image
-                        Image icon =
-                            Properties.Resources.ResourceManager.GetObject(power.Name.ToLower()) as Image;
-
-                        icon = resizeImage(icon, new Size(32, 32));
-
-                        Button SkillIcon = new Button();
-                        SkillIcon.Name = i.ToString() + "|" + active.PowerSno.ToString();
-                        SkillIcon.Width = 32;
-                        SkillIcon.Height = 32;
-                        SkillIcon.FlatStyle = FlatStyle.Flat;
-                        SkillIcon.BackgroundImage = icon;
-                        SkillIcon.FlatAppearance.BorderSize = 0;
-                        SkillIcon.Top = Panel_SkillBuilds_View.Top + SkillIcon.Height * i;
-
-                        ToolTip t = new ToolTip();
-                        t.SetToolTip(SkillIcon, "Rune: " + power.Runes.FirstOrDefault(x => x.RuneIndex == active.Rune).Name);
-
-                        if (
-                            Panel_SkillBuilds_View.Controls.OfType<CheckBox>()
-                                .Where(x => x.Name == i.ToString())
-                                .Count() > 0 &&
-                            Panel_SkillBuilds_View.Controls.OfType<Button>()
-                                .Where(x => int.Parse(x.Name.Split('|')[0]) == i)
-                                .Count() < 1)
-                        {
-                            SkillIcon.Left =
-                                Panel_SkillBuilds_View.Controls.OfType<CheckBox>()
-                                    .Where(x => x.Name == i.ToString())
-                                    .Last()
-                                    .Right;
-                        }
-                        else if (
-                            Panel_SkillBuilds_View.Controls.OfType<Button>()
-                                .Where(x => int.Parse(x.Name.Split('|')[0]) == i)
-                                .Count() > 0)
-                            SkillIcon.Left =
-                                Panel_SkillBuilds_View.Controls.OfType<Button>()
-                                    .Where(x => int.Parse(x.Name.Split('|')[0]) == i)
-                                    .Last()
-                                    .Right;
-
-                        Panel_SkillBuilds_View.Controls.Add(SkillIcon);
-                        //
-                    }
-
-                    foreach (var passive in Build.Key.PassiveSkills)
-                    {
-
-                        string powerName =
-                            A_Collection.Presets.SNOPowers.AllPowers.First(x => x.Key == passive.PowerSno)
-                                .Value;
-
-                        //-- Add Passive Skill Image
-
-                        Image icon =
-                            Properties.Resources.ResourceManager.GetObject(powerName) as Image;
-
-                        icon = resizeImage(icon, new Size(32, 32));
-
-                        Button SkillIcon = new Button();
-                        SkillIcon.Name = i.ToString() + "|" + passive.PowerSno.ToString();
-                        SkillIcon.Width = 32;
-                        SkillIcon.Height = 32;
-                        SkillIcon.FlatStyle = FlatStyle.Flat;
-                        SkillIcon.BackgroundImage = icon;
-                        SkillIcon.FlatAppearance.BorderSize = 0;
-                        SkillIcon.Top = Panel_SkillBuilds_View.Top + SkillIcon.Height * i;
-
-                        if (
-                            Panel_SkillBuilds_View.Controls.OfType<Button>()
-                                .Where(x => int.Parse(x.Name.Split('|')[0]) == i)
-                                .Count() > 0)
-                            SkillIcon.Left =
-                                Panel_SkillBuilds_View.Controls.OfType<Button>()
-                                    .Where(x => int.Parse(x.Name.Split('|')[0]) == i)
-                                    .Last()
-                                    .Right;
-
-                        Panel_SkillBuilds_View.Controls.Add(SkillIcon);
-                        //
-                    }
-
-                    // Add Build Name Label
-
-                    Label name = new Label();
-                    name.BackColor = Color.Transparent;
-                    name.AutoSize = true;
-                    name.Text = Build.Key.Name;
-                    name.Height = 32;
-                    name.Font = new Font(name.Font, FontStyle.Bold);
-                    name.Top = Panel_SkillBuilds_View.Top + name.Height * i + 9;
-
-                    if (
-                        Panel_SkillBuilds_View.Controls.OfType<Button>()
-                            .Where(x => int.Parse(x.Name.Split('|')[0]) == i)
-                            .Count() > 0)
-                        name.Left =
-                            Panel_SkillBuilds_View.Controls.OfType<Button>()
-                                .Where(x => int.Parse(x.Name.Split('|')[0]) == i)
-                                .Last()
-                                .Right;
-
-                    Panel_SkillBuilds_View.Controls.Add(name);
-                }
-            }
-            catch { }
-        }
         public static Image resizeImage(Image imgToResize, Size size)
         {
             return (Image)(new Bitmap(imgToResize, size));
         }
 
-        private void BTN_SkillBuilds_DeleteSelected_Click(object sender, EventArgs e)
-        {
-            var selected = Panel_SkillBuilds_View.Controls.OfType<CheckBox>().Where(x => x.Checked);
 
-            var Builds = A_Collection.Me.SkillBuilds.Builds.Where(x => x.Value == A_Collection.Me.HeroGlobals.HeroID);
-
-            List<SkillBuildSwap.SkillBuild> RemoveBuffer = new List<SkillBuildSwap.SkillBuild>();
-
-            if (Builds.Count() > 0)
-            {
-                foreach (var select in selected)
-                {
-                    int buildId = int.Parse(select.Name);
-
-                    RemoveBuffer.Add(Builds.FirstOrDefault(x => x.Key.Id == buildId).Key);
-                }
-            }
-
-            foreach (var toRemove in RemoveBuffer)
-            {
-                A_Collection.Me.SkillBuilds.Builds.Remove(toRemove);
-            }
-
-            A_Tools.T_ExternalFile.SkillBuilds.Save();
-
-            SkillBuild_UpdateView();
-        }
-
-        private void bt_delete_hotkey_skillbuild1_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedSkillBuild1.Text.Length > 1)
-            {
-                this.tb_assignedSkillBuild1.Text = "";
-                Properties.Settings.Default.HotkeySkillBuild1 = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_skillbuild2_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedSkillBuild2.Text.Length > 1)
-            {
-                this.tb_assignedSkillBuild2.Text = "";
-                Properties.Settings.Default.HotkeySkillBuild2 = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_skillbuild3_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedSkillBuild3.Text.Length > 1)
-            {
-                this.tb_assignedSkillBuild3.Text = "";
-                Properties.Settings.Default.HotkeySkillBuild3 = "";
-                Properties.Settings.Default.Save();
-            }
-        }
-
-        private void bt_delete_hotkey_skillbuild4_Click(object sender, EventArgs e)
-        {
-            if (this.tb_assignedSkillBuild4.Text.Length > 1)
-            {
-                this.tb_assignedSkillBuild4.Text = "";
-                Properties.Settings.Default.HotkeySkillBuild4 = "";
-                Properties.Settings.Default.Save();
-            }
-        }
+       
 
         private void CB_ApsAndSnapShotAPs_CheckedChanged(object sender, EventArgs e)
         {

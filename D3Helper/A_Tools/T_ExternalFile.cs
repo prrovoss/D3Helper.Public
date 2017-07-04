@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using D3Helper.A_Collection;
 using D3Helper.A_Enums;
-using D3Helper.A_Handler.SkillBuildSwap;
 using ProtoBuf;
 using System.Globalization;
 using System.ComponentModel;
@@ -1182,111 +1181,6 @@ namespace D3Helper.A_Tools
                     {
 
                     }
-                }
-            }
-        }
-
-        public class SkillBuilds
-        {
-            public static void Save()
-            {
-                try
-                {
-                    //heroid,id,setupname,(actives)power|rune:power|rune,(passives)
-                    
-
-                    if (!File.Exists(A_Collection.Me.SkillBuilds.SkillBuilds_FilePath))
-                        File.Create(A_Collection.Me.SkillBuilds.SkillBuilds_FilePath).Close();
-
-                    string output = "";
-
-                    foreach (var build in A_Collection.Me.SkillBuilds.Builds)
-                    {
-
-                        output += build.Value + "," + build.Key.Id + "," + build.Key.Name + ",";
-
-                        string activeOutput = "";
-
-                        foreach (var active in build.Key.ActiveSkills)
-                        {
-                            activeOutput += active.PowerSno + "|" + active.Rune + ":";
-                        }
-
-                        activeOutput = activeOutput.TrimEnd(':');
-
-                        output += activeOutput + ",";
-
-                        string passiveOutput = "";
-
-                        foreach (var passive in build.Key.PassiveSkills)
-                        {
-                            passiveOutput += passive.PowerSno + ":";
-                        }
-
-                        passiveOutput = passiveOutput.TrimEnd(':');
-
-                        output += passiveOutput + System.Environment.NewLine;
-                    }
-
-                    File.WriteAllText(A_Collection.Me.SkillBuilds.SkillBuilds_FilePath, output);
-                }
-                catch (Exception)
-                {
-                    
-                }
-            }
-            public static void Load()
-            {
-                try
-                {
-                    if (File.Exists(A_Collection.Me.SkillBuilds.SkillBuilds_FilePath))
-                    {
-                        Dictionary<SkillBuildSwap.SkillBuild, long> Buffer = new Dictionary<SkillBuildSwap.SkillBuild, long>();
-
-                        var Lines = File.ReadAllLines(A_Collection.Me.SkillBuilds.SkillBuilds_FilePath);
-
-                        foreach (var line in Lines)
-                        {
-                            var split = line.Split(',');
-
-                            long heroid = long.Parse(split[0]);
-                            int id = int.Parse(split[1]);
-                            string name = split[2];
-
-                            var AllActives = split[3];
-                            var AllPassives = split[4];
-
-                            var splitted_actives = AllActives.Split(':');
-                            var splitted_passives = AllPassives.Split(':');
-
-                            List<SkillBuildSwap.ActiveSkill> activeBuffer = new List<SkillBuildSwap.ActiveSkill>();
-                            List<SkillBuildSwap.PassiveSkill> passiveBuffer = new List<SkillBuildSwap.PassiveSkill>();
-
-                            foreach (var active in splitted_actives)
-                            {
-                                int powerSno = int.Parse(active.Split('|')[0]);
-                                int runeId = int.Parse(active.Split('|')[1]);
-
-                                activeBuffer.Add(new SkillBuildSwap.ActiveSkill(powerSno, runeId));
-                            }
-
-                            foreach (var passive in splitted_passives)
-                            {
-                                int powerSno = int.Parse(passive);
-                                
-
-                                passiveBuffer.Add(new SkillBuildSwap.PassiveSkill(powerSno));
-                            }
-
-                            Buffer.Add(new SkillBuildSwap.SkillBuild(id, name, activeBuffer, passiveBuffer), heroid);
-                        }
-
-                        A_Collection.Me.SkillBuilds.Builds = Buffer;
-                    }
-                }
-                catch (Exception)
-                {
-                    
                 }
             }
         }
