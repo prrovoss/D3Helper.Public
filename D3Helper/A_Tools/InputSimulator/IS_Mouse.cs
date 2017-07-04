@@ -39,8 +39,8 @@ namespace D3Helper.A_Tools.InputSimulator
         {
             
             Random random = new Random();
-            uint x = (uint)random.Next(xLow + 10, xHigh - 10);
-            uint y = (uint)random.Next(yLow + 10, yHigh - 10);
+            uint x = (uint)random.Next(xLow + 1, xHigh - 1);
+            uint y = (uint)random.Next(yLow + 1, yHigh - 1);
 
             Cursor.Position = new Point((int)x, (int)y);
 
@@ -55,8 +55,8 @@ namespace D3Helper.A_Tools.InputSimulator
         public static void RightCLick(int xLow, int yLow, int xHigh, int yHigh)
         {
             Random random = new Random();
-            uint x = (uint)random.Next(xLow + 10, xHigh - 10);
-            uint y = (uint)random.Next(yLow + 10, yHigh - 10);
+            uint x = (uint)random.Next(xLow + 1, xHigh - 1);
+            uint y = (uint)random.Next(yLow + 1, yHigh - 1);
 
             Cursor.Position = new Point((int)x, (int)y);
 

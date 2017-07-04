@@ -3,6 +3,7 @@ using Enigma.D3.Helpers;
 using Enigma.D3.UI.Controls;
 using Enigma.D3;
 using Enigma.D3.UI;
+using D3Helper.A_Enums;
 
 namespace D3Helper.A_Tools
 {
@@ -62,8 +63,14 @@ namespace D3Helper.A_Tools
             {
                 try
                 {
-                    A_Tools.InputSimulator.IS_Mouse.LeftClick((int)uirect.Left, (int)uirect.Top, (int)uirect.Right - 5, (int)uirect.Bottom);
-                    System.Threading.Thread.Sleep(250);
+                    int center_x = (int)(uirect.Left + uirect.Width / 2);
+                    int center_y = (int)(uirect.Top + uirect.Height / 2);
+
+                    A_Tools.InputSimulator.IS_Mouse.LeftClick(center_x - 2, center_y - 2, center_x + 2, center_y + 2);
+
+                    Random random = new Random();
+                    int random_sleep = (int)random.Next(200, 250);
+                    System.Threading.Thread.Sleep(random_sleep);
                 }
                 catch { }
             }
@@ -83,8 +90,14 @@ namespace D3Helper.A_Tools
             {
                 try
                 {
-                    A_Tools.InputSimulator.IS_Mouse.RightCLick((int)uirect.Left, (int)uirect.Top, (int)uirect.Right - 5, (int)uirect.Bottom);
-                    System.Threading.Thread.Sleep(250);
+                    int center_x = (int)(uirect.Left + uirect.Width / 2);
+                    int center_y = (int)(uirect.Top + uirect.Height / 2);
+
+                    A_Tools.InputSimulator.IS_Mouse.RightCLick(center_x - 2, center_y - 2, center_x +2, center_y + 2);
+
+                    Random random = new Random();
+                    int random_sleep = (int)random.Next(200, 250);
+                    System.Threading.Thread.Sleep(random_sleep);
                 }
                 catch { }
             }

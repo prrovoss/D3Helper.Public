@@ -1746,7 +1746,7 @@ namespace D3Helper
                     {
                         string str = ux.ToString();
 
-                        if (str.Contains(text))
+                        if (str.ToLower().Contains(text.ToLower()))
                         {
                             listBox_ui_elements.Items.Add(str);
                         }
@@ -1754,6 +1754,20 @@ namespace D3Helper
                 }
 
                 listBox_ui_elements.EndUpdate();
+            }else
+            {
+
+                listBox_ui_elements.BeginUpdate();
+                listBox_ui_elements.Items.Clear();
+
+                foreach(UXControl ux in visible_uxcontrols)
+                {
+                    string str = ux.ToString();
+                    listBox_ui_elements.Items.Add(str);
+                }
+
+                listBox_ui_elements.EndUpdate();
+
             }
         }
 

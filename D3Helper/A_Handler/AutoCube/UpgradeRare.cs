@@ -68,18 +68,14 @@ namespace D3Helper.A_Handler.AutoCube
                                 A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Transmute_Button);
 
 
-
                                 //close all windows
-                                int close_timeout = 4;
+                                int close_timeout = 2;
                                 while (Tools.IsVendorPage_Visible())
                                 {
                                     //A_Tools.InputSimulator.IS_Keyboard.Close_AllWindows(); //doesnt work if not assigned :D
 
                                     //Press "X" - Button in Kanais Cube
                                     A_Tools.T_D3UI.UIElement.leftClick(UIElements.Kanai_Cube_Exit_Button);
-
-     
-                                    Thread.Sleep(250);
 
                                     close_timeout--;
                                     if(close_timeout == 0)
