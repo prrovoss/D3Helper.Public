@@ -73,30 +73,6 @@ namespace D3Helper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HotkeyEditMode {
-            get {
-                return ((string)(this["HotkeyEditMode"]));
-            }
-            set {
-                this["HotkeyEditMode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HotkeyGearSwap1 {
-            get {
-                return ((string)(this["HotkeyGearSwap1"]));
-            }
-            set {
-                this["HotkeyGearSwap1"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool AutoPotionBool {
             get {
@@ -116,42 +92,6 @@ namespace D3Helper.Properties {
             }
             set {
                 this["AutoPotionValue"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HotkeyGearSwap2 {
-            get {
-                return ((string)(this["HotkeyGearSwap2"]));
-            }
-            set {
-                this["HotkeyGearSwap2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HotkeyGearSwap3 {
-            get {
-                return ((string)(this["HotkeyGearSwap3"]));
-            }
-            set {
-                this["HotkeyGearSwap3"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HotkeyGearSwap4 {
-            get {
-                return ((string)(this["HotkeyGearSwap4"]));
-            }
-            set {
-                this["HotkeyGearSwap4"] = value;
             }
         }
         

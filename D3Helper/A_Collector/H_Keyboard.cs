@@ -39,11 +39,6 @@ namespace D3Helper.A_Collector
                 Hotkey slot4 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlot4);
                 Hotkey slotrmb = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlotRmb);
                 Hotkey slotlmb = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeySlotLmb);
-                Hotkey editmode = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyEditMode);
-                Hotkey swap1 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap1);
-                Hotkey swap2 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap2);
-                Hotkey swap3 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap3);
-                Hotkey swap4 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyGearSwap4);
                 Hotkey paragonpoints1 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints1);
                 Hotkey paragonpoints2 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints2);
                 Hotkey paragonpoints3 = get_HotkeyFromSettingsString(Properties.Settings.Default.HotkeyParagonPoints3);
@@ -63,11 +58,6 @@ namespace D3Helper.A_Collector
                 hotkeys.Add(slot4, "slot4");
                 hotkeys.Add(slotrmb, "slotrmb");
                 hotkeys.Add(slotlmb, "slotlmb");
-                hotkeys.Add(editmode, "editmode");
-                hotkeys.Add(swap1, "swap1");
-                hotkeys.Add(swap2, "swap2");
-                hotkeys.Add(swap3, "swap3");
-                hotkeys.Add(swap4, "swap4");
                 hotkeys.Add(paragonpoints1, "paragonpoints1");
                 hotkeys.Add(paragonpoints2, "paragonpoints2");
                 hotkeys.Add(paragonpoints3, "paragonpoints3");
@@ -204,48 +194,7 @@ namespace D3Helper.A_Collector
                                 case "slotlmb":
                                     A_Tools.T_ExternalFile.AutoCastOverrides.ChangeOverrides(5);
                                     break;
-                                case "editmode":
-                                    if (A_Collection.Me.GearSwap.editModeEnabled)
-                                    {
-                                        A_Collection.Me.GearSwap.editModeEnabled = false;
-                                    }
-                                    else
-                                    {
-                                        A_Collection.Me.GearSwap.editModeEnabled = true;
-                                    }
-                                    break;
-                                case "swap1":
-                                    A_Collection.Me.GearSwap.Selected_SwapId = 1;
-
-                                    if (!A_Collection.Me.GearSwap.editModeEnabled && !A_Collection.D3UI.isChatting)
-                                    {
-                                        A_Handler.GearSwap.GearSwap.tryGearSwap();
-                                    }
-                                    break;
-                                case "swap2":
-                                    A_Collection.Me.GearSwap.Selected_SwapId = 2;
-
-                                    if (!A_Collection.Me.GearSwap.editModeEnabled && !A_Collection.D3UI.isChatting)
-                                    {
-                                        A_Handler.GearSwap.GearSwap.tryGearSwap();
-                                    }
-                                    break;
-                                case "swap3":
-                                    A_Collection.Me.GearSwap.Selected_SwapId = 3;
-
-                                    if (!A_Collection.Me.GearSwap.editModeEnabled && !A_Collection.D3UI.isChatting)
-                                    {
-                                        A_Handler.GearSwap.GearSwap.tryGearSwap();
-                                    }
-                                    break;
-                                case "swap4":
-                                    A_Collection.Me.GearSwap.Selected_SwapId = 4;
-
-                                    if (!A_Collection.Me.GearSwap.editModeEnabled && !A_Collection.D3UI.isChatting)
-                                    {
-                                        A_Handler.GearSwap.GearSwap.tryGearSwap();
-                                    }
-                                    break;
+                            
                                 case "paragonpoints1":
                                     if (!A_Collection.Me.ParagonPointSpender.Is_SpendingPoints)
                                     {

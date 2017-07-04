@@ -204,33 +204,7 @@ namespace D3Helper.A_WPFOverlay
                                 //Canvas.SetTop(VersionInfo, Inventory_MainPage.Top + (Inventory_MainPage.Height*5/1000));
                                 //canvas1.Children.Add(VersionInfo);
 
-                                // Render Edit Mode Status
-                                if (A_Collection.Me.GearSwap.editModeEnabled)
-                                {
-                                    TextBlock EditModeStatus = new TextBlock();
-                                    EditModeStatus.FontFamily = fontfamily;
-                                    EditModeStatus.FontSize = FontSize;
-                                    EditModeStatus.Text = "EditMode On";
-                                    EditModeStatus.Foreground = new SolidColorBrush(Colors.GreenYellow);
-                                    Canvas.SetLeft(EditModeStatus,
-                                        Inventory_MainPage.Left + (Inventory_MainPage.Width*60/100));
-                                    Canvas.SetTop(EditModeStatus,
-                                        Inventory_MainPage.Top + (Inventory_MainPage.Height*25/1000));
-                                    canvas1.Children.Add(EditModeStatus);
-                                }
-                                else if (!A_Collection.Me.GearSwap.editModeEnabled)
-                                {
-                                    TextBlock EditModeStatus = new TextBlock();
-                                    EditModeStatus.FontFamily = fontfamily;
-                                    EditModeStatus.FontSize = FontSize;
-                                    EditModeStatus.Text = "EditMode Off";
-                                    EditModeStatus.Foreground = new SolidColorBrush(Colors.IndianRed);
-                                    Canvas.SetLeft(EditModeStatus,
-                                        Inventory_MainPage.Left + (Inventory_MainPage.Width*60/100));
-                                    Canvas.SetTop(EditModeStatus,
-                                        Inventory_MainPage.Top + (Inventory_MainPage.Height*25/1000));
-                                    canvas1.Children.Add(EditModeStatus);
-                                }
+
 
                                 // Render AutoGamble Status
                                 if (Properties.Settings.Default.AutoGambleBool)
@@ -1288,10 +1262,7 @@ namespace D3Helper.A_WPFOverlay
 
         public static double renderFramesPerSecond = 0;
 
-        public static SolidColorBrush GearSwap1Color = new SolidColorBrush(Colors.Red);
-        public static SolidColorBrush GearSwap2Color = new SolidColorBrush(Colors.Green);
-        public static SolidColorBrush GearSwap3Color = new SolidColorBrush(Colors.Yellow);
-        public static SolidColorBrush GearSwap4Color = new SolidColorBrush(Colors.White);
+
         void populateTextRenderTargets()
         {
 
@@ -1484,139 +1455,8 @@ namespace D3Helper.A_WPFOverlay
                         rectRenderTargets.Add(new RenderObjectRectangle(rect, itemRect.Left, itemRect.Top));
                     }
                     */
-                    if (A_Collection.Me.GearSwap.GearSwaps.Where(x => x.HeroID == A_Collection.Me.HeroGlobals.HeroID).Count() > 0)
-                    {
-                        foreach (var gearSwapItem in A_Collection.Me.GearSwap.GearSwaps) // Gear Swap Items
-                        {
-                            if (gearSwapItem.HeroID == A_Collection.Me.HeroGlobals.HeroID)
-                            {
-                                UIRect swapItemRect = inventoryMesh.FirstOrDefault(x => x.Key.ItemSlotX == gearSwapItem.ItemSlotX && x.Key.ItemSlotY == gearSwapItem.ItemSlotY).Value;
 
-                                Rectangle rect = new Rectangle();
-                                rect.Width = swapItemRect.Right - swapItemRect.Left;
 
-                                switch (gearSwapItem.ItemSize)
-                                {
-                                    case ItemSlotSize._1x1:
-                                        rect.Height = (swapItemRect.Bottom - swapItemRect.Top) * 100 / 100;
-                                        break;
-                                    case ItemSlotSize._2x1:
-                                        rect.Height = (swapItemRect.Bottom - swapItemRect.Top) * 200 / 100;
-                                        break;
-                                }
-
-                                switch (gearSwapItem.SwapId)
-                                {
-                                    case 1:
-                                        rect.Stroke = GearSwap1Color;
-                                        break;
-                                    case 2:
-                                        rect.Stroke = GearSwap2Color;
-                                        break;
-                                    case 3:
-                                        rect.Stroke = GearSwap3Color;
-                                        break;
-                                    case 4:
-                                        rect.Stroke = GearSwap4Color;
-                                        break;
-                                }
-
-                                rect.StrokeThickness = 2;
-
-                                rectRenderTargets.Add(new RenderObjectRectangle(rect, swapItemRect.Left, swapItemRect.Top));
-                            }
-                        }
-                    }
-
-                    if (A_Collection.Me.GearSwap.editModeEnabled)
-                    {
-                        //Gear Swap Edit Mode Inventory Outline
-
-                        UIRect inventory = A_Tools.T_D3UI.Inventory.get_InventoryUIRect();
-
-                        int selectedGearSwap = A_Collection.Me.GearSwap.Selected_SwapId;
-
-                        float inventoryWidht = inventory.Right - inventory.Left;
-                        float inventoryHeight = inventory.Bottom - inventory.Top;
-
-                        Rectangle editRect = new Rectangle();
-                        editRect.Width = inventoryWidht;
-                        editRect.Height = inventoryHeight;
-                        if (selectedGearSwap == 1)
-                        {
-                            editRect.Stroke = GearSwap1Color;
-                        }
-                        if (selectedGearSwap == 2)
-                        {
-                            editRect.Stroke = GearSwap2Color;
-                        }
-                        if (selectedGearSwap == 3)
-                        {
-                            editRect.Stroke = GearSwap3Color;
-                        }
-                        if (selectedGearSwap == 4)
-                        {
-                            editRect.Stroke = GearSwap4Color;
-                        }
-                        editRect.StrokeThickness = 3;
-
-                        rectRenderTargets.Add(new RenderObjectRectangle(editRect, inventory.Left, inventory.Top));
-
-                        //Gear Swap Edit Mode Selection Highlight
-
-                        float swapBoxSize = inventoryHeight * 9/100;
-                        float swapBoxTop = inventory.Top - (inventory.Top * 55/1000);
-                        
-
-                        
-                        SolidColorBrush selectedStrokeColor = new SolidColorBrush(Colors.Black);
-                        double selectedStrokeThickness = inventoryHeight * 8/1000;
-
-                        Rectangle swap1 = new Rectangle(); // GearSwap1
-                        swap1.Width = swapBoxSize;
-                        swap1.Height = swapBoxSize;
-                        swap1.Fill = GearSwap1Color;
-                        if(selectedGearSwap == 1)
-                        {
-                            swap1.Stroke = selectedStrokeColor;
-                            swap1.StrokeThickness = selectedStrokeThickness;
-                        }
-                        rectRenderTargets.Add(new RenderObjectRectangle(swap1, (inventory.Left + (float)(swapBoxSize * 0)), swapBoxTop));
-
-                        Rectangle swap2 = new Rectangle(); // GearSwap2
-                        swap2.Width = swapBoxSize;
-                        swap2.Height = swapBoxSize;
-                        swap2.Fill = GearSwap2Color;
-                        if (selectedGearSwap == 2)
-                        {
-                            swap2.Stroke = selectedStrokeColor;
-                            swap2.StrokeThickness = selectedStrokeThickness;
-                        }
-                        rectRenderTargets.Add(new RenderObjectRectangle(swap2, (inventory.Left + (float)(swapBoxSize * 1.2)), swapBoxTop));
-
-                        Rectangle swap3 = new Rectangle(); // GearSwap3
-                        swap3.Width = swapBoxSize;
-                        swap3.Height = swapBoxSize;
-                        swap3.Fill = GearSwap3Color;
-                        if (selectedGearSwap == 3)
-                        {
-                            swap3.Stroke = selectedStrokeColor;
-                            swap3.StrokeThickness = selectedStrokeThickness;
-                        }
-                        rectRenderTargets.Add(new RenderObjectRectangle(swap3, (inventory.Left + (float)(swapBoxSize * 2.4)), swapBoxTop));
-
-                        Rectangle swap4 = new Rectangle(); // GearSwap4
-                        swap4.Width = swapBoxSize;
-                        swap4.Height = swapBoxSize;
-                        swap4.Fill = GearSwap4Color;
-                        if (selectedGearSwap == 4)
-                        {
-                            swap4.Stroke = selectedStrokeColor;
-                            swap4.StrokeThickness = selectedStrokeThickness;
-                        }
-                        rectRenderTargets.Add(new RenderObjectRectangle(swap4, (inventory.Left + (float)(swapBoxSize * 3.6)), swapBoxTop));
-                        
-                    }
                 }
             //}
             //catch (Exception e) { Console.WriteLine(e.Message); }

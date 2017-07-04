@@ -17,7 +17,6 @@ namespace D3Helper.A_Handler.EventHandler
             try
             {
                 start_AutoGamble();
-                start_GearSwapSelection();
             }
             catch (Exception e)
             {
@@ -36,22 +35,6 @@ namespace D3Helper.A_Handler.EventHandler
                     {
                         A_Handler.AutoGamble.AutoGamble.start_Gamble();
                     }
-                }
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.Handler);
-            }
-        }
-
-
-        private static void start_GearSwapSelection()
-        {
-            try
-            {
-                if(A_Collection.Me.GearSwap.editModeEnabled)
-                {
-                    A_Handler.GearSwap.GearSwap.SelectionMode();
                 }
             }
             catch (Exception e)

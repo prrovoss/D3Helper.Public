@@ -28,7 +28,6 @@ namespace D3Helper.A_Collector
                     load_SkillPowers();
                     load_SNOPowers();
                     load_ParagonPointSetups();
-                    load_GearSwaps();
                     load_Tooltips_ConditionTypes();
                     load_AutoCastOverrides();
                     
@@ -151,22 +150,6 @@ namespace D3Helper.A_Collector
                     A_Tools.T_ExternalFile.ParagonPointSpenderSettings.Load();
 
                     ParagonPointsLoaded = true;
-                }
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ECollector);
-            }
-        }
-
-
-        private static void load_GearSwaps()
-        {
-            try
-            {
-                if(A_Collection.Me.GearSwap.GearSwaps.Count < 1)
-                {
-                    A_Tools.T_ExternalFile.GearSwaps.Load();
                 }
             }
             catch (Exception e)
