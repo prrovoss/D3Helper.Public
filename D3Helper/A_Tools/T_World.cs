@@ -22,26 +22,18 @@ namespace D3Helper.A_Tools
                 float yd = Y - localACD.x0D4_WorldPosY;
                 float zd = Z - localACD.x0D8_WorldPosZ;
                 
-                /*
-                float w = -0.515f * xd - 0.514f * yd - 0.686f * zd + 97.985f;
-                if (w < 1.0f) w = 1.0f;
-                float rX = (-1.682f * xd + 1.683f * yd + 0.007045f) / w;
-                float rY = (-1.540f * xd - 1.539f * yd + 2.307f * zd + 6.161f) / w;
-                */
 
                 float w = -0.515f * xd + -0.514f * yd + -0.686f * zd + 97.985f;
                 float rX = (-1.682f * xd + 1.683f * yd + 0.0f * zd + 7.045e-3f) / w;
                 float rY = (-1.54f * xd + -1.539f * yd + 2.307f * zd + 6.161f) / w;
 
 
-                //float a = (float)Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width / (float)Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
-                //float D3ClientWindowApect = a * 600.0f / 800.0f;
 
+                //int video_width = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
+                //int video_height = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
 
-
-
-                int video_width = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width; MemoryContext.Current.DataSegment.VideoPreferences...?
-                int video_height = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
+                int video_width = A_Collection.D3Client.Window.D3ClientRect.Width;
+                int video_height = A_Collection.D3Client.Window.D3ClientRect.Height;
 
                 double D3ClientWindowApect = (double)((double)video_width / (double)video_height) / (double)(4.0f / 3.0f); // 4:3 = default aspect ratio
 

@@ -97,7 +97,7 @@ namespace D3Helper.A_WPFOverlay
             //while (Engine.Current == null) System.Threading.Thread.Sleep(50);
             while (MemoryContext.Current == null) System.Threading.Thread.Sleep(50);
 
-            var tick = MemoryContext.Current.DataSegment.ApplicationLoopCount
+            var tick = MemoryContext.Current.DataSegment.ApplicationLoopCount;
             if (tick != _tick)
             {
                 _tick = tick;
@@ -676,8 +676,11 @@ namespace D3Helper.A_WPFOverlay
                                             //-----------------------------------------
                                             UIRect minimap_rect = A_Tools.T_D3UI.UIElement.getRect("Root.NormalLayer.minimap_dialog_backgroundScreen.minimap_dialog_pve.minimap_frame");
 
-                                            int video_width = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
-                                            int video_height = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
+                                            //int video_width = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
+                                            //int video_height = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
+
+                                            int video_width = A_Collection.D3Client.Window.D3ClientRect.Width;
+                                            int video_height = A_Collection.D3Client.Window.D3ClientRect.Height;
 
 
                                             int rx_player = video_width / 2;

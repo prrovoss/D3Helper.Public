@@ -111,12 +111,12 @@ namespace D3Helper.A_Collector
 
                                 for (int i = 0; i < activeskillslist.Count(); i++)
                                 {
-                                    if (
-                                        !A_Collection.Me.HeroDetails.ActiveSkills.ContainsKey(
-                                            activeskillslist[i].x00_PowerSnoId))
+                                    int powerSnoId  = activeskillslist[i].PowerSNO;
+                                    int runeId      = activeskillslist[i].Modifier;
+
+                                    if (!A_Collection.Me.HeroDetails.ActiveSkills.ContainsKey(powerSnoId))
                                     {
-                                        A_Collection.Me.HeroDetails.ActiveSkills.Add(
-                                            activeskillslist[i].x00_PowerSnoId, activeskillslist[i].x04_RuneId);
+                                        A_Collection.Me.HeroDetails.ActiveSkills.Add(powerSnoId, runeId);
                                     }
                                 }
                             }
@@ -147,8 +147,13 @@ namespace D3Helper.A_Collector
                         Local = A_Collection.Me.HeroGlobals.LocalPlayerData;
 
                     List<int> Buffer = new List<int>();
-					Buffer = Local.GetPassivePowerSnoIds().ToList();
-                   
+                    //Buffer = Local.GetPassivePowerSnoIds().ToList();
+
+                    Enigma.D3.DataTypes.SNO[] passiveSkillsSnoArray = A_Collection.Me.HeroGlobals.LocalPlayerData.PlayerSavedData.PassiveSkills;
+                    foreach(Enigma.D3.DataTypes.SNO sno in passiveSkillsSnoArray)
+                    {
+                        Buffer.Add(sno);
+                    }
 
                     lock (A_Collection.Me.HeroDetails.PassiveSkills) A_Collection.Me.HeroDetails.PassiveSkills = Buffer;
                 }

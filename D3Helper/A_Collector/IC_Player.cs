@@ -182,9 +182,9 @@ namespace D3Helper.A_Collector
             try
             {
                 //TODO replace with MemoryModel
-                MemoryContext.Current.DataSegment.ObjectManager.
+                A_Collection.Environment.Scene.Counter_CurrentFrame = MemoryContext.Current.DataSegment.ObjectManager.RenderTick;
 
-                A_Collection.Environment.Scene.Counter_CurrentFrame = ObjectManager.Instance.x038_Counter_CurrentFrame; 
+                //A_Collection.Environment.Scene.Counter_CurrentFrame = ObjectManager.Instance.x038_Counter_CurrentFrame; 
             }
             catch (Exception e)
             {

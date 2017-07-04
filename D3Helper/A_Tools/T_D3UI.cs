@@ -40,7 +40,15 @@ namespace D3Helper.A_Tools
                     {
                         
                         UXItemsControl _control = UXHelper.GetControl<UXItemsControl>(control);
-                        UIRect rect = _control.x468_UIRect.TranslateToClientRect(Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width, Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height);
+
+
+                        //int width   = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
+                        //int height  = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
+
+                        int width   = A_Collection.D3Client.Window.D3ClientRect.Width;
+                        int height  = A_Collection.D3Client.Window.D3ClientRect.Height;
+
+                        UIRect rect = _control.x468_UIRect.TranslateToClientRect(width, height);
                         return rect;
                     }
                     return default(UIRect);
