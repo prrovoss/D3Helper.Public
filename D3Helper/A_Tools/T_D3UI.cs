@@ -42,14 +42,10 @@ namespace D3Helper.A_Tools
                         
                         UXItemsControl _control = UXHelper.GetControl<UXItemsControl>(control);
 
+                        int video_width = A_Collection.D3Client.Window.D3ClientRect.Width;
+                        int video_height = A_Collection.D3Client.Window.D3ClientRect.Height;
 
-                        //int width   = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
-                        //int height  = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
-
-                        int width   = A_Collection.D3Client.Window.D3ClientRect.Width;
-                        int height  = A_Collection.D3Client.Window.D3ClientRect.Height;
-
-                        UIRect rect = _control.x468_UIRect.TranslateToClientRect(width, height);
+                        UIRect rect = _control.x468_UIRect.TranslateToClientRect(video_width, video_height);
                         return rect;
                     }
                     return default(UIRect);

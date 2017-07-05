@@ -26,8 +26,12 @@ namespace D3Helper.A_Tools
                 //int video_width = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
                 //int video_height = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
 
+                //int video_width = Engine.Current.VideoPreferences.x0C_DisplayMode.x20_Width;
+                //int video_height = Engine.Current.VideoPreferences.x0C_DisplayMode.x24_Height;
+
                 int video_width = A_Collection.D3Client.Window.D3ClientRect.Width;
                 int video_height = A_Collection.D3Client.Window.D3ClientRect.Height;
+
 
                 double D3ClientWindowApect = (double)((double)video_width / (double)video_height) / (double)(4.0f / 3.0f); // 4:3 = default aspect ratio
 
