@@ -131,8 +131,8 @@ namespace D3Helper.A_WPFOverlay
                         double FontSize = (double) (d3clientrect.Height*14/1000);
                         FontFamily fontfamily = new FontFamily("Arial");
 
-                        System.Diagnostics.Stopwatch fpsSW = new System.Diagnostics.Stopwatch();
-                        fpsSW.Start();
+                        //System.Diagnostics.Stopwatch fpsSW = new System.Diagnostics.Stopwatch();
+                        //fpsSW.Start();
 
 
                         this.Left = d3clientrect.X;
@@ -590,7 +590,8 @@ namespace D3Helper.A_WPFOverlay
 
 
                             //*******************************************
-                            //elite circles in range overlay
+                            // elite circles in range overlay
+                            // and normal monster minimap
                             //*******************************************
 
                             if (Properties.Settings.Default.Overlay_EliteCircles)
@@ -602,11 +603,15 @@ namespace D3Helper.A_WPFOverlay
                                     {
                                         List<ActorCommonData> eliteInRange = A_Tools.T_ACD.getEliteInRange(6000);
 
-                                        //List<ActorCommonData> eliteInRange = new List<ActorCommonData>();
-                                        //A_Tools.T_ACD.get_MonstersInRange(100, true, true, out eliteInRange) ;
+                                        List<ActorCommonData> nonEliteInRange = A_Tools.T_ACD.getNonEliteMonsterInRange(6000);
 
-                                        foreach (ActorCommonData elite in eliteInRange)
+                                        List<ActorCommonData> monsterInRange = new List<ActorCommonData>();
+                                        monsterInRange.AddRange(eliteInRange);
+                                        monsterInRange.AddRange(nonEliteInRange);
+
+                                        foreach (ActorCommonData monster in monsterInRange)
                                         {
+
                                             Ellipse el = new Ellipse();
                                             el.BeginInit();
 
@@ -616,30 +621,35 @@ namespace D3Helper.A_WPFOverlay
 
                                             el.StrokeThickness = 8;
 
-                                            if (T_ACD.isEliteYellow(elite))
+                                            if (T_ACD.isEliteYellow(monster))
                                             {
                                                 el.Stroke = new SolidColorBrush(Color.FromArgb(180, 255, 148, 20));
                                             }
 
-                                            if (T_ACD.isEliteBlue(elite))
+                                            if (T_ACD.isEliteBlue(monster))
                                             {
                                                 el.Stroke = new SolidColorBrush(Color.FromArgb(180, 64, 128, 255));
                                             }
 
-                                            if (T_ACD.isBoss(elite))
+                                            if (T_ACD.isBoss(monster))
                                             {
                                                 el.Stroke = new SolidColorBrush(Color.FromArgb(180, 255, 96, 0));
                                                 el.StrokeThickness = 10;
                                             }
 
+                                            if (!T_ACD.isElite(monster))
+                                            {
+                                                el.Stroke = new SolidColorBrush(Color.FromArgb(180, 188, 236, 138));
+                                            }
 
 
-
-
+                                            //******************************************
+                                            // Calculate Monster Position on Screen
+                                            //******************************************
                                             float rX = 0;
                                             float rY = 0;
 
-                                            A_Tools.T_World.ToScreenCoordinate(elite.x0D0_WorldPosX, elite.x0D4_WorldPosY, elite.x0D8_WorldPosZ, out rX, out rY);
+                                            A_Tools.T_World.ToScreenCoordinate(monster.x0D0_WorldPosX, monster.x0D4_WorldPosY, monster.x0D8_WorldPosZ, out rX, out rY);
 
 
                                             //circle position = circle_center
@@ -647,12 +657,17 @@ namespace D3Helper.A_WPFOverlay
                                             rY = rY - (float)el.Height / 2;
 
 
+
+
                                             Canvas.SetLeft(el, rX);
                                             Canvas.SetTop(el, rY);
 
                                             el.EndInit();
 
-                                            canvas1.Children.Add(el);
+                                            if (T_ACD.isElite(monster))
+                                            {
+                                                canvas1.Children.Add(el);
+                                            }
 
 
 
@@ -661,31 +676,35 @@ namespace D3Helper.A_WPFOverlay
                                             //-----------------------------------------
                                             try
                                             {
-                                                double hitpointsCurrent = elite.GetAttributeValue(Enigma.D3.Enums.AttributeId.HitpointsCur);
-                                                double hitpointsMax = elite.GetAttributeValue(Enigma.D3.Enums.AttributeId.HitpointsMax);
-                                                if(hitpointsMax > 0)
+                                                if (T_ACD.isElite(monster))
                                                 {
-                                                    //center text in circle
-                                                    float rX_center = rX + (float)el.Width / 2;
-                                                    float rY_center = rY + (float)el.Height / 2;
+
+                                                    double hitpointsCurrent = monster.GetAttributeValue(Enigma.D3.Enums.AttributeId.HitpointsCur);
+                                                    double hitpointsMax = monster.GetAttributeValue(Enigma.D3.Enums.AttributeId.HitpointsMax);
+                                                    if(hitpointsMax > 0)
+                                                    {
+                                                        //center text in circle
+                                                        float rX_center = rX + (float)el.Width / 2;
+                                                        float rY_center = rY + (float)el.Height / 2;
 
 
-                                                    int health_percentage = (int)((hitpointsCurrent / hitpointsMax) * 100);
+                                                        int health_percentage = (int)((hitpointsCurrent / hitpointsMax) * 100);
 
-                                                    TextBlock t = new TextBlock();
-                                                    t.BeginInit();
-                                                    t.Text = health_percentage + "%";
+                                                        TextBlock t = new TextBlock();
+                                                        t.BeginInit();
+                                                        t.Text = health_percentage + "%";
                                         
-                                                    t.Foreground = el.Stroke; //textcolor same as circle
-                                                    t.Background = Brushes.White;
-                                                    t.FontSize = 16;
+                                                        t.Foreground = el.Stroke; //textcolor same as circle
+                                                        t.Background = Brushes.White;
+                                                        t.FontSize = 16;
 
-                                                    Canvas.SetLeft(t, rX_center);
-                                                    Canvas.SetTop(t, rY_center);
+                                                        Canvas.SetLeft(t, rX_center);
+                                                        Canvas.SetTop(t, rY_center);
 
-                                                    t.EndInit();
-                                                    canvas1.Children.Add(t);
+                                                        t.EndInit();
+                                                        canvas1.Children.Add(t);
                                             
+                                                    }
                                                 }
 
                                             }
@@ -701,7 +720,7 @@ namespace D3Helper.A_WPFOverlay
 
 
                                             //-----------------------------------------
-                                            //draw elite on minimap
+                                            //draw elite/monster on minimap
                                             //-----------------------------------------
                                             UIRect minimap_rect = A_Tools.T_D3UI.UIElement.getRect("Root.NormalLayer.minimap_dialog_backgroundScreen.minimap_dialog_pve.minimap_frame");
 
@@ -730,6 +749,12 @@ namespace D3Helper.A_WPFOverlay
                                             e_minimap.BeginInit();
 
                                             double diameter = 10;
+
+                                            if (!T_ACD.isElite(monster))
+                                            {
+                                                diameter = 5;
+                                            }
+
                                             e_minimap.Width = diameter;
                                             e_minimap.Height = diameter;
 
@@ -761,17 +786,17 @@ namespace D3Helper.A_WPFOverlay
 
                         this.Topmost = true;
 
-                        fpsSW.Stop();
-                        TimeSpan elapsedFpsSW = fpsSW.Elapsed;
+                        //fpsSW.Stop();
+                        //TimeSpan elapsedFpsSW = fpsSW.Elapsed;
 
-                        renderFramesPerSecond = /*1000 / */ elapsedFpsSW.TotalMilliseconds;
+                        //renderFramesPerSecond = /*1000 / */ elapsedFpsSW.TotalMilliseconds;
 
-                        double TimeLeftToNextTick = ((1000/Properties.Settings.Default.D3Helper_UpdateRate) -
-                                                     elapsedFpsSW.TotalMilliseconds);
-                        if (TimeLeftToNextTick > 0)
-                            System.Threading.Thread.Sleep((int) TimeLeftToNextTick);
+                        //double TimeLeftToNextTick = ((1000/Properties.Settings.Default.D3Helper_UpdateRate) -
+                        //                             elapsedFpsSW.TotalMilliseconds);
+                        //if (TimeLeftToNextTick > 0)
+                        //    System.Threading.Thread.Sleep((int) TimeLeftToNextTick);
 
-                        
+                        System.Threading.Thread.Sleep(16);
                     }
                     else
                     {
@@ -787,6 +812,10 @@ namespace D3Helper.A_WPFOverlay
 
                     lock (A_Handler.Log.Exception.ExceptionLog) A_Handler.Log.Exception.ExceptionLog.Add(newEntry);
                 }
+            }
+            else
+            {
+                System.Threading.Thread.Sleep(100);
             }
         }
 

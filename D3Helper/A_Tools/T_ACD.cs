@@ -120,6 +120,16 @@ namespace D3Helper.A_Tools
              acd.x17C_ActorType == Enigma.D3.Enums.ActorType.Monster &&
              acd.x188_TeamId == 10;
         }
+
+        //from memorymodel
+        //private static bool IsValidMonster(ACD acd)
+        //{
+        //    return acd.Hitpoints > 0.00001 &&
+        //        (acd.ObjectFlags & 1) == 0 &&
+        //        acd.TeamID == 10;
+        //}
+
+
         public static bool IsTreasureGoblin(ActorCommonData Acd)
         {
             switch (Acd.x090_ActorSnoId)
@@ -314,10 +324,33 @@ namespace D3Helper.A_Tools
                 //}
             }
 
-
-
             return eliteInRange;
         }
+
+
+        public static List<ActorCommonData> getNonEliteMonsterInRange(int radius)
+        {
+
+
+            List<ActorCommonData> NoneliteInRange = new List<ActorCommonData>();
+
+            List<A_Collector.ACD> acdcontainer;
+            lock (A_Collection.Environment.Actors.AllActors) acdcontainer = A_Collection.Environment.Actors.AllActors.ToList();
+
+            foreach (var monster in acdcontainer.Where(x => x.IsMonster))
+            {
+                //if (monster.Distance <= radius)
+                //{
+                if (monster.IsMonster && !isElite(monster._ACD) && !isEliteIllusionist(monster._ACD)) //dont list summoned illusionists and elite
+                {
+                    NoneliteInRange.Add(monster._ACD);
+                }
+                //}
+            }
+
+            return NoneliteInRange;
+        }
+
 
 
         public static int get_MonstersInRange(int radius, bool elite, bool boss, out List<ActorCommonData> acdsinrange)

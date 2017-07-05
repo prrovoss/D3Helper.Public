@@ -78,6 +78,10 @@ namespace D3Helper.A_Initialize
                         if (TimeLeftToNextTick > 0)
                             System.Threading.Thread.Sleep((int)TimeLeftToNextTick);
                     }
+                    else
+                    {
+                        System.Threading.Thread.Sleep(100);
+                    }
                 }
                 catch (Exception e)
                 {
