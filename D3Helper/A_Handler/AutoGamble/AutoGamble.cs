@@ -140,7 +140,9 @@ namespace D3Helper.A_Handler.AutoGamble
             try
             {
                 //return ObjectManager.Instance.x9EC_Ptr_10000Bytes_UI.Dereference().x0008_MouseCapture;
-                return UIManager.Instance.x0008_MouseCapture;
+                UIReference uiref = UIManager.Instance.x0008_MouseCapture;
+                //Console.WriteLine(uiref.x008_Name);
+                return uiref;
             }
             catch { return null; }
         }

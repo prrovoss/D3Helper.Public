@@ -41,9 +41,20 @@ namespace D3Helper.A_Collector
             try
             {
                //A_Collection.D3UI.UIElement_MouseOver = UIManager.Instance.x0A30_MouseOver.x008_Name;
-             
-                //TODO replace with MemoryModel.
-               A_Collection.D3UI.UIElement_MouseOver = !DEPRECATED! Engine.Current.ObjectManager.xA1C_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
+                
+                DEPRECATED string current_hoverelementname = Engine.Current.ObjectManager.xA1C_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
+
+                //write hover element to console
+                if(A_Collection.D3UI.UIElement_MouseOver != null && current_hoverelementname != null)
+                {
+                    if(!A_Collection.D3UI.UIElement_MouseOver.Equals(current_hoverelementname))
+                    {
+                        Console.WriteLine(current_hoverelementname);
+                    }
+                }
+
+                A_Collection.D3UI.UIElement_MouseOver = current_hoverelementname;
+
             }
             catch (Exception e)
             {
