@@ -10,11 +10,11 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                get_UIElementMouseOver();
+                //get_UIElementMouseOver();
 
                 if (A_Collection.Me.HeroStates.isInGame)
                 {
-                    get_isPlayerContextMenu();
+                    //get_isPlayerContextMenu();
                     get_isChatting();
                     get_isOpenMap();
                     get_isOpenFriendlist();
@@ -35,33 +35,33 @@ namespace D3Helper.A_Collector
             }
         }
 
-        //is currently used only to detect if Player has opened a contextmenu. maybe we can get d3helper work without that?
-        private static void get_UIElementMouseOver()
-        {
-            try
-            {
-               //A_Collection.D3UI.UIElement_MouseOver = UIManager.Instance.x0A30_MouseOver.x008_Name;
+        ////is currently used only to detect if Player has opened a contextmenu. maybe we can get d3helper work without that?
+        //private static void get_UIElementMouseOver()
+        //{
+        //    try
+        //    {
+        //       //A_Collection.D3UI.UIElement_MouseOver = UIManager.Instance.x0A30_MouseOver.x008_Name;
                 
-                DEPRECATED string current_hoverelementname = Engine.Current.ObjectManager.xA1C_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
+        //        DEPRECATED string current_hoverelementname = Engine.Current.ObjectManager.xA1C_Ptr_10000Bytes_UI.Dereference().x0A30_MouseOver.x008_Name;
 
-                //write hover element to console
-                if(A_Collection.D3UI.UIElement_MouseOver != null && current_hoverelementname != null)
-                {
-                    if(!A_Collection.D3UI.UIElement_MouseOver.Equals(current_hoverelementname))
-                    {
-                        Console.WriteLine(current_hoverelementname);
-                    }
-                }
+        //        //write hover element to console
+        //        if(A_Collection.D3UI.UIElement_MouseOver != null && current_hoverelementname != null)
+        //        {
+        //            if(!A_Collection.D3UI.UIElement_MouseOver.Equals(current_hoverelementname))
+        //            {
+        //                Console.WriteLine(current_hoverelementname);
+        //            }
+        //        }
 
-                A_Collection.D3UI.UIElement_MouseOver = current_hoverelementname;
+        //        A_Collection.D3UI.UIElement_MouseOver = current_hoverelementname;
 
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
-            }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
+        //    }
             
-        }
+        //}
 
 
         private static void get_isOpenGameMenu()
@@ -129,25 +129,25 @@ namespace D3Helper.A_Collector
         }
 
 
-        private static void get_isPlayerContextMenu()
-        {
-            try
-            {
-                if (A_Collection.D3UI.UIElement_MouseOver.Contains(A_Enums.UIElements.contextMenu))
-                {
-                    A_Collection.D3UI.isOpenPlayerContextMenu =
-                        A_Tools.T_D3UI.UIElement.isVisible(A_Enums.UIElements.contextMenu);
-                }
-                else
-                {
-                    A_Collection.D3UI.isOpenPlayerContextMenu = false;
-                }
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
-            }
-        }
+        //private static void get_isPlayerContextMenu()
+        //{
+        //    try
+        //    {
+        //        if (A_Collection.D3UI.UIElement_MouseOver.Contains(A_Enums.UIElements.contextMenu))
+        //        {
+        //            A_Collection.D3UI.isOpenPlayerContextMenu =
+        //                A_Tools.T_D3UI.UIElement.isVisible(A_Enums.UIElements.contextMenu);
+        //        }
+        //        else
+        //        {
+        //            A_Collection.D3UI.isOpenPlayerContextMenu = false;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
+        //    }
+        //}
 
 
         private static void get_isChatting()

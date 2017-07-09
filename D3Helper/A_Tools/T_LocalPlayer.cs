@@ -71,11 +71,12 @@ namespace D3Helper.A_Tools
         {
             try
             {
-                ActorCommonData local;
+                //ActorCommonData local;
+                Enigma.D3.MemoryModel.Core.ACD local;
                 lock (A_Collection.Me.HeroGlobals.LocalACD) local = A_Collection.Me.HeroGlobals.LocalACD;
 
                 List<A_Collector.ACD> partyMemberContainer;
-                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
+                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.ID != local.ID).ToList();
 
                 int counter = 0;
 
@@ -99,11 +100,12 @@ namespace D3Helper.A_Tools
         {
             try
             {
-                ActorCommonData local;
-                lock(A_Collection.Me.HeroGlobals.LocalACD) local = A_Collection.Me.HeroGlobals.LocalACD;
+                //ActorCommonData local;
+                Enigma.D3.MemoryModel.Core.ACD local;
+                lock (A_Collection.Me.HeroGlobals.LocalACD) local = A_Collection.Me.HeroGlobals.LocalACD;
 
                 List<A_Collector.ACD> partyMemberContainer;
-                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
+                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.ID != local.ID).ToList();
 
                 int counter = 0;
 
@@ -125,12 +127,13 @@ namespace D3Helper.A_Tools
         {
             try
             {
-                ActorCommonData local;
+                //ActorCommonData local;
+                Enigma.D3.MemoryModel.Core.ACD local;
                 lock (A_Collection.Me.HeroGlobals.LocalACD) local = A_Collection.Me.HeroGlobals.LocalACD;
 
 
                 List<A_Collector.ACD> partyMemberContainer;
-                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.x17C_ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.x000_Id != local.x000_Id).ToList();
+                lock (A_Collection.Environment.Actors.AllActors) partyMemberContainer = A_Collection.Environment.Actors.AllActors.ToList().Where(x => x._ACD.ActorType == Enigma.D3.Enums.ActorType.Player && x._ACD.ID != local.x000_Id).ToList();
 
 
                 foreach (var member in partyMemberContainer)

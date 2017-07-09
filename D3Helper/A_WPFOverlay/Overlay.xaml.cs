@@ -1387,25 +1387,25 @@ namespace D3Helper.A_WPFOverlay
 
             }
             //---------------------
-            if (Properties.Settings.Default.overlayxptracker)
-            {
-                UIRect resGlobe = tryGetResourceGlobeUIRect();
+            //if (Properties.Settings.Default.overlayxptracker)
+            //{
+            //    UIRect resGlobe = tryGetResourceGlobeUIRect();
 
-                int PlayerParagon = A_Collection.Me.HeroGlobals.Alt_Lvl;
-                double CurrentTotalXP = A_Collection.Stats.Player.TotalXP;
-                double Progression = A_Collection.Stats.Player.Progression;
-                double NextRoundedHundred = A_Collection.Stats.Player.NextRoundedHundred;
-                double NextRoundedHundredTotalXP = A_Collection.Stats.Player.NextRoundedHundredTotalXP;
+            //    int PlayerParagon = A_Collection.Me.HeroGlobals.Alt_Lvl;
+            //    double CurrentTotalXP = A_Collection.Stats.Player.TotalXP;
+            //    double Progression = A_Collection.Stats.Player.Progression;
+            //    double NextRoundedHundred = A_Collection.Stats.Player.NextRoundedHundred;
+            //    double NextRoundedHundredTotalXP = A_Collection.Stats.Player.NextRoundedHundredTotalXP;
 
-                TextBlock tbtotalxpforeground = new TextBlock();
-                tbtotalxpforeground.FontFamily = new FontFamily("Arial");
-                tbtotalxpforeground.Text = "P" + PlayerParagon + "(" + ToStringBn(CurrentTotalXP, _postFixes) + ") =" + Progression.ToString("0.0") + "%=> P" + NextRoundedHundred + "(" + ToStringBn(NextRoundedHundredTotalXP, _postFixes) + ")";
-                tbtotalxpforeground.Foreground = new SolidColorBrush(Colors.White);
-                tbtotalxpforeground.FontSize = FontSize;
+            //    TextBlock tbtotalxpforeground = new TextBlock();
+            //    tbtotalxpforeground.FontFamily = new FontFamily("Arial");
+            //    tbtotalxpforeground.Text = "P" + PlayerParagon + "(" + ToStringBn(CurrentTotalXP, _postFixes) + ") =" + Progression.ToString("0.0") + "%=> P" + NextRoundedHundred + "(" + ToStringBn(NextRoundedHundredTotalXP, _postFixes) + ")";
+            //    tbtotalxpforeground.Foreground = new SolidColorBrush(Colors.White);
+            //    tbtotalxpforeground.FontSize = FontSize;
 
 
-                textRenderTargets.Add(new RenderObjectTextBlock(tbtotalxpforeground, (float)canvas1.Margin.Left + (A_Collection.D3Client.Window.D3ClientRect.Width * 22/100), (float)canvas1.Margin.Top + (A_Collection.D3Client.Window.D3ClientRect.Height * 15/1000)));
-            }
+            //    textRenderTargets.Add(new RenderObjectTextBlock(tbtotalxpforeground, (float)canvas1.Margin.Left + (A_Collection.D3Client.Window.D3ClientRect.Width * 22/100), (float)canvas1.Margin.Top + (A_Collection.D3Client.Window.D3ClientRect.Height * 15/1000)));
+            //}
 
 
 

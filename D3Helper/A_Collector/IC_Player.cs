@@ -463,31 +463,31 @@ namespace D3Helper.A_Collector
         }
 
 
-        private static void get_TotalXP()
-        {
-            try
-            {
-                lock(A_Collection.Me.HeroGlobals.LocalACD)
-                {
-                    var currentLVLTotal = A_Enums.ParagonXPTable.TotalXp[A_Collection.Me.HeroGlobals.Alt_Lvl];
-                    var nextLVLTotal = A_Enums.ParagonXPTable.TotalXp[A_Collection.Me.HeroGlobals.Alt_Lvl + 1];
-                    var xplefttonext = Attributes.AltExperienceNextLo.GetValue(A_Collection.Me.HeroGlobals.LocalACD);
+        //private static void get_TotalXP()
+        //{
+        //    try
+        //    {
+        //        lock(A_Collection.Me.HeroGlobals.LocalACD)
+        //        {
+        //            var currentLVLTotal = A_Enums.ParagonXPTable.TotalXp[A_Collection.Me.HeroGlobals.Alt_Lvl];
+        //            var nextLVLTotal = A_Enums.ParagonXPTable.TotalXp[A_Collection.Me.HeroGlobals.Alt_Lvl + 1];
+        //            var xplefttonext = Attributes.AltExperienceNextLo.GetValue(A_Collection.Me.HeroGlobals.LocalACD);
 
-                    long TotalXP = currentLVLTotal + ((nextLVLTotal - currentLVLTotal) - (long)xplefttonext);
+        //            long TotalXP = currentLVLTotal + ((nextLVLTotal - currentLVLTotal) - (long)xplefttonext);
 
-                    if (TotalXP != A_Collection.Stats.Player.TotalXP)
-                    {
-                        A_Handler.StatHandler.StatHandler.TotalXP_changed = true;
-                    }
+        //            if (TotalXP != A_Collection.Stats.Player.TotalXP)
+        //            {
+        //                A_Handler.StatHandler.StatHandler.TotalXP_changed = true;
+        //            }
 
-                    A_Collection.Stats.Player.TotalXP = TotalXP;
-                }
-            }
-            catch (Exception e)
-            {
-                A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
-            }
-        }
+        //            A_Collection.Stats.Player.TotalXP = TotalXP;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        A_Handler.Log.Exception.addExceptionLogEntry(e, A_Enums.ExceptionThread.ICollector);
+        //    }
+        //}
 
 
         //private static void get_LocalDataIndex()
@@ -563,7 +563,8 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                var isNotInGame = LocalData.Instance.x04_IsNotInGame;
+                var isNotInGame = MemoryContext.Current.DataSegment.LocalData.IsNotInGame;
+                //var isNotInGame = LocalData.Instance.x04_IsNotInGame;
 
                 if(isNotInGame == 1)
                 {
