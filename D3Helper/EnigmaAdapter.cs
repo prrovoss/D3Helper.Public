@@ -25,5 +25,15 @@ namespace D3Helper
             //return offset;
 
 		}
+
+
+        public static double GetAttributeValue(this Enigma.D3.MemoryModel.Core.ACD acd, Enigma.D3.Enums.AttributeId attribId, int modifier = -1)
+        {
+            return Enigma.D3.ApplicationModel.AttributeHelper.GetAttributeValue(acd, attribId, modifier);
+        }
+
 	}
+
+
+
 }
