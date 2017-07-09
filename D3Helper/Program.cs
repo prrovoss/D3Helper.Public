@@ -15,7 +15,7 @@ namespace D3Helper
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
 
-        public static bool SingleThreaded = false;
+        //public static bool SingleThreaded = false;
         
         [STAThread]
         static void Main(string[] args)

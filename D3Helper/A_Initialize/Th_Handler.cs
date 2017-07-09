@@ -28,7 +28,7 @@ namespace D3Helper.A_Initialize
             //engineOptions.VersionMatching = VersionMatching.MajorMinorBuild;
 
 
-            //if (Program.SingleThreaded) //always false
+            //if (Program.SingleThreaded)
             //    while (Engine.Create(engineOptions) == null) { System.Threading.Thread.Sleep(50); }
 
 
@@ -56,18 +56,18 @@ namespace D3Helper.A_Initialize
                         s_handler.Start();
                         //
 
-                        //--SingleThreaded //never called
-                        if (Program.SingleThreaded)
-                        {
-                            A_Collector.IC_Player.Collect();
-                            A_Collector.IC_Skills.Collect();
-                            A_Collector.IC_Actors.Collect();
-                            A_Collector.IC_Area.Collect();
-                            A_Collector.IC_Preferences.Collect();
-                            A_Collector.IC_D3UI.Collect();
-                            A_Collector.IC_Party.Collect();
-                        }
-                        //
+                        ////--SingleThreaded
+                        //if (Program.SingleThreaded)
+                        //{
+                        //    A_Collector.IC_Player.Collect();
+                        //    A_Collector.IC_Skills.Collect();
+                        //    A_Collector.IC_Actors.Collect();
+                        //    A_Collector.IC_Area.Collect();
+                        //    A_Collector.IC_Preferences.Collect();
+                        //    A_Collector.IC_D3UI.Collect();
+                        //    A_Collector.IC_Party.Collect();
+                        //}
+                        ////
 
                         A_Collector.H_D3Client.Collect();
 
@@ -113,6 +113,10 @@ namespace D3Helper.A_Initialize
                         double TimeLeftToNextTick = ((1000 / Properties.Settings.Default.D3Helper_UpdateRate) - t_handler.TotalMilliseconds);
                         if (TimeLeftToNextTick > 0)
                             System.Threading.Thread.Sleep((int)TimeLeftToNextTick);
+                    }
+                    else
+                    {
+                        System.Threading.Thread.Sleep(100);
                     }
                 }
                 catch (Exception e)

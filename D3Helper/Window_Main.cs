@@ -310,15 +310,10 @@ namespace D3Helper
                 {
 
                     //-- Initialize Collector and Handler Thread
-                    if (!Program.SingleThreaded)
-                        A_Initialize.Th_ICollector.New_ICollector();
+                    //if (!Program.SingleThreaded)
+                    A_Initialize.Th_ICollector.New_ICollector();
                     A_Initialize.Th_Handler.New_Handler();
-                    //
-                    //if (A_Tools.Version.AppVersion.isOutdated()) // !!!!! REENABLE THIS!!!!!!
-                    //{
-                    //    Window_Outdated WO = new Window_Outdated();
-                    //    WO.ShowDialog();
-                    //}
+
 
                     System.Timers.Timer UpdateUI = new System.Timers.Timer(1000);
                     UpdateUI.Elapsed += RefreshUI;
@@ -331,8 +326,6 @@ namespace D3Helper
                     this.Text = "You are running a not supported D3Client(" + GetFileVersion() +
                                 ") Supported Version is " + SupportedVersion;
 
-
- 
                 }
 
 
