@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 
 using Enigma.D3;
-using Enigma.D3.Helpers;
+//using Enigma.D3.Helpers;
 
 using D3Helper.A_Tools;
 using D3Helper.A_Collector;
@@ -751,10 +751,15 @@ namespace D3Helper.A_Collector
         {
             try
             {
-                ActorCommonData Local;
+                Enigma.D3.MemoryModel.Core.ACD Local;
+                //ActorCommonData Local;
                 lock (A_Collection.Me.HeroGlobals.LocalACD) Local = A_Collection.Me.HeroGlobals.LocalACD;
 
-                double cooldown = Local.GetAttributeValue(AttributeId.PowerCooldown, A_Enums.Powers.DrinkHealthPotion);
+                //double cooldow = Enigma.D3.ApplicationModel.AttributeHelper.GetAttributeValue(Local, AttributeId.PowerCooldown);
+
+                double cooldown = Local.GetAttributeValue(AttributeId.PowerCooldown, A_Enums.Powers.DrinkHealthPotion); //solution over Adapter Class
+
+                //double cooldown = Local.GetAttributeValue(AttributeId.PowerCooldown, A_Enums.Powers.DrinkHealthPotion);
                 
                 if (cooldown > -1)
                 {

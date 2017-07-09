@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.D3.MemoryModel", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.D3.Assets", "..\Enigma.D3\Enigma.D3.Assets\Enigma.D3.Assets.csproj", "{4B2BF057-3425-4520-8535-3372D330C653}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.D3.ApplicationModel", "..\Enigma.D3\Enigma.D3.ApplicationModel\Enigma.D3.ApplicationModel.csproj", "{176AE261-7D74-4959-966E-D1963CFEFD66}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\Enigma.D3\Enigma.D3.Memory.Generated\Enigma.D3.Memory.Generated.projitems*{23848103-7dc0-4ab0-958f-b8793ffd1f2d}*SharedItemsImports = 4
@@ -111,6 +113,18 @@ Global
 		{4B2BF057-3425-4520-8535-3372D330C653}.Release|x64.Build.0 = Release|Any CPU
 		{4B2BF057-3425-4520-8535-3372D330C653}.Release|x86.ActiveCfg = Release|Any CPU
 		{4B2BF057-3425-4520-8535-3372D330C653}.Release|x86.Build.0 = Release|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Debug|x64.Build.0 = Debug|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Debug|x86.Build.0 = Debug|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Release|x64.ActiveCfg = Release|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Release|x64.Build.0 = Release|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Release|x86.ActiveCfg = Release|Any CPU
+		{176AE261-7D74-4959-966E-D1963CFEFD66}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,5 +137,6 @@ Global
 		{862A67EE-9CEB-42FE-9406-D7FEAFC55B00} = {9DF31B67-6849-4535-B440-B565EC671047}
 		{92E7130D-9363-458C-ABE5-A71F240A9B78} = {9DF31B67-6849-4535-B440-B565EC671047}
 		{4B2BF057-3425-4520-8535-3372D330C653} = {9DF31B67-6849-4535-B440-B565EC671047}
+		{176AE261-7D74-4959-966E-D1963CFEFD66} = {9DF31B67-6849-4535-B440-B565EC671047}
 	EndGlobalSection
 EndGlobal
